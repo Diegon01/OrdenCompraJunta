@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a mi sitio</title>
     <!-- Enlaza el archivo CSS compilado de Tailwind CSS -->
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="./css/app.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto py-16">
