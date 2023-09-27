@@ -14,7 +14,7 @@
         <!-- Aumentar el tamaño del título "Iniciar sesión" -->
         <h2 class="text-3xl font-semibold text-center text-blue-500 mb-6">Iniciar sesión</h2>
         <form action="<?= site_url('auth/login') ?>" method="post">
-            <div class="mb-4 text-center">
+            <div class="mb-4 text-center mt-4">
                 <label for="email" class="block text-gray-600 text-blue-500">Correo electrónico</label>
                 <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
             </div>
@@ -24,7 +24,7 @@
             </div>
             <!-- Centrar y separar el botón de Iniciar sesión -->
             <div class="mb-4 text-center mt-4">
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Iniciar sesión</button>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Iniciar sesión</button>
             </div>
         </form>
     </div>
