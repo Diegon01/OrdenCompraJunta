@@ -39,6 +39,7 @@ html {
   font-variation-settings: normal; /* 6 */
 }
 
+
 /*
 1. Remove the margin in all browsers.
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
@@ -685,4 +686,16 @@ video {
   .sm\:inline {
     display: inline;
   }
+}
+
+.profile-image-container {
+  max-width: 80px; /* Establece el tamaño máximo deseado */
+  max-height: 80px;
+  overflow: hidden; /* Recorta el contenido que exceda el tamaño máximo */
+}
+
+.profile-image {
+  width: 100%; /* Ajusta el ancho de la imagen al contenedor */
+  height: 100%; /* Ajusta la altura de la imagen al contenedor */
+  object-fit: cover; /* Mantiene la relación de aspecto y ajusta la imagen para llenar el contenedor */
 }
