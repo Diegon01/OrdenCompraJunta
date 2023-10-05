@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RubroModel extends Model
+class ProductoDeOrdenDeCompraModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'rubros';
-    protected $primaryKey       = 'codigo';
-    protected $useAutoIncrement = false;
+    protected $table            = 'productodeordendecompras';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['nombre', 'codigo', 'saldo']; // Define the allowed fields
+    protected $allowedFields = ['nombre', 'precio_estimado', 'rubro_codigo']; // Define the allowed fields
 
     // Dates
     protected $useTimestamps = false;
@@ -39,8 +39,8 @@ class RubroModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function productosDeOrdenDeCompra()
+    public function rubro()
     {
-        return $this->hasMany('App\Models\ProductoDeOrdenDeCompraModel', 'rubro_codigo', 'codigo');
+        return $this->belongsTo('App\Models\RubroModel', 'rubro_codigo', 'codigo');
     }
 }

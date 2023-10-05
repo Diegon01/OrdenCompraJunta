@@ -7,6 +7,7 @@
     <!-- Enlaza el archivo CSS compilado de Tailwind CSS -->
     <link href="/css/app.css" rel="stylesheet">
 </head>
+<?= view('layout/navbar') ?>
     <body class="bg-blue-100 flex items-center justify-center h-screen">
         <div class="bg-white p-8 rounded-lg shadow-md w-96 mx-auto">
             <!-- Header -->

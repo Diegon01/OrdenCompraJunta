@@ -8,6 +8,7 @@
     <link href="./css/app.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
+<?= view('layout/navbar') ?>
     <div class="container mx-auto py-16">
         <h1 class="text-4xl font-bold text-center text-blue-500">¡Bienvenido a mi sitio web!</h1>
         <p class="mt-4 text-lg text-gray-700 text-center">Con este botón creas un rubro de prueba.</p>
