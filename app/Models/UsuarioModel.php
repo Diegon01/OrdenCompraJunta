@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductoDeOrdenDeCompraModel extends Model
+class UsuarioModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'productodeordendecompras';
+    protected $table            = 'usuarios';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['nombre', 'precio_estimado', 'rubro_codigo', 'orden_id']; // Define the allowed fields
+    protected $allowedFields    = [];
 
     // Dates
     protected $useTimestamps = false;
@@ -38,14 +38,4 @@ class ProductoDeOrdenDeCompraModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function rubro()
-    {
-        return $this->belongsTo('App\Models\RubroModel', 'rubro_codigo', 'codigo');
-    }
-    
-    public function ordenDeCompra()
-    {
-        return $this->belongsTo('App\Models\OrdenDeCompraModel', 'orden_id', 'id');
-    }
 }

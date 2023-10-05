@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductoDeOrdenDeCompraModel extends Model
+class ProveedorModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'productodeordendecompras';
+    protected $table            = 'proveedors';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['nombre', 'precio_estimado', 'rubro_codigo', 'orden_id']; // Define the allowed fields
+    protected $allowedFields    = ['nombre', 'persona_de_contacto', 'numero_de_contacto', 'RUT', 'numero_de_cuenta', 'fecha_de_vencimiento_dgi', 'fecha_de_vencimiento_bps', 'rupe', 'empresa_del_estado'];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,13 +39,8 @@ class ProductoDeOrdenDeCompraModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function rubro()
+    public function ordenes()
     {
-        return $this->belongsTo('App\Models\RubroModel', 'rubro_codigo', 'codigo');
-    }
-    
-    public function ordenDeCompra()
-    {
-        return $this->belongsTo('App\Models\OrdenDeCompraModel', 'orden_id', 'id');
+        return $this->belongsToMany(OrdenDeCompraModel::class, 'Enlace_OrdenesProveedores', 'proveedor_id', 'orden_id');
     }
 }
