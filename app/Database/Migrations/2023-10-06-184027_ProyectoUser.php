@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Usuarios extends Migration
+class ProyectoUser extends Migration
 {
     public function up()
     {
@@ -14,10 +14,6 @@ class Usuarios extends Migration
                 'constraint' => 255,
             ],
             'apellido' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-            ],
-            'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
@@ -31,11 +27,11 @@ class Usuarios extends Migration
             ],
         ]);
         $this->forge->addKey('cedula', true);
-        $this->forge->createTable('users');
+        $this->forge->createTable('proyecto_users');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('proyecto_users');
     }
 }

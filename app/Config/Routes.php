@@ -11,3 +11,6 @@ use App\Controllers\RubroController;
 $routes->get('/', 'Home::index');
 $routes->post('rubro/insert', 'RubroController::insertRubro');
 $routes->get('/rubro/created', 'Home::rubro_created');
+service('auth')->routes($routes, ['except' => ['/login', '/register']]);
+$routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');
+$routes->get('/register', '\App\Controllers\Auth\RegisterController::registerView');
