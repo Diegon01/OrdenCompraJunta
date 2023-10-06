@@ -13,20 +13,27 @@
         
         <!-- Aumentar el tamaño del título "Iniciar sesión" -->
         <h2 class="text-3xl font-semibold text-center text-blue-500 mb-6">Iniciar sesión</h2>
-        <form action="<?= site_url('auth/login') ?>" method="post">
+        <form action="<?= url_to('login') ?>" method="post">
             <div class="mb-4 text-center mt-4">
                 <label for="email" class="block text-gray-600 text-blue-500">Correo electrónico</label>
-                <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                <input type="email" class="form-control" id="floatingEmailInput" name="email" inputmode="email" autocomplete="email" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required />
             </div>
             <div class="mb-6 text-center">
                 <label for="password" class="block text-gray-600 text-blue-500">Contraseña</label>
-                <input type="password" name="password" id="password" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                <input type="password" class="form-control" id="floatingPasswordInput" name="password" inputmode="text" autocomplete="current-password" placeholder="<?= lang('Auth.password') ?>" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required />
             </div>
             <!-- Centrar y separar el botón de Iniciar sesión -->
             <div class="mb-4 text-center mt-4">
                 <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Iniciar sesión</button>
             </div>
         </form>
+        <div class="mb-4 text-center mt-4">
+            <a href="<?= site_url('register') ?>" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Registrarse</a>
+        </div>
     </div>
 </body>
 </html>
+
+
+
+
