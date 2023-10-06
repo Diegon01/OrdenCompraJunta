@@ -1,13 +1,4 @@
-<!-- app/Views/layout/navbar.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tu Aplicación</title>
-    <!-- Agrega los estilos de Tailwind CSS -->
-    <link href="/css/app.css" rel="stylesheet">
-</head>
-<body>
-    <!-- Barra de navegación -->
+
     <nav class=" bg-blue-500 p-2 text-white flex justify-between items-center shadow-md">
         <!-- Logo a la izquierda -->
         <img src="<?= base_url('assets/images/LogoJunta.png') ?>" alt="Logo" width="80" height="80">
@@ -27,5 +18,3 @@
             </div>
         </div>
     </nav>
-</body>
-</html>

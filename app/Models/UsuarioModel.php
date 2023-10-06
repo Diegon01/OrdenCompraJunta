@@ -8,12 +8,12 @@ class UsuarioModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'usuarios';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
+    protected $primaryKey       = 'cedula';
+    protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nombre', 'apellido', 'password', 'correo', 'cedula'];
 
     // Dates
     protected $useTimestamps = false;
