@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Iniciar sesió</title>
+    <title>Iniciar sesión</title>
     <!-- Agrega los estilos de Tailwind CSS -->
     <link href="/css/app.css" rel="stylesheet">
 </head>
