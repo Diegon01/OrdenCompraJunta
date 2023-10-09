@@ -24,7 +24,6 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'cors' => \App\Controllers\CorsFilter::class,
     ];
 
     /**
@@ -36,7 +35,6 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
-            'cors', // Agregar el middleware "cors" antes de las solicitudes
             'session' => ['except' => ['login*', 'register', 'auth/a/*']],
             // 'honeypot',
             // 'csrf',
