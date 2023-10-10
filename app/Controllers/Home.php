@@ -6,7 +6,7 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('alta_ordenCompra');
+        return view('abm_ordenes');
     }
     public function rubro_created(): string
     {
