@@ -33,6 +33,9 @@ textarea {
 </head>
 
 <body class="bg-gray-100 p-4 pt-8">
+    <header> 
+        <?= view('layout/navbar') ?>
+    </header>
     <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md">
         <div class="max-w-4xl mx-auto bg-gray-200 p-4 rounded-md shadow-md">
             <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Orden de Compra</h1>
