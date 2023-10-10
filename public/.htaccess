@@ -7,12 +7,6 @@ Options -Indexes
 
 # Turning on the rewrite engine is necessary for the following rules and features.
 # FollowSymLinks must be enabled for this to work.
-<FilesMatch ".(php|otf)$">
-  <IfModule mod_headers.c>
-    Allow from all
-    Header set Access-Control-Allow-Origin "*"
-  </IfModule>
-</FilesMatch>
 <IfModule mod_rewrite.c>
 	Options +FollowSymlinks
 	RewriteEngine On
