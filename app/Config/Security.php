@@ -15,7 +15,7 @@ class Security extends BaseConfig
      *
      * @var string 'cookie' or 'session'
      */
-    public string $csrfProtection = 'none';
+    public string $csrfProtection = 'session';
 
     /**
      * --------------------------------------------------------------------------
