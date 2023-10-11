@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ProveedorModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'proveedors';
+    protected $table            = 'proveedores';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
