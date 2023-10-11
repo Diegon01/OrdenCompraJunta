@@ -39,7 +39,7 @@ class ProveedorController extends BaseController
             // Redirigir a una página de éxito o a la misma página
             // Puedes personalizar esta parte según tus necesidades
 
-            return redirect()->to('ruta/para/la/pagina/de/exito');
+            return redirect()->to('/alta-proveedor/exito');
         }
 
         // Si no se ha enviado el formulario, cargar la vista

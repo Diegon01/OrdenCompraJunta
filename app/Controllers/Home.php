@@ -12,4 +12,8 @@ class Home extends BaseController
     {
         return view('rubro_created');
     }
+    public function proveedor_created(): string 
+    {
+        return view('proveedor_exito');
+    }
 }
