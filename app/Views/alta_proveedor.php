@@ -9,9 +9,14 @@
     <link href="/css/app.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 h-screen flex justify-center items-center">
-    <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
-        <h1 class="text-2xl font-semibold mb-6 text-center">Alta de Proveedor</h1>
+<header> 
+    <?= view('layout/navbar') ?>
+</header>
+
+<body class="bg-gray-100">
+    <div class="h-screen flex justify-center items-center">
+        <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
+            <h1 class="text-2xl font-semibold mb-6 text-center">Alta de Proveedor</h1>
 
         <!-- Formulario para el alta de proveedor -->
         <form action="/alta-proveedor" method="POST">
@@ -80,5 +85,6 @@
                 </button>
             </div>
         </form>
+    </div>
     </div>
 </body>

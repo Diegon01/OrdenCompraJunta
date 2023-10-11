@@ -5,9 +5,7 @@
         
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
-            <a href="<?= site_url('pagina1') ?>" class="hover:underline text-lg font-semibold">Página 1</a>
-            <a href="<?= site_url('pagina2') ?>" class="hover:underline text-lg font-semibold">Página 2</a>
-            <a href="<?= site_url('pagina3') ?>" class="hover:underline text-lg font-semibold">Página 3</a>
+            <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->

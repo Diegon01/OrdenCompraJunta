@@ -12,6 +12,7 @@ $routes->get('/', 'Home::index');
 $routes->post('rubro/insert', 'RubroController::insertRubro');
 $routes->get('/rubro/created', 'Home::rubro_created');
 $routes->get('/alta-proveedor/exito', 'Home::proveedor_created');
+$routes->get('/alta-proveedor/crear', 'Home::proveedor_crear');
 $routes->post('/alta-proveedor', 'ProveedorController::altaProveedor');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');
