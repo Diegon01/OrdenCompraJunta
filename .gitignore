@@ -83,8 +83,7 @@ phpunit
 #-------------------------
 # Composer
 #-------------------------
-vendor/codeigniter4/framework/
-vendor/codeigniter4/settings/
+vendor/codeigniter4/
 vendor/bin/
 vendor/composer/
 vendor/doctrine/
