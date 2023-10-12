@@ -15,6 +15,7 @@ $routes->post('/alta-proveedor', 'ProveedorController::altaProveedor');
 $routes->get('/alta-proveedor/exito', 'Home::proveedor_created');
 $routes->get('/alta-orden-compra/crear', 'Home::orden_compra_crear');
 $routes->get('/registrar', 'Home::usuario_crear');
-$routes->post('/alta-usuario', 'ProyectoUsersController::altaUsuario');
+$routes->post('/alta-usuario', 'ProyectoUsersController::registerAction');
+$routes->get('/registrar/exito', 'Home::registrar_created');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');

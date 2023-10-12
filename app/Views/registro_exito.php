@@ -14,5 +14,5 @@
 </header>
 
 <body>
- <p> ¡Proveedor creado! </p>
+ <p> ¡Usuario creado! </p>
 </body>

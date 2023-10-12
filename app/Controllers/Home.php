@@ -24,4 +24,8 @@ class Home extends BaseController
     {
         return view('alta_usuario');
     }
+    public function registrar_created(): string 
+    {
+        return view('registro_exito');
+    }
 }
