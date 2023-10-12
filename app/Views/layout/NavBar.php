@@ -1,11 +1,15 @@
 
     <nav class=" bg-blue-500 p-2 text-white flex justify-between items-center shadow-md">
         <!-- Logo a la izquierda -->
-        <img src="<?= base_url('assets/images/LogoJunta.png') ?>" alt="Logo" width="80" height="80">
+        <a href="<?= base_url('/') ?>">
+            <img src="<?= base_url('assets/images/LogoJunta.png') ?>" alt="Logo" width="80" height="80">
+        </a>
         
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
             <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
+            <a href="<?= site_url('/alta-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Orden de compra</a>
+            <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->

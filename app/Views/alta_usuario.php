@@ -9,32 +9,53 @@
     <link href="/css/app.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 h-screen flex justify-center items-center">
+<header> 
+    <?= view('layout/navbar') ?>
+</header>
+
+<body class="bg-gray-100">
+<div class="bg-gray-100 h-screen flex justify-center items-center">
     <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
         <h2 class="text-2xl font-bold mb-6">Registro de Usuario</h2>
-        <form class="text-left">
+        <form action="/alta-usuario" method="POST">
+            <?= csrf_field() ?>
+
             <div class="mb-4">
-                <label for="nombre" class="block text-sm font-medium text-gray-600">Nombre:</label>
+                <label for="email" class="block text-sm font-medium text-gray-600">Correo electrónico:</label>
+                <input type="email" id="email" name="email"
+                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-600">Nombre de usuario:</label>
+                <input type="text" id="username" name="username"
+                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-600">Contraseña:</label>
+                <input type="password" id="password" name="password"
+                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+
+            <div class="mb-4">
+                <label for="password_confirm" class="block text-sm font-medium text-gray-600">Confirmar contraseña:</label>
+                <input type="password" id="password_confirm" name="password_confirm"
+                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+
+            <div class="mb-4">
+                <label for="nombre" class="block text-sm font-medium text-gray-600">Nombres:</label>
                 <input type="text" id="nombre" name="nombre"
                     class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
             </div>
             <div class="mb-4">
-                <label for="apellido" class="block text-sm font-medium text-gray-600">Apellido:</label>
+                <label for="apellido" class="block text-sm font-medium text-gray-600">Apellidos:</label>
                 <input type="text" id="apellido" name="apellido"
                     class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
             </div>
             <div class="mb-4">
-                <label for="contrasena" class="block text-sm font-medium text-gray-600">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena"
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-            </div>
-            <div class="mb-4">
-                <label for="correo" class="block text-sm font-medium text-gray-600">Correo:</label>
-                <input type="email" id="correo" name="correo"
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-            </div>
-            <div class="mb-4">
-                <label for="cedula" class="block text-sm font-medium text-gray-600">Cedula:</label>
+                <label for="cedula" class="block text-sm font-medium text-gray-600">Cédula:</label>
                 <input type="text" id="cedula" name="cedula"
                     class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
             </div>
@@ -62,5 +83,6 @@
                 </button>
             </div>
         </form>
+    </div>
     </div>
 </body>

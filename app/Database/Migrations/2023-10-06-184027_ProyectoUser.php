@@ -17,10 +17,6 @@ class ProyectoUser extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'correo' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-            ],
             'cedula' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

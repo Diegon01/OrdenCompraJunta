@@ -4,16 +4,17 @@ use CodeIgniter\Router\RouteCollection;
 use App\Controllers\BaseController;
 use App\Controllers\Home;
 use App\Controllers\RubroController;
+use App\Controllers\ProyectoUsersController;
 
 /**
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->post('rubro/insert', 'RubroController::insertRubro');
-$routes->get('/rubro/created', 'Home::rubro_created');
-$routes->get('/alta-proveedor/exito', 'Home::proveedor_created');
 $routes->get('/alta-proveedor/crear', 'Home::proveedor_crear');
 $routes->post('/alta-proveedor', 'ProveedorController::altaProveedor');
+$routes->get('/alta-proveedor/exito', 'Home::proveedor_created');
+$routes->get('/alta-orden-compra/crear', 'Home::orden_compra_crear');
+$routes->get('/registrar', 'Home::usuario_crear');
+$routes->post('/alta-usuario', 'ProyectoUsersController::altaUsuario');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');
-$routes->get('/register', '\App\Controllers\Auth\RegisterController::registerView');

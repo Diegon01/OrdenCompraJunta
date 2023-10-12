@@ -27,9 +27,6 @@
                 <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Iniciar sesión</button>
             </div>
         </form>
-        <div class="mb-4 text-center mt-4">
-            <a href="<?= site_url('register') ?>" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4">Registrarse</a>
-        </div>
     </div>
 </body>
 </html>

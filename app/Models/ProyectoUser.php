@@ -8,6 +8,7 @@ use CodeIgniter\Shield\Models\UserModel as ShieldUserModel;
 
 class ProyectoUser extends ShieldUserModel
 {
+    protected $table = 'proyecto_users';
     protected function initialize(): void
     {
         parent::initialize();
@@ -18,7 +19,6 @@ class ProyectoUser extends ShieldUserModel
             'nombre',
             'apellido',
             'cedula',
-            'email',
         ];
     }
 }

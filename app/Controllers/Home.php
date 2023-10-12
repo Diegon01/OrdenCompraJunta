@@ -8,10 +8,6 @@ class Home extends BaseController
     {
         return view('welcome_message');
     }
-    public function rubro_created(): string
-    {
-        return view('rubro_created');
-    }
     public function proveedor_created(): string 
     {
         return view('proveedor_exito');
@@ -19,5 +15,13 @@ class Home extends BaseController
     public function proveedor_crear(): string 
     {
         return view('alta_proveedor');
+    }
+    public function orden_compra_crear(): string 
+    {
+        return view('alta_ordenCompra');
+    }
+    public function usuario_crear(): string 
+    {
+        return view('alta_usuario');
     }
 }
