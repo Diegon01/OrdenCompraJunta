@@ -17,5 +17,6 @@ $routes->get('/alta-orden-compra/crear', 'Home::orden_compra_crear');
 $routes->get('/registrar', 'Home::usuario_crear');
 $routes->post('/alta-usuario', 'ProyectoUsersController::registerAction');
 $routes->get('/registrar/exito', 'Home::registrar_created');
+$routes->get('/ordenes', 'Home::ver_ordenes');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');

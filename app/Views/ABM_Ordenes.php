@@ -51,6 +51,10 @@
     </style>
 </head>
 
+<header> 
+    <?= view('layout/navbar') ?>
+</header>
+
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <!-- Título de la tabla y barra de búsqueda -->
@@ -73,7 +77,7 @@
             <div class="flex items-center">
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
                 <input type="text" id="busqueda" class="border rounded px-2 py-1"
-                    placeholder="Ingrese término de búsqueda...">
+                    placeholder="Ingrese búsqueda...">
             </div>
         </div>
 
@@ -238,32 +242,6 @@
                     <td class="px-6 py-4 border-r text-center">Kevin Johnson</td>
                     <td class="px-6 py-4 border-r text-center">
                         <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">78901</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-19</td>
-                    <td class="px-6 py-4 border-r text-center">Jessica White</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full">En Progreso</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">56789</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-21</td>
-                    <td class="px-6 py-4 border-r text-center">Daniel Martinez</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Completado</span>
                     </td>
                     <td class="px-6 py-4">
                         <!-- Botones de acciones -->

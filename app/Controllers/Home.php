@@ -28,4 +28,8 @@ class Home extends BaseController
     {
         return view('registro_exito');
     }
+    public function ver_ordenes(): string 
+    {
+        return view('ABM_Ordenes');
+    }
 }
