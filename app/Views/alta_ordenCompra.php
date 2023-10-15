@@ -37,113 +37,115 @@ textarea {
 </header>
 
 <body class="bg-gray-100">
-<div class="bg-gray-100 p-4 pt-8">
-    <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md">
-        <div class="max-w-4xl mx-auto bg-gray-200 p-4 rounded-md shadow-md">
-            <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Orden de Compra</h1>
-            <!-- Formulario para ingresar datos de productos en forma de tabla -->
-            <form action="procesar_formulario.php" method="POST">
-                <!-- Contenedor con altura fija y desbordamiento solo para los inputs -->
-                <div class="inputs-container">
-                    <table class="w-full">
-                        <!-- Encabezados de la tabla -->
-                        <tr>
-                            <th class="pr-4 font-semibold text-center">Nombre Producto</th>
-                            <th class="pr-4 font-semibold text-center">Precio Estimado</th>
-                            <th class="pr-4 font-semibold text-center">Nombre Rubro</th>
-                            <th class="pr-4 font-semibold text-center">Código Rubro</th>
-                            <th class="pr-4 font-semibold text-center">Saldo Rubro</th>
-                            <th class="pr-4 font-semibold text-center">Acciones</th>
-                        </tr>
-                        <!-- Campos del producto aquí -->
-                        <tr class="producto-clone">
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="number" name="precio_estimado" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_rubro" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="codigo_rubro" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="number" name="saldo_rubro" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded delete-producto">Eliminar</button>
-                            </td>
-                        </tr>
-                    </table>
+    <div class="bg-gray-100 p-4 pt-8">
+        <form action="/alta-orden" method="POST">
+            <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md">
+                <div class="max-w-4xl mx-auto bg-gray-200 p-4 rounded-md shadow-md">
+                    <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Orden de Compra</h1>
+                    <!-- Formulario para ingresar datos de productos en forma de tabla -->
+                    <form action="procesar_formulario.php" method="POST">
+                        <!-- Contenedor con altura fija y desbordamiento solo para los inputs -->
+                        <div class="inputs-container">
+                            <table class="w-full">
+                                <!-- Encabezados de la tabla -->
+                                <tr>
+                                    <th class="pr-4 font-semibold text-center">Nombre Producto</th>
+                                    <th class="pr-4 font-semibold text-center">Precio Estimado</th>
+                                    <th class="pr-4 font-semibold text-center">Nombre Rubro</th>
+                                    <th class="pr-4 font-semibold text-center">Código Rubro</th>
+                                    <th class="pr-4 font-semibold text-center">Saldo Rubro</th>
+                                    <th class="pr-4 font-semibold text-center">Acciones</th>
+                                </tr>
+                                <!-- Campos del producto aquí -->
+                                <tr class="producto-clone">
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="number" name="precio_estimado" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_rubro" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="codigo_rubro" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="number" name="saldo_rubro" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded delete-producto">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- Botón de Enviar -->
+                        <div class="mt-4 text-center">
+                            <button id="agregar-producto" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar Producto</button>
+                        </div>
+                        
+                    </form>
                 </div>
-                <!-- Botón de Enviar -->
-                <div class="mt-4 text-center">
-                    <button id="agregar-producto" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Agregar Producto</button>
-                </div>
+                    
                 
-            </form>
-        </div>
+                <!-- Contenedor para las áreas de texto -->
             
-        
-        <!-- Contenedor para las áreas de texto -->
-       
-    <div class="max-w-4xl mx-auto bg-gray-200 shadow-md p-4 mt-4 rounded-md flex justify-center items-center">
-        <div class="mr-10">
-            <label class="font-semibold block text-lg mb-2 text-center" for="texto1">Posibles Proveedores:</label>
-            <textarea id="texto1" class="border p-2 rounded w-full h-32 text-center self-center mx-auto" placeholder="Ingrese posibles proveedores" spellcheck="false"></textarea>
-        </div>
-        <div>
-            <label class="font-semibold block text-lg mb-2 text-center" for="texto2">Descripción:</label>
-            <textarea id="texto2" class="border p-2 rounded w-full h-32 text-center self-center mx-auto" placeholder="Ingrese descripción" spellcheck="false"></textarea>
-        </div>
-    </div>
+            <div class="max-w-4xl mx-auto bg-gray-200 shadow-md p-4 mt-4 rounded-md flex justify-center items-center">
+                <div class="mr-10">
+                    <label class="font-semibold block text-lg mb-2 text-center" for="posibles_proveedores">Posibles Proveedores:</label>
+                    <textarea id="posibles_proveedores" class="border p-2 rounded w-full h-32 text-center self-center mx-auto" placeholder="Ingrese posibles proveedores" spellcheck="false"></textarea>
+                </div>
+                <div>
+                    <label class="font-semibold block text-lg mb-2 text-center" for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" class="border p-2 rounded w-full h-32 text-center self-center mx-auto" placeholder="Ingrese descripción" spellcheck="false"></textarea>
+                </div>
+            </div>
 
-        
-        
-        <div class="mt-4 text-center">
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear Orden de Compra</button>
-        </div>
+                
+                
+                <div class="mt-4 text-center">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear Orden de Compra</button>
+                </div>
 
-    </div>
+            </div>
+        </form>
 
-    <script>
-        document.getElementById("agregar-producto").addEventListener("click", function (event) {
-            event.preventDefault();
-
-            // Clonar el primer conjunto de campos de producto
-            var productoClonado = document.querySelector(".producto-clone").cloneNode(true);
-
-            // Limpiar los valores de los campos clonados
-            productoClonado.querySelectorAll("input").forEach(function (input) {
-                input.value = "";
-            });
-
-            // Agregar el conjunto clonado al contenedor de productos
-            document.querySelector(".inputs-container table").appendChild(productoClonado);
-
-            // Agrega el evento de clic para los botones de eliminar en el producto clonado
-            productoClonado.querySelector(".delete-producto").addEventListener("click", function (event) {
+        <script>
+            document.getElementById("agregar-producto").addEventListener("click", function (event) {
                 event.preventDefault();
 
-                // Encuentra el padre (fila) del botón y elimínala
-                var filaProducto = productoClonado.closest(".producto-clone");
-                filaProducto.parentNode.removeChild(filaProducto);
+                // Clonar el primer conjunto de campos de producto
+                var productoClonado = document.querySelector(".producto-clone").cloneNode(true);
+
+                // Limpiar los valores de los campos clonados
+                productoClonado.querySelectorAll("input").forEach(function (input) {
+                    input.value = "";
+                });
+
+                // Agregar el conjunto clonado al contenedor de productos
+                document.querySelector(".inputs-container table").appendChild(productoClonado);
+
+                // Agrega el evento de clic para los botones de eliminar en el producto clonado
+                productoClonado.querySelector(".delete-producto").addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    // Encuentra el padre (fila) del botón y elimínala
+                    var filaProducto = productoClonado.closest(".producto-clone");
+                    filaProducto.parentNode.removeChild(filaProducto);
+                });
             });
-        });
-    </script>
-</div>
+        </script>
+    </div>
 </body>
 
 </html>
