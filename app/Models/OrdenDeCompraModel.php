@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class OrdenDeCompraModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'ordendecompras';
+    protected $table            = 'ordenesdecompra';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['posibles_proveedores', 'Descripcion'];
+    protected $allowedFields    = ['posibles_proveedores', 'descripcion', 'solicitante_id', 'estado'];
 
     // Dates
     protected $useTimestamps = true;

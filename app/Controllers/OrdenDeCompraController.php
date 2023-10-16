@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\Controller;
 use App\Models\OrdenDeCompraModel;
+use App\Models\ProductoDeOrdenDeCompraModel;
 
 class OrdenDeCompraController extends BaseController
 {
@@ -30,6 +31,21 @@ class OrdenDeCompraController extends BaseController
             // Insertar en la base de datos
             $ordenDeCompraModel = new OrdenDeCompraModel();
             $ordenDeCompraModel->insert($data);
+            $ordenCompraID = $ordenDeCompraModel->getInsertID();
+
+            $productos = $this->request->getPost();
+            foreach ($productos['nombre'] as $key => $nombre) {
+                $datas = [
+                    'nombre' => $nombre,
+                    'precio_estimado' => $productos['precio_estimado'][$key],
+                    'rubro_codigo' => $productos['rubro_codigo'][$key],
+                    'orden_id' => $ordenCompraID, // Asocia el producto con la orden de compra
+                ];
+    
+                // Inserta el producto en la base de datos
+                $productoModel = new ProductoDeOrdenDeCompraModel();
+                $productoModel->insert($datas);
+            }
 
             // Redirigir a una página de éxito o a la misma página
             // Puedes personalizar esta parte según tus necesidades

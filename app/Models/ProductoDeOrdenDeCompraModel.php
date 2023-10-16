@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ProductoDeOrdenDeCompraModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'productodeordendecompras';
+    protected $table            = 'productoordencompra';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
