@@ -51,4 +51,8 @@ class Home extends BaseController
  
          return view('ABM_Ordenes', $data);
     }
+    public function a(): string 
+    {
+        return view('a');
+    }
 }

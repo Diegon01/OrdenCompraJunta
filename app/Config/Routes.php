@@ -21,3 +21,4 @@ $routes->get('/ordenes', 'Home::ver_ordenes');
 $routes->post('/alta-orden', 'OrdenDeCompraController::alta_orden_compra');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');
+$routes->get('/a', 'Home::a');

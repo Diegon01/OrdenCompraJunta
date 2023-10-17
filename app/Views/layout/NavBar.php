@@ -11,6 +11,7 @@
             <a href="<?= site_url('/alta-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Orden de compra</a>
             <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
             <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Órdenes de compra</a>
+            <a href="<?= site_url('/a') ?>" class="hover:underline text-lg font-semibold">a</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->
