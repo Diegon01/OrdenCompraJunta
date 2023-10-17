@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\OrdenDeCompraModel;
+use CodeIgniter\Pager\Pager;
 
 class Home extends BaseController
 {
@@ -30,6 +32,23 @@ class Home extends BaseController
     }
     public function ver_ordenes(): string 
     {
-        return view('ABM_Ordenes');
+         // Cargar el modelo
+         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+
+         // Configurar la paginación
+         $pager = \Config\Services::pager();
+         $page = $this->request->getVar('page') ?? 1; // Obtener el número de página de la URL
+ 
+         $perPage = 8; // Número de resultados por página
+         $totalResults = $ordenCompraModel->countAll(); // Obtener el total de resultados
+ 
+         // Obtener las órdenes de compra para la página actual
+         $ordenes = $ordenCompraModel->paginate($perPage, 'default', $page);
+         $data = [
+             'ordenes' => $ordenes,
+             'pager' => $ordenCompraModel->pager,
+         ];
+ 
+         return view('ABM_Ordenes', $data);
     }
 }

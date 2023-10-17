@@ -33,15 +33,33 @@
             margin-bottom: 10px;
         }
 
+        /* Estilos para la paginación */
         .pagination-container {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
 
-        .page-link {
-            cursor: pointer;
+        .pagination-container .pagination {
+            list-style: none;
+            display: flex;
+        }
+
+        .pagination-container .pagination li {
             margin: 0 5px;
+        }
+
+        .pagination-container .pagination li a {
+            display: block;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination-container .pagination li.active a {
+            background-color: #87CEEB; /* Azul aún más claro */
         }
 
         /* Estilo para las líneas entre filas */
@@ -141,129 +159,26 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Filas de órdenes de compra se llenarán dinámicamente aquí (ejemplos) -->
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">12345</td>
-                    <td class="px-6 py-4 border-r text-center">2023-10-10</td>
-                    <td class="px-6 py-4 border-r text-center">John Doe</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full mr-2">Pendiente</span>
-                        <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full">En Progreso</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <!-- 10 datos adicionales -->
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">67890</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-28</td>
-                    <td class="px-6 py-4 border-r text-center">Jane Smith</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Completado</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <!-- Más filas de datos aquí -->
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">13579</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-15</td>
-                    <td class="px-6 py-4 border-r text-center">Alice Johnson</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">24680</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-20</td>
-                    <td class="px-6 py-4 border-r text-center">Michael Brown</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Completado</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">97531</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-25</td>
-                    <td class="px-6 py-4 border-r text-center">Eva Martinez</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full">En Progreso</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">86420</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-18</td>
-                    <td class="px-6 py-4 border-r text-center">David Lee</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">64231</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-23</td>
-                    <td class="px-6 py-4 border-r text-center">Sarah Clark</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Completado</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 border-r text-center">12398</td>
-                    <td class="px-6 py-4 border-r text-center">2023-09-14</td>
-                    <td class="px-6 py-4 border-r text-center">Kevin Johnson</td>
-                    <td class="px-6 py-4 border-r text-center">
-                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <!-- Botones de acciones -->
-                        <button class="text-blue-500 hover:underline mr-2">Editar</button>
-                        <button class="text-red-500 hover:underline">Eliminar</button>
-                    </td>
-                </tr>
+                <?php foreach ($ordenes as $orden): ?>
+                    <tr>
+                        <td class="px-6 py-4 border-r text-center"><?= $orden['id'] ?></td>
+                        <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
+                        <td class="px-6 py-4 border-r text-center"><?= $orden['solicitante_id'] ?></td>
+                        <td class="px-6 py-4 border-r text-center">
+                            <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <!-- Botones de acciones -->
+                            <button class="text-blue-500 hover:underline mr-2">Editar</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
-        <!-- Contenedor de la barra blanca con bordes redondeados -->
-        <div class="w-full bg-white rounded-b-lg border border-gray-300 mt-4"></div>
-
-        <!-- Controles de paginación centrados -->
         <div class="pagination-container">
-            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-l-md hover:bg-gray-400">«</button>
-            <button class="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400">1</button>
-            <button class="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400">2</button>
-            <button class="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400">3</button>
-            <button class="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400">»</button>
+            <?= $pager->links() ?>
         </div>
-    </div>
 
     <script>
         // Función para abrir y cerrar el modal de filtros
