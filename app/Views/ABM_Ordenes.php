@@ -165,7 +165,11 @@
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['solicitante_id'] ?></td>
                         <td class="px-6 py-4 border-r text-center">
-                            <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                            <?php if ($orden['estado'] === 'Prueba'): ?>
+                                <span class="bg-red-200 text-red-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                            <?php else: ?>
+                                <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                            <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botones de acciones -->
