@@ -169,6 +169,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botones de acciones -->
+                            <button class="text-blue-500 hover:underline mr-2">Ver detalles</button>
                             <button class="text-blue-500 hover:underline mr-2">Editar</button>
                         </td>
                     </tr>
