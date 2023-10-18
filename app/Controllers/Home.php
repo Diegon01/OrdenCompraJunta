@@ -18,9 +18,9 @@ class Home extends BaseController
     {
         return view('alta_proveedor');
     }
-    public function orden_compra_crear(): string 
+    public function solicitud_orden_compra_crear(): string 
     {
-        return view('alta_ordenCompra');
+        return view('alta_solicitudOrdenCompra');
     }
     public function usuario_crear(): string 
     {

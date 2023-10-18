@@ -42,7 +42,7 @@ textarea {
         <?= csrf_field() ?>
             <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md">
                 <div class="max-w-4xl mx-auto bg-gray-200 p-4 rounded-md shadow-md">
-                    <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Orden de Compra</h1>
+                    <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Solicitud de Orden de Compra</h1>
                     <!-- Formulario para ingresar datos de productos en forma de tabla -->
                         <!-- Contenedor con altura fija y desbordamiento solo para los inputs -->
                         <div class="inputs-container">
@@ -52,6 +52,7 @@ textarea {
                                     <th class="pr-4 font-semibold text-center">Nombre Producto</th>
                                     <th class="pr-4 font-semibold text-center">Precio Estimado</th>
                                     <th class="pr-4 font-semibold text-center">Rubro</th>
+                                    <th class="pr-4 font-semibold text-center">Cant</th>
                                     <th class="pr-4 font-semibold text-center">Acciones</th>
                                 </tr>
                                 <!-- Campos del producto aquí -->
@@ -72,6 +73,11 @@ textarea {
                                         </div>
                                     </td>
                                     <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="cant_producto[]" class="mt-1 p-2 w-full border rounded-md">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
                                         <button class="bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 rounded delete-producto">Eliminar</button>
                                     </td>
                                 </tr>
@@ -87,21 +93,20 @@ textarea {
                 
                 <!-- Contenedor para las áreas de texto -->
             
-                <div class="max-w-4xl mx-auto bg-gray-200 shadow-md p-4 mt-4 rounded-md flex justify-center items-center">
-                    <div class="mr-10">
-                        <label class="font-semibold block text-lg mb-2 text-center" for="posibles_proveedores">Posibles Proveedores:</label>
-                        <input type="text" id="posibles_proveedores" name="posibles_proveedores" class="border p-2 rounded w-full text-center self-center mx-auto" placeholder="Ingrese posibles proveedores" spellcheck="false">
-                    </div>
-                    <div>
-                        <label class="font-semibold block text-lg mb-2 text-center" for="descripcion">Descripción:</label>
-                        <input type="text" id="descripcion" name="descripcion" class="border p-2 rounded w-full text-center self-center mx-auto" placeholder="Ingrese descripción" spellcheck="false">
-                    </div>
-                </div>
-
+        <div class="max-w-4xl mx-auto bg-gray-200 shadow-md p-4 mt-4 rounded-md flex justify-center items-center">
+            <div class="mr-10">
+                <label class="font-semibold block text-8x2 mb-2 text-center" for="posibles_proveedores">Posibles Proveedores:</label>
+                <textarea id="posibles_proveedores" name="posibles_proveedores" class="border-2 p-4 rounded w-full text-center mx-auto h-32 resize-none text-base" placeholder="Ingrese posibles proveedores" spellcheck="false"></textarea>
+            </div>
+            <div>
+                <label class="font-semibold block text-8x2 mb-2 text-center" for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full text-center mx-auto h-32 resize-none text-base" placeholder="Ingrese descripción" spellcheck="false"></textarea>
+            </div>
+        </div>
                 
                 
                 <div class="mt-4 text-center">
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear Orden de Compra</button>
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear Solicitud</button>
                 </div>
 
             </div>
