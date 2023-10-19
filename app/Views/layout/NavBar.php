@@ -8,9 +8,9 @@
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
             <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
-            <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Orden de compra</a>
+            <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Solicitud de compra</a>
             <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
-            <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Órdenes de compra</a>
+            <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Solicitudes de compra</a>
             <a href="<?= site_url('/a') ?>" class="hover:underline text-lg font-semibold">a</a>
         </div>
         

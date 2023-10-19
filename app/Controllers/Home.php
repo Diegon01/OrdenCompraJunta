@@ -38,18 +38,21 @@ class Home extends BaseController
          // Configurar la paginación
          $pager = \Config\Services::pager();
          $page = $this->request->getVar('page') ?? 1; // Obtener el número de página de la URL
- 
          $perPage = 8; // Número de resultados por página
          $totalResults = $ordenCompraModel->countAll(); // Obtener el total de resultados
  
          // Obtener las órdenes de compra para la página actual
-         $ordenes = $ordenCompraModel->paginate($perPage, 'default', $page);
+         $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
+            ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+            ->orderBy('ordenesdecompra.created_at', 'desc') // Ordenar por created_at de forma descendente
+            ->paginate($perPage, 'default', $page);
+        
          $data = [
              'ordenes' => $ordenes,
              'pager' => $ordenCompraModel->pager,
          ];
  
-         return view('ABM_Ordenes', $data);
+         return view('ABM_SolicitudesCompra', $data);
     }
     public function a(): string 
     {

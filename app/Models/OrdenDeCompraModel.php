@@ -48,4 +48,9 @@ class OrdenDeCompraModel extends Model
     {
         return $this->belongsToMany(ProveedorModel::class, 'Enlace_OrdenesProveedores', 'orden_id', 'proveedor_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(UserModel::class, 'solicitante_id', 'id');
+    }
 }
