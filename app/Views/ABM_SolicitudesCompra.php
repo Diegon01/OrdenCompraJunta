@@ -107,10 +107,10 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Más Reciente
+                            <button class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</button>
                         </label>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Más Antigua
+                            <button class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</button>
                         </label>
                     </div>
 
@@ -217,6 +217,7 @@
             positionModal();
         });
     </script>
+    
 </body>
 
 </html>
