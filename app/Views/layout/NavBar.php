@@ -7,12 +7,24 @@
         
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
-            <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
-            <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Solicitud de compra</a>
-            <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
-            <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Solicitudes de compra</a>
-            <a href="<?= site_url('/a') ?>" class="hover:underline text-lg font-semibold">a</a>
-            <a href="<?= site_url('/alta-rubro/crear') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
+            <?php if ($isContador || $isAdmin) : ?>
+                <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
+            <?php endif; ?>
+            <?php if ($isFuncionario) : ?>
+                <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Solicitud de compra</a>
+            <?php endif; ?>
+            <?php if ($isAdmin) : ?>
+                <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
+            <?php endif; ?>
+            <?php if ($isContador || $isAdmin || $isPresidente) : ?>
+                <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Solicitudes de compra</a>
+            <?php endif; ?>
+            
+                <a href="<?= site_url('/a') ?>" class="hover:underline text-lg font-semibold">a</a>
+
+            
+                <a href="<?= site_url('/alta-rubro/crear') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
+
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->
@@ -23,3 +35,18 @@
             </div>
         </div>
     </nav>
+<?php if ($isAdmin) : ?>
+    <p> ::Administrador:: </p>
+<?php endif; ?>
+<?php if ($isFuncionario) : ?>
+    <p> ::Funcionario:: </p>
+<?php endif; ?>
+<?php if ($isContador) : ?>
+    <p> ::Contador:: </p>
+<?php endif; ?>
+<?php if ($isPresidente) : ?>
+    <p> ::Presidente:: </p>
+<?php endif; ?>
+<?php if ($isSecretario) : ?>
+    <p> ::Secretario:: </p>
+<?php endif; ?>

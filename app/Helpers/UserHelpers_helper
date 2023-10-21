@@ -1,0 +1,9 @@
+if (! function_exists('isAdmin')) {
+    function isAdmin()
+    {
+        $userModel = new \App\Models\UserRolesModel(); // Adjust the namespace as per your project structure
+        $userId = auth()->user()->id;
+        $isAdmin = $userModel->where('user_id', $userId)->where('Admin', 1)->first();
+        return !empty($isAdmin);
+    }
+}
