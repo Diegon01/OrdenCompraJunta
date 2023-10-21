@@ -58,4 +58,8 @@ class Home extends BaseController
     {
         return view('a');
     }
+    public function rubro_crear(): string 
+    {
+        return view('alta_rubro');
+    }    
 }
