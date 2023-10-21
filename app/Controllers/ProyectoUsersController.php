@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ProyectoUser;
+use App\Models\UserRolesModel;
 use CodeIgniter\Events\Events;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
@@ -84,6 +85,18 @@ class ProyectoUsersController extends BaseController
 
         // To get the complete user object with ID, we need to get from the database
         $user = $users->findById($users->getInsertID());
+
+        // Insert data into the "user_roles" table
+        $userRolesModel = new \App\Models\UserRolesModel(); // Adjust the namespace as per your project structure
+        $userRolesData = [
+            'user_id' => $user->id,
+            'Funcionario' => $this->request->getPost('Funcionario') !== null ? 1 : 0,
+            'Contador' => $this->request->getPost('Contador') !== null ? 1 : 0,
+            'Presidente' => $this->request->getPost('Presidente') !== null ? 1 : 0,
+            'Secretario' => $this->request->getPost('Secretario') !== null ? 1 : 0,
+            'Admin' => $this->request->getPost('Admin') !== null ? 1 : 0,
+        ];
+        $userRolesModel->insert($userRolesData);
 
         return redirect()->to('/registrar/exito');
     }

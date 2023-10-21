@@ -15,7 +15,8 @@
 
 <body class="bg-gray-100">
 <div class="bg-gray-100 h-screen flex justify-center items-center">
-        <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
+<div class="bg-white p-8 rounded shadow-md w-4/5 mx-auto text-center">
+
             <h2 class="text-2xl font-bold mb-6"><?= lang('Auth.register') ?></h2>
 
             <?php if (session('error') !== null) : ?>
@@ -75,9 +76,38 @@
                     <input type="password" id="password_confirm" name="password_confirm" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
                 </div>
 
+                <!-- Checkboxes -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600">Selecciona los roles:</label>
+                    <div class="flex items-center space-x-4">
+                        <label for="Funcionario" class="inline-flex items-center">
+                            <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" />
+                            <span class="ml-2">Funcionario</span>
+                        </label>
+                        <label for="Contador" class="inline-flex items-center">
+                            <input type="checkbox" id="Contador" name="Contador" value="Contador" class="form-checkbox text-blue-500" />
+                            <span class="ml-2">Contador</span>
+                        </label>
+                        <label for="Presidente" class="inline-flex items-center">
+                            <input type="checkbox" id="Presidente" name="Presidente" value="Presidente" class="form-checkbox text-blue-500" />
+                            <span class="ml-2">Presidente</span>
+                        </label>
+                        <label for="Secretario" class="inline-flex items-center">
+                            <input type="checkbox" id="Secretario" name="Secretario" value="Secretario" class="form-checkbox text-blue-500" />
+                            <span class="ml-2">Secretario</span>
+                        </label>
+                        <label for="Admin" class="inline-flex items-center">
+                            <input type="checkbox" id="Admin" name="Admin" value="Admin" class="form-checkbox text-blue-500" />
+                            <span class="ml-2">Admin</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="flex items-center justify-center mt-4">
                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"><?= lang('Auth.register') ?></button>
                 </div>
+
+                
 
             </form>
         </div>
