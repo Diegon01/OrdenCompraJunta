@@ -160,15 +160,15 @@
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
                                     <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
-                                    <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                                    <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                                         <br>
                                         <br>
-                                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Aprobado por contador</span>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente contador</span>
                                     <?php endif; ?>
-                                    <?php if ($orden['Presidente_Aprobado'] === '1') : ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
                                         <br>
                                         <br>
-                                        <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Aprobado por presidente</span>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente o secretario</span>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -182,7 +182,7 @@
                                     <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
                                     <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
                                     <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Aprobar</button>
+                                    <button type="submit" class="text-green-500 hover:underline mr-2">Aprobar</button>
                                 </form>
                             <?php endif; ?>
                             <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
@@ -192,11 +192,11 @@
                                     <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
                                     <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
                                     <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Aprobar</button>
+                                    <button type="submit" class="text-green-500 hover:underline mr-2">Aprobar</button>
                                 </form>
                             <?php endif; ?>
                             <?php if ($isSecretario && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
-                                <button class="text-blue-500 hover:underline mr-2">Aprobar [W.I.P]</button>
+                                <button class="text-green-500 hover:underline mr-2">Aprobar [W.I.P]</button>
                             <?php endif; ?>
                             <?php if ($isContador && $orden['estado'] === 'Pendiente' && $orden['Contador_Aprobado'] === '0') : ?>
                                 <form action="/solicitud-rechaza" method="POST">
@@ -205,7 +205,7 @@
                                     <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
                                     <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
                                     <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Rechazar</button>
+                                    <button type="submit" class="text-red-500 hover:underline mr-2">Rechazar</button>
                                 </form>
                             <?php endif; ?>
                             <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
@@ -215,7 +215,7 @@
                                     <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
                                     <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
                                     <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Rechazar</button>
+                                    <button type="submit" class="text-red-500 hover:underline mr-2">Rechazar</button>
                                 </form>
                             <?php endif; ?>
                             <button class="text-blue-500 hover:underline mr-2">Ver detalles</button>
