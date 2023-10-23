@@ -35,7 +35,7 @@
             </div>
         </div>
     </nav>
-<?php if ($isAdmin) : ?>
+<?php if ($isAdmin) : ?> <!-- Cosas para que el bombero testee -->
     <p> ::Administrador:: </p>
 <?php endif; ?>
 <?php if ($isFuncionario) : ?>

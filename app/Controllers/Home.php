@@ -129,6 +129,11 @@ class Home extends BaseController
          // Get the "sort" query parameter from the URL
         $sort = $this->request->getGet('sort');
         $estado = $this->request->getGet('estado');
+        $searchQuery = $this->request->getGet('search');
+
+        if ($searchQuery == null) {
+            $searchQuery = '';
+        }
 
         // Set the default sort order
         $sortOrder = 'desc'; // Default to newest
@@ -155,12 +160,14 @@ class Home extends BaseController
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
          else {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
                 ->where('estado', $estadoFiltro)
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
@@ -202,6 +209,11 @@ class Home extends BaseController
          // Get the "sort" query parameter from the URL
          $sort = $this->request->getGet('sort');
          $estado = $this->request->getGet('estado');
+         $searchQuery = $this->request->getGet('search');
+
+        if ($searchQuery == null) {
+            $searchQuery = '';
+        }
  
          // Set the default sort order
          $sortOrder = 'desc'; // Default to newest
@@ -228,6 +240,7 @@ class Home extends BaseController
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
                 ->where('solicitante_id', $currentUserId)
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
@@ -235,6 +248,7 @@ class Home extends BaseController
          else {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
                 ->where([
                     'solicitante_id' => $currentUserId,
                     'estado' => $estadoFiltro,

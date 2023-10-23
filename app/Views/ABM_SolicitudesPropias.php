@@ -94,8 +94,11 @@
             <!-- Barra de búsqueda -->
             <div class="flex items-center">
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
-                <input type="text" id="busqueda" class="border rounded px-2 py-1"
-                    placeholder="Ingrese búsqueda...">
+                <form action="<?= site_url('misordenes') ?>" method="get">
+                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1"
+                        placeholder="Ingrese búsqueda...">
+                        <button type="submit"></button>
+                </form>
             </div>
         </div>
 
