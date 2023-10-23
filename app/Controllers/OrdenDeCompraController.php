@@ -23,6 +23,8 @@ class OrdenDeCompraController extends BaseController
                 'descripcion' => $this->request->getPost('descripcion'),
                 'solicitante_id' => auth()->user()->id,
                 'estado' => 'Pendiente',
+                'Contador_Aprobado' => 0,
+                'Presidente_Aprobado' => 0,
             ];
 
             // Validar los datos si es necesario
@@ -55,5 +57,104 @@ class OrdenDeCompraController extends BaseController
 
         // Si no se ha enviado el formulario, cargar la vista
         return view('alta_proveedor');
+    }
+
+    public function contador_aprueba() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            // Get the order ID from the POST data
+            $orderId = $this->request->getPost('order_id');
+
+            $orderPresidente = $this->request->getPost('order_Presidente_Aprobado');
+    
+            // Load the OrdenDeCompraModel
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+    
+            // Find the order by ID
+            $order = $ordenCompraModel->find($orderId);
+    
+            // Check if the order exists
+            if ($order) {
+                // Update the "Contador_Aprueba" column to 1
+                $ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
+
+                if ($orderPresidente === '1') {
+                    $ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+                }
+    
+                // Redirect to the "ordenes" route or any other destination as needed
+                return redirect()->to('/ordenes');
+            } else {
+                // Handle the case where the order doesn't exist
+                return redirect()->to('/ordenes')->with('error', 'Order not found');
+            }
+        }
+    
+        // If the request is not POST, redirect to the "ordenes" route
+        return redirect()->to('/ordenes');
+    }
+
+    public function presidente_aprueba() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            // Get the order ID from the POST data
+            $orderId = $this->request->getPost('order_id');
+            $orderContador = $this->request->getPost('order_Contador_Aprobado');
+    
+            // Load the OrdenDeCompraModel
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+    
+            // Find the order by ID
+            $order = $ordenCompraModel->find($orderId);
+    
+            // Check if the order exists
+            if ($order) {
+                // Update the "Contador_Aprueba" column to 1
+                $ordenCompraModel->update($orderId, ['Presidente_Aprobado' => 1]);
+
+                if ($orderContador === '1') {
+                    $ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+                }
+    
+                // Redirect to the "ordenes" route or any other destination as needed
+                return redirect()->to('/ordenes');
+            } else {
+                // Handle the case where the order doesn't exist
+                return redirect()->to('/ordenes')->with('error', 'Order not found');
+            }
+        }
+    
+        // If the request is not POST, redirect to the "ordenes" route
+        return redirect()->to('/ordenes');
+    }
+
+    public function solicitud_rechaza() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            // Get the order ID from the POST data
+            $orderId = $this->request->getPost('order_id');
+            $orderContador = $this->request->getPost('order_Contador_Aprobado');
+    
+            // Load the OrdenDeCompraModel
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+    
+            // Find the order by ID
+            $order = $ordenCompraModel->find($orderId);
+    
+            // Check if the order exists
+            if ($order) {
+                // Update the "Contador_Aprueba" column to 1
+                $ordenCompraModel->update($orderId, ['estado' => 'Rechazada']);
+    
+                // Redirect to the "ordenes" route or any other destination as needed
+                return redirect()->to('/ordenes');
+            } else {
+                // Handle the case where the order doesn't exist
+                return redirect()->to('/ordenes')->with('error', 'Order not found');
+            }
+        }
+    
+        // If the request is not POST, redirect to the "ordenes" route
+        return redirect()->to('/ordenes');
     }
 }

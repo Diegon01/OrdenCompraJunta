@@ -76,7 +76,7 @@
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <!-- Título de la tabla y barra de búsqueda -->
-        <h1 class="text-3xl font-bold mb-6">Administración de solicitudes de compra</h1>
+        <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
 
         <!-- Contenedor para filtro y búsqueda -->
         <div class="w-full bg-white border border-gray-300 rounded-t-lg p-4 mb-4 flex flex-col lg:flex-row items-center relative">
@@ -107,23 +107,23 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?sort=newest') ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                            <button class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</button>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?sort=oldest') ?>" class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</a>
+                            <button class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</button>
                         </label>
                     </div>
 
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
+                            <input type="checkbox" class="mr-2"> Pendiente
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
+                            <input type="checkbox" class="mr-2"> Rechazada
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
+                            <input type="checkbox" class="mr-2"> Aceptada
                         </label>
                     </div>
                 </div>
@@ -172,49 +172,6 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botones de acciones -->
-                            <?php if ($isContador && $orden['estado'] === 'Pendiente' && $orden['Contador_Aprobado'] === '0') : ?>
-                                <form action="/contador-aprueba" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Aprobar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
-                                <form action="/presidente-aprueba" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Aprobar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isSecretario && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
-                                <button class="text-blue-500 hover:underline mr-2">Aprobar [W.I.P]</button>
-                            <?php endif; ?>
-                            <?php if ($isContador && $orden['estado'] === 'Pendiente' && $orden['Contador_Aprobado'] === '0') : ?>
-                                <form action="/solicitud-rechaza" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Rechazar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0') : ?>
-                                <form action="/solicitud-rechaza" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-blue-500 hover:underline mr-2">Rechazar</button>
-                                </form>
-                            <?php endif; ?>
                             <button class="text-blue-500 hover:underline mr-2">Ver detalles</button>
                         </td>
                     </tr>

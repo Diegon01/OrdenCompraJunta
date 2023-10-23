@@ -16,12 +16,12 @@
             <?php if ($isAdmin) : ?>
                 <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
             <?php endif; ?>
-            <?php if ($isContador || $isAdmin || $isPresidente) : ?>
-                <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Solicitudes de compra</a>
+            <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
+                <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Administrar solicitudes</a>
             <?php endif; ?>
-            
-                <a href="<?= site_url('/a') ?>" class="hover:underline text-lg font-semibold">a</a>
-
+            <?php if ($isFuncionario) : ?>
+                <a href="<?= site_url('/misordenes') ?>" class="hover:underline text-lg font-semibold">Mis solicitudes</a>
+            <?php endif; ?>
             
                 <a href="<?= site_url('/alta-rubro/crear') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
 
