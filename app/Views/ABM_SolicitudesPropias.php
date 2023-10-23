@@ -107,23 +107,23 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <button class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</button>
+                            <a href="<?= site_url('/misordenes?sort=newest') ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
                         </label>
                         <label class="flex items-center">
-                            <button class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</button>
+                            <a href="<?= site_url('/misordenes?sort=oldest') ?>" class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</a>
                         </label>
                     </div>
 
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Pendiente
+                            <a href="<?= site_url('/misordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
                         </label>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Rechazada
+                            <a href="<?= site_url('/misordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
                         </label>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Aceptada
+                            <a href="<?= site_url('/misordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
                         </label>
                     </div>
                 </div>

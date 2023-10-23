@@ -200,21 +200,48 @@ class Home extends BaseController
          $totalResults = $ordenCompraModel->countAll(); // Obtener el total de resultados
 
          // Get the "sort" query parameter from the URL
-        $sort = $this->request->getGet('sort');
-
-        // Set the default sort order
-        $sortOrder = 'desc'; // Default to newest
-
-        if ($sort === 'oldest') {
-            $sortOrder = 'asc';
-        }
+         $sort = $this->request->getGet('sort');
+         $estado = $this->request->getGet('estado');
  
+         // Set the default sort order
+         $sortOrder = 'desc'; // Default to newest
+ 
+         if ($sort === 'oldest') {
+             $sortOrder = 'asc';
+         }
+ 
+         $estadoFiltro = 'all';
+ 
+         if ($estado === 'pendiente') {
+             $estadoFiltro = 'Pendiente';
+         }
+ 
+         if ($estado === 'aceptada') {
+             $estadoFiltro = 'Aceptada';
+         }
+ 
+         if ($estado === 'rechazada') {
+             $estadoFiltro = 'Rechazada';
+         }
+
          // Obtener las órdenes de compra para la página actual
-         $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
-            ->join('users', 'users.id = ordenesdecompra.solicitante_id')
-            ->where('solicitante_id', $currentUserId)
-            ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
-            ->paginate($perPage, 'default', $page);
+         if ($estadoFiltro === 'all') {
+            $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
+                ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->where('solicitante_id', $currentUserId)
+                ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
+                ->paginate($perPage, 'default', $page);
+         }
+         else {
+            $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
+                ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->where([
+                    'solicitante_id' => $currentUserId,
+                    'estado' => $estadoFiltro,
+                ])
+                ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
+                ->paginate($perPage, 'default', $page);
+         }
         
          $data = [
              'ordenes' => $ordenes,
