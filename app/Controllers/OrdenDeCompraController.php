@@ -40,7 +40,7 @@ class OrdenDeCompraController extends BaseController
                 $datas = [
                     'nombre' => $nombre,
                     'precio_estimado' => $productos['precio_estimado'][$key],
-                    'rubro_codigo' => $productos['rubro_codigo'][$key],
+                    'cantidad' => $productos['cant_producto'][$key],
                     'orden_id' => $ordenCompraID, // Asocia el producto con la orden de compra
                 ];
     

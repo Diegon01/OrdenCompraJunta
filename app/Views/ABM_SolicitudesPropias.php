@@ -66,6 +66,11 @@
         table tr:not(:last-child) {
             border-bottom: 1px solid #ddd;
         }
+
+        .description-cell {
+        max-width: 500px; /* Adjust the maximum height as needed */
+        overflow: auto;
+        }
     </style>
 </head>
 
@@ -141,7 +146,7 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
-                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Descripción</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Descripción</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Estado</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase">Acciones</th>
                 </tr>
@@ -151,7 +156,7 @@
                     <tr>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
-                        <td class="px-6 py-4 border-r text-center"><?= $orden['descripcion'] ?> </td>
+                        <td class="px-6 py-4 border-r text-center description-cell"><?= $orden['descripcion'] ?></td>
                         <td class="px-6 py-4 border-r text-center">
                             <?php if ($orden['estado'] === 'Rechazada'): ?>
                                 <span class="bg-red-200 text-red-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
@@ -160,12 +165,14 @@
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente o secretario</span>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente contador</span>
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
-                                        <br>
-                                        <br>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente contador</span>
+                                        <?php if ($orden['Contador_Aprobado'] === '0') : ?>
+                                            <br>
+                                            <br>
+                                        <?php endif; ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente o secretario</span>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>

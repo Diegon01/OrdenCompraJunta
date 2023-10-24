@@ -15,11 +15,6 @@ class ProductoOrdenCompra extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'rubro_codigo' => [
-                'type' => 'INT',
-                'constraint' => 5,
-                'unsigned' => true,
-            ],
             'nombre' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
@@ -28,9 +23,12 @@ class ProductoOrdenCompra extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
             ],
+            'cantidad' => [
+                'type' => 'INT',
+                'constraint' => 11,
+            ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('rubro_codigo', 'rubros', 'codigo');
         $this->forge->createTable('ProductoOrdenCompra');
     }
 

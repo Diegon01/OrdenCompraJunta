@@ -13,7 +13,7 @@ class ProductoDeOrdenDeCompraModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['nombre', 'precio_estimado', 'rubro_codigo', 'orden_id']; // Define the allowed fields
+    protected $allowedFields = ['nombre', 'precio_estimado', 'cantidad', 'orden_id']; // Define the allowed fields
 
     // Dates
     protected $useTimestamps = false;

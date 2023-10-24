@@ -49,10 +49,9 @@ textarea {
                             <table class="w-full">
                                 <!-- Encabezados de la tabla -->
                                 <tr>
-                                    <th class="pr-4 font-semibold text-center">Nombre Producto</th>
-                                    <th class="pr-4 font-semibold text-center">Precio Estimado</th>
-                                    <th class="pr-4 font-semibold text-center">Rubro</th>
-                                    <th class="pr-4 font-semibold text-center">Cant</th>
+                                    <th class="pr-4 font-semibold text-center">Nombre del producto</th>
+                                    <th class="pr-4 font-semibold text-center">Precio unitario estimado ($)</th>
+                                    <th class="pr-4 font-semibold text-center">Cantindad</th>
                                     <th class="pr-4 font-semibold text-center">Acciones</th>
                                 </tr>
                                 <!-- Campos del producto aquí -->
@@ -65,11 +64,6 @@ textarea {
                                     <td class="text-center">
                                         <div class="input-wrapper">
                                             <input type="number" name="precio_estimado[]" class="mt-1 p-2 w-full border rounded-md">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="rubro_codigo[]" class="mt-1 p-2 w-full border rounded-md">
                                         </div>
                                     </td>
                                     <td class="text-center">

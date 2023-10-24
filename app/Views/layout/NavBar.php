@@ -35,18 +35,19 @@
             </div>
         </div>
     </nav>
-<?php if ($isAdmin) : ?> <!-- Cosas para que el bombero testee -->
-    <p> ::Administrador:: </p>
+<p style="display: inline-block">Roles: </p> <!-- Cosas para que el bombero testee -->
+<?php if ($isAdmin) : ?>
+    <p style="display: inline-block">-Administrador</p>
 <?php endif; ?>
 <?php if ($isFuncionario) : ?>
-    <p> ::Funcionario:: </p>
+    <p style="display: inline-block">-Funcionario</p>
 <?php endif; ?>
 <?php if ($isContador) : ?>
-    <p> ::Contador:: </p>
+    <p style="display: inline-block">-Contador</p>
 <?php endif; ?>
 <?php if ($isPresidente) : ?>
-    <p> ::Presidente:: </p>
+    <p style="display: inline-block">-Presidente</p>
 <?php endif; ?>
 <?php if ($isSecretario) : ?>
-    <p> ::Secretario:: </p>
+    <p style="display: inline-block">-Secretario</p>
 <?php endif; ?>

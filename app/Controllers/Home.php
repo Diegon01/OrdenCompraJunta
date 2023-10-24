@@ -160,14 +160,22 @@ class Home extends BaseController
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->groupStart()
                 ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
+                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                ->groupEnd()
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
          else {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->groupStart()
                 ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
+                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                ->groupEnd()
                 ->where('estado', $estadoFiltro)
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
@@ -240,7 +248,11 @@ class Home extends BaseController
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->groupStart()
                 ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
+                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                ->groupEnd()
                 ->where('solicitante_id', $currentUserId)
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
@@ -248,7 +260,11 @@ class Home extends BaseController
          else {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
+                ->groupStart()
                 ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
+                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                ->groupEnd()
                 ->where([
                     'solicitante_id' => $currentUserId,
                     'estado' => $estadoFiltro,
