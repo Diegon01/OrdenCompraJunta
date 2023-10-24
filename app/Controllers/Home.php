@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\OrdenDeCompraModel;
+use App\Models\ProductoDeOrdenDeCompraModel;
 use CodeIgniter\Pager\Pager;
 use App\Models\UserModelo;
 
@@ -155,16 +156,28 @@ class Home extends BaseController
         if ($estado === 'rechazada') {
             $estadoFiltro = 'Rechazada';
         }
+
+        $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+
+         // Replace 'product_column1, product_column2, ...' with the actual columns you want to retrieve
+         $productos = $productoOrdenCompraModel->select('*')
+             ->findAll();
  
          // Obtener las órdenes de compra para la página actual
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
                 ->groupStart()
-                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
-                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
-                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->like("DATE(ordenesdecompra.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('productoordencompra')
+                        ->where('productoordencompra.orden_id = ordenesdecompra.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
                 ->groupEnd()
+                ->groupBy('ordenesdecompra.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
@@ -172,18 +185,24 @@ class Home extends BaseController
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
                 ->groupStart()
-                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
-                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
-                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->like("DATE(ordenesdecompra.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('productoordencompra')
+                        ->where('productoordencompra.orden_id = ordenesdecompra.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
                 ->groupEnd()
                 ->where('estado', $estadoFiltro)
+                ->groupBy('ordenesdecompra.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
         
-        
          $data = [
              'ordenes' => $ordenes,
+             'productos' => $productos,
              'pager' => $ordenCompraModel->pager,
              'isAdmin' => $isAdmin,
              'isFuncionario' => $isFuncionario,
@@ -244,16 +263,28 @@ class Home extends BaseController
              $estadoFiltro = 'Rechazada';
          }
 
+         $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+
+         // Replace 'product_column1, product_column2, ...' with the actual columns you want to retrieve
+         $productos = $productoOrdenCompraModel->select('*')
+             ->findAll();
+
          // Obtener las órdenes de compra para la página actual
          if ($estadoFiltro === 'all') {
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
                 ->groupStart()
-                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
-                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
-                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->like("DATE(ordenesdecompra.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('productoordencompra')
+                        ->where('productoordencompra.orden_id = ordenesdecompra.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
                 ->groupEnd()
                 ->where('solicitante_id', $currentUserId)
+                ->groupBy('ordenesdecompra.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
@@ -261,20 +292,27 @@ class Home extends BaseController
             $ordenes = $ordenCompraModel->select('ordenesdecompra.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenesdecompra.solicitante_id')
                 ->groupStart()
-                ->like('descripcion', $searchQuery) // Replace 'column_name' with the actual column you want to search in
-                ->orLike("DATE(ordenesdecompra.created_at)", $searchQuery) // Search in the date part of 'created_at'
-                ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->like("DATE(ordenesdecompra.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('productoordencompra')
+                        ->where('productoordencompra.orden_id = ordenesdecompra.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
                 ->groupEnd()
                 ->where([
                     'solicitante_id' => $currentUserId,
                     'estado' => $estadoFiltro,
                 ])
+                ->groupBy('ordenesdecompra.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
                 ->orderBy('ordenesdecompra.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
          }
         
          $data = [
              'ordenes' => $ordenes,
+             'productos' => $productos,
              'pager' => $ordenCompraModel->pager,
              'isAdmin' => $isAdmin,
              'isFuncionario' => $isFuncionario,

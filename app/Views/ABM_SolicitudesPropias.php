@@ -146,7 +146,8 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
-                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Descripción</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Productos solicitados</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Total estimado</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Estado</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase">Acciones</th>
                 </tr>
@@ -156,7 +157,33 @@
                     <tr>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
-                        <td class="px-6 py-4 border-r text-center description-cell"><?= $orden['descripcion'] ?></td>
+                        <td class="px-6 py-4 border-r text-center">
+                            <?php
+                            $recorrido = 0;
+                            foreach ($productos as $producto) {
+                                if ($producto['orden_id'] == $orden['id']) {
+                                    if ($recorrido != 0) {
+                                        echo '<br>';
+                                    }
+                                    echo '-', $producto['nombre'], ' (', $producto['cantidad'], ')';
+                                    $recorrido += 1;
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td class="px-6 py-4 border-r text-center">$
+                            <?php
+                            $totalPrecioEstimado = 0;
+
+                            foreach ($productos as $producto) {
+                                if ($producto['orden_id'] == $orden['id']) {
+                                    $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
+                                }
+                            }
+
+                            echo $totalPrecioEstimado;
+                            ?>
+                        </td>
                         <td class="px-6 py-4 border-r text-center">
                             <?php if ($orden['estado'] === 'Rechazada'): ?>
                                 <span class="bg-red-200 text-red-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
