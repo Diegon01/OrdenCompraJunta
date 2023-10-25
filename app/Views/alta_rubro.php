@@ -17,11 +17,11 @@
 <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-16">
         <h2 class="text-2xl font-semibold mb-4">Alta de Rubros</h2>
         <!-- Formulario de alta de rubros -->
-        <form action="/rubros/guardar" method="post">
+        <form action="/alta-rubro/crear" method="POST">
             <!-- Campo Código -->
             <div class="mb-4">
                 <label for="codigo" class="block text-sm font-medium text-gray-600">Código</label>
-                <input type="text" id="codigo" name="codigo" class="mt-1 p-2 border rounded w-full">
+                <input type="number" id="codigo" name="codigo" class="mt-1 p-2 border rounded w-full">
             </div>
             <!-- Campo Nombre -->
             <div class="mb-4">
@@ -32,7 +32,7 @@
             <div class="mb-4">
                 <label for="presupuesto" class="block text-sm font-medium text-gray-600">Presupuesto</label>
                 <input type="text" id="presupuesto" name="presupuesto" class="mt-1 p-2 border rounded w-full"
-                    placeholder="Ingrese el presupuesto (ej. 1000,50)">
+                    >
             </div>
             <!-- Botón de Enviar -->
             <div class="mt-6">

@@ -23,7 +23,7 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
         ];
-        return view('welcome_message', $data);
+        return $this->mis_ordenes();
     }
     public function proveedor_created(): string 
     {

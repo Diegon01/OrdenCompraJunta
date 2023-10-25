@@ -7,24 +7,31 @@ use App\Models\RubroModel;
 
 class RubroController extends BaseController
 {
-    public function insertRubro()
+    public function altaRubro()
     {
-        // Get data to be inserted (you can get this from a form)
-        $data = [
-            'nombre' => 'Rubro de prueba',
-            'codigo' => '1234',
-            'saldo' => '2000',
-            // Add other fields as needed
-        ];
+        // Si se ha enviado un formulario (POST)
+        if ($this->request->getMethod() === 'post') {
+            // Obtener los datos del formulario
+            $data = [
+                'codigo' => $this->request->getPost('codigo'),
+                'nombre' => $this->request->getPost('nombre'),
+                'saldo' => $this->request->getPost('presupuesto'),
+            ];
 
-        // Create an instance of the RubroModel
-        $rubroModel = new RubroModel();
+            // Validar los datos si es necesario
+            // Puedes agregar reglas de validación aquí
 
-        // Insert the data into the 'rubro' table
-        
-        $rubroModel->insert($data);
+            // Insertar en la base de datos
+            $rubroModel = new RubroModel();
+            $rubroModel->insert($data);
 
-        // Optionally, you can redirect to a different page after insertion
-        return redirect()->to('rubro/created'); // Replace 'rubro/list' with your desired URL
+            // Redirigir a una página de éxito o a la misma página
+            // Puedes personalizar esta parte según tus necesidades
+
+            return redirect()->to('/alta-proveedor/exito');
+        }
+
+        // Si no se ha enviado el formulario, cargar la vista
+        return view('alta_rubro');
     }
 }

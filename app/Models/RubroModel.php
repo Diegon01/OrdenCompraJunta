@@ -13,7 +13,7 @@ class RubroModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['nombre', 'codigo', 'saldo']; // Define the allowed fields
+    protected $allowedFields = ['codigo', 'nombre', 'saldo']; // Define the allowed fields
 
     // Dates
     protected $useTimestamps = false;

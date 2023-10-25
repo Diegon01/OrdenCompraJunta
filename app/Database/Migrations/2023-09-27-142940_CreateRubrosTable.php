@@ -13,7 +13,6 @@ class CreateRubrosTable extends Migration
                 'type' => 'INT',
                 'constraint' => 5,
                 'unsigned' => true,
-                'auto_increment' => true,
             ],
             'nombre' => [
                 'type' => 'VARCHAR',

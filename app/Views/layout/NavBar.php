@@ -23,7 +23,7 @@
                 <a href="<?= site_url('/misordenes') ?>" class="hover:underline text-lg font-semibold">Mis solicitudes</a>
             <?php endif; ?>
             
-                <a href="<?= site_url('/alta-rubro/crear') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
+                <a href="<?= site_url('/alta-rubro') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
 
         </div>
         
