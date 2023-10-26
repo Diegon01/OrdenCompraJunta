@@ -27,4 +27,5 @@ $routes->get('/alta-rubro', 'Home::rubro_crear');
 $routes->post('/alta-rubro/crear', 'RubroController::altaRubro');
 $routes->post('/contador-aprueba', 'OrdenDeCompraController::contador_aprueba');
 $routes->post('/presidente-aprueba', 'OrdenDeCompraController::presidente_aprueba');
+$routes->post('/secretario-aprueba', 'OrdenDeCompraController::secretario_aprueba');
 $routes->post('/solicitud-rechaza', 'OrdenDeCompraController::solicitud_rechaza');

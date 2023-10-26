@@ -192,14 +192,17 @@
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente contador</span>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
                                     <?php endif; ?>
-                                    <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
-                                        <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                            <br>
-                                            <br>
+                                    <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                                        <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente</span>
                                         <?php endif; ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente o secretario</span>
+                                        <?php if ($orden['Presidente_Aprobado'] === '1') : ?>
+                                            <?php if ($orden['Secretario_Aprobado'] === '0') : ?>
+                                                <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente secretario</span>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
