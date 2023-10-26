@@ -249,7 +249,7 @@
                                     <button type="submit" class="text-red-500 hover:underline mr-2">Rechazar</button>
                                 </form>
                             <?php endif; ?>
-                            <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="hover:underline text-lg font-semibold">Ver detalles</a>
+                            <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
