@@ -208,47 +208,6 @@
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
-                            <!-- Botones de acciones -->
-                            <?php if ($isContador && $orden['estado'] === 'Pendiente' && $orden['Contador_Aprobado'] === '0') : ?>
-                                <form action="/contador-aprueba" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-green-500 hover:underline mr-2">Aprobar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0' && $orden['Contador_Aprobado'] === '1') : ?>
-                                <form action="/presidente-aprueba" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-green-500 hover:underline mr-2">Aprobar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isSecretario && $orden['estado'] === 'Pendiente' && $orden['Secretario_Aprobado'] === '0' && $orden['Presidente_Aprobado'] === '1') : ?>
-                                <form action="/secretario-aprueba" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-green-500 hover:underline mr-2">Aprobar</button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($isPresidente && $orden['estado'] === 'Pendiente' && $orden['Presidente_Aprobado'] === '0' && $orden['Contador_Aprobado'] === '1') : ?>
-                                <form action="/solicitud-rechaza" method="POST">
-                                    <!-- Add any additional hidden input fields if needed -->
-                                    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-                                    <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
-                                    <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
-                                    <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
-                                    <button type="submit" class="text-red-500 hover:underline mr-2">Rechazar</button>
-                                </form>
-                            <?php endif; ?>
                             <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
                         </td>
                     </tr>
