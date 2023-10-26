@@ -16,6 +16,7 @@
         <p class="mt-4 text-lg text-gray-700 text-center">Solicitante: <?= $solicitante->nombres ?> <?= $solicitante->apellidos ?></p>
         <p class="mt-4 text-lg text-gray-700 text-center">Descripción: <?= $orden['descripcion'] ?></p>
         <p class="mt-4 text-lg text-gray-700 text-center">Posibles proveedores: <?= $orden['posibles_proveedores'] ?></p>
+        <p class="mt-4 text-lg text-gray-700 text-center">Estado: <?= $orden['estado'] ?></p>
         <p class="mt-4 text-lg text-gray-700 text-center">Productos: 
             <?php 
                 $totalPrecioEstimado = 0;
