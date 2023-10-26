@@ -7,24 +7,21 @@
         
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
-            <?php if ($isContador || $isAdmin) : ?>
-                <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
-            <?php endif; ?>
             <?php if ($isFuncionario) : ?>
-                <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="hover:underline text-lg font-semibold">Alta Solicitud de compra</a>
-            <?php endif; ?>
-            <?php if ($isAdmin) : ?>
-                <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
+                <a href="<?= site_url('/misordenes') ?>" class="hover:underline text-lg font-semibold">Mis solicitudes</a>
             <?php endif; ?>
             <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
                 <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Administrar solicitudes</a>
             <?php endif; ?>
-            <?php if ($isFuncionario) : ?>
-                <a href="<?= site_url('/misordenes') ?>" class="hover:underline text-lg font-semibold">Mis solicitudes</a>
+            <?php if ($isAdmin) : ?>
+                <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
             <?php endif; ?>
-            
+            <?php if ($isContador || $isAdmin) : ?>
+                <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
+            <?php endif; ?>     
+            <?php if ($isContador || $isAdmin) : ?>
                 <a href="<?= site_url('/alta-rubro') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
-
+            <?php endif; ?>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->
