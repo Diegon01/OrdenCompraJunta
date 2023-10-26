@@ -356,5 +356,36 @@ class Home extends BaseController
             'isSecretario' => $isSecretario,
         ];
         return view('alta_rubro', $data);
+    }
+    public function ver_solicitud_detalles($orden_id): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+        $orden = $ordenCompraModel->find($orden_id);
+
+        $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+        $productos = $productoOrdenCompraModel->where('orden_id', $orden_id)->findAll();
+
+        $solicitante_id = $orden['solicitante_id'];
+        $userModel_orden = new \App\Models\UserModelo();
+        $solicitante = $userModel_orden->find($solicitante_id);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'orden' => $orden,
+            'productos' => $productos,
+            'solicitante' => $solicitante,
+        ];
+        return view('solicitud_detalles', $data);
     }    
 }
