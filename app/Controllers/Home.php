@@ -374,9 +374,9 @@ class Home extends BaseController
         ];
         return view('ver_DetalleSolicitudOrden', $data);
     }       
-}
 
-    }
+
+    
     public function ver_solicitud_detalles($orden_id): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
