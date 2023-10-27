@@ -30,3 +30,4 @@ $routes->post('/presidente-aprueba', 'OrdenDeCompraController::presidente_aprueb
 $routes->post('/secretario-aprueba', 'OrdenDeCompraController::secretario_aprueba');
 $routes->post('/solicitud-rechaza', 'OrdenDeCompraController::solicitud_rechaza');
 $routes->get('/solicitud-detalles/(:num)', 'Home::ver_solicitud_detalles/$1');
+$routes->get('/ver-detalle-solicitud', 'Home::verDetalle_Solicitud');

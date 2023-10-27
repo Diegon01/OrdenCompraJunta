@@ -356,6 +356,26 @@ class Home extends BaseController
             'isSecretario' => $isSecretario,
         ];
         return view('alta_rubro', $data);
+    } 
+    public function verDetalle_Solicitud(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+        ];
+        return view('ver_DetalleSolicitudOrden', $data);
+    }       
+}
+
     }
     public function ver_solicitud_detalles($orden_id): string 
     {

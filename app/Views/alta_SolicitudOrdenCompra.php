@@ -51,7 +51,7 @@ textarea {
                                 <tr>
                                     <th class="pr-4 font-semibold text-center">Nombre del producto</th>
                                     <th class="pr-4 font-semibold text-center">Precio unitario estimado ($)</th>
-                                    <th class="pr-4 font-semibold text-center">Cantindad</th>
+                                    <th class="pr-4 font-semibold text-center">Cantidad</th>
                                     <th class="pr-4 font-semibold text-center">Acciones</th>
                                 </tr>
                                 <!-- Campos del producto aquí -->
