@@ -72,121 +72,142 @@
 </header>
 <body class="bg-gray-100">
     <div class="bg-gray-100 p-4 pt-8">
-        <!--<form action="/alta-orden" method="POST" class="max-w-6x1 mx-auto bg-white p-4 rounded-md shadow-md">-->
-            <?= csrf_field() ?>
-            <div class="page-container bg-gray-200 p-4 pt-8">
-                <h1 class="text-2xl font-semibold mb-4 text-center">Detalle Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
+    <?= csrf_field() ?>
+    <div class="page-container bg-gray-200 p-4 pt-8">
+        <h1 class="text-3xl font-semibold mb-4 text-center">Detalle Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
 
-                
+        <div class="solicitante-container p-4">
+            <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
+            <table class="w-auto mx-auto">
+                <tr>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cedula</th>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
+                </tr>
 
-                <div class="inputs-container">
-                    
-                    <label class="font-semibold block text-2xl text-center pt-2 mb-4" for="descripcion">Solicitante:</label>
-                    
-                    <table class="w-full">
-                        <tr>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cedula</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Apellidos</th>
-                        </tr>
+                <tr class="producto-clone">
+                    <td class="text-center">
+                        <div class="input-wrapper">
+                            <input type="text" name="nombre[]"
+                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                style="background: transparent;"
+                                readonly
+                                placeholder="<?= $solicitante->cedula ?>">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="input-wrapper">
+                            <input type="text" name="precio_estimado[]"
+                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                style="background: transparent;"
+                                readonly
+                                placeholder="<?= $solicitante->nombres ?> <?= $solicitante->apellidos ?>">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-                        
-                        <tr class="producto-clone">
+        <div class="descripcion-container p-1">
+            <label class="font-semibold text-2xl mb-2 text-center block">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center mx-auto"
+                placeholder="No se ha proporcionado una descripción" spellcheck="false" readonly><?= $orden['descripcion'] ?></textarea>
+        </div>
+
+        <div class="productos-container p-20">
+            <label class="font-semibold text-2xl pb-2 block text-center">Productos:</label>
+            <table class="w-full">
+                <tr>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre del producto</th>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
+                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
+                    <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                    <?php endif; ?>
+                    <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                        <?php if ($isPresidente || $isSecretario || $isContador) : ?>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                        <?php endif; ?>
+                        <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </tr>
+
+                <?php 
+                    $totalPrecioEstimado = 0;
+                    foreach ($productos as $producto) { 
+                        $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
+                        $precio_multiplicado = $producto['precio_estimado'] * $producto['cantidad']; ?>
+                    <tr class="producto-clone">
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="total_producto[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="<?= $producto['nombre'] ?>">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="total_producto[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="$<?= $producto['precio_estimado'] ?>">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="total_producto[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="<?= $producto['cantidad'] ?>">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="total_producto[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="$<?= $precio_multiplicado ?>">
+                            </div>
+                        </td>
+                        <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre[]"
-                                        class="mt-1 p-2 w-full border rounded-md readonly-input"
-                                        readonly placeholder=<?= $solicitante->cedula ?>>
+                                    <input type="text" name="nro_rubro[]"
+                                        class="text-center mt-1 p-2 w-full border rounded-md" placeholder=""
+                                        oninput="updateRubro(this)">
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="precio_estimado[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $solicitante->nombres ?>>
+                                    <input type="text" name="rubro[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="">
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="cant_producto[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $solicitante->apellidos ?>>
+                                    <input type="text" name="saldo_rubro[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="">
                                 </div>
                             </td>
-                        </tr>
-                       
-                        <!-- Puedes agregar más filas según sea necesario -->
-                        
-                    </table>
-                </div>
-
-                <div class="descripcion-container">
-                    <label class="font-semibold block text-2xl mb-2 text-center" for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center mx-auto"
-                        placeholder="No se ha proporcionado una descripción" spellcheck="false" readonly><?= $orden['descripcion'] ?></textarea>
-                </div>
-
-                <div class="inputs-container">
-                      
-                    <label class="font-semibold block text-2xl pt-10 mb-2 text-center" for="posibles_proveedores">Productos:</label>
-
-                    <table class="w-full">
-                        <tr>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre del producto</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
-                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
-                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
-                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
-                            <?php endif; ?>
-                            <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                                <?php if ($isPresidente || $isSecretario || $isContador) : ?>
-                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
-                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
-                                <?php endif; ?>
-                                <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
-                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </tr>
-
-                    <?php 
-                        $totalPrecioEstimado = 0;
-                        foreach ($productos as $producto) { 
-                            $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
-                            $precio_multiplicado = $producto['precio_estimado'] * $producto['cantidad']; ?>
-                        <tr class="producto-clone">
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre[]"
-                                        class="mt-1 p-2 w-full border rounded-md readonly-input"
-                                        readonly placeholder=<?= $producto['nombre'] ?>>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="number" name="precio_estimado[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $producto['precio_estimado'] ?>>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="cant_producto[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $producto['cantidad'] ?>>
-                                </div>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="total_producto[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $precio_multiplicado ?>>
-                                </div>
-                            </td>
-                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                                <td class="text-center">
-                                    <div class="input-wrapper">
-                                        <input type="text" name="nro_rubro[]"
-                                            class="mt-1 p-2 w-full border rounded-md" placeholder="">
-                                    </div>
-                                </td>
+                        <?php endif; ?>
+                        <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                            <?php if ($isPresidente || $isSecretario || $isContador) : ?>
                                 <td class="text-center">
                                     <div class="input-wrapper">
                                         <input type="text" name="rubro[]"
@@ -200,56 +221,32 @@
                                     </div>
                                 </td>
                             <?php endif; ?>
-                            <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                                <?php if ($isPresidente || $isSecretario || $isContador) : ?>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="rubro[]"
-                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="saldo_rubro[]"
-                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
-                                <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="rubro[]"
-                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
+                            <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="rubro[]"
+                                            class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                    </div>
+                                </td>
                             <?php endif; ?>
-                            
-                        </tr>
-                    <?php } ?>
-                       
-                        <!-- Puedes agregar más filas según sea necesario -->
-                        
-                    </table>
-                </div>
-    
-    
-    
-                <div class="mt-4 text-center">
-                    <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                        <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Detalle Proveedores</button>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
 
-                    <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Posibles Proveedores</button>
-                    
-                    <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                        <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Observaciones</button>
-                    <?php endif; ?>   
-                </div>
-                
-         <!--</form>--> 
-    
+        <div class="mt-0 text-center">
+            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Detalle Proveedores</button>
+            <?php endif; ?>
+            <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Posibles Proveedores</button>
+            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Observaciones</button>
+            <?php endif; ?>
+        </div>
     </div>
+</div>
+
     
 <!-- Modal de Posibles Proveedores -->
 <div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
@@ -352,6 +349,28 @@
     
 
             <script>
+                    var rubros = <?= json_encode($rubros); ?>;
+
+
+                    function updateRubro(input) {
+        var nroRubro = input.value;
+        var row = input.closest('tr'); // Encuentra la fila actual
+        var rubroField = row.querySelector('input[name="rubro[]"]');
+        var saldoRubroField = row.querySelector('input[name="saldo_rubro[]"]');
+
+        // Buscar el rubro correspondiente en el array de rubros
+        var matchingRubro = rubros.find(function (rubro) {
+            return rubro.codigo === nroRubro;
+        });
+
+        if (matchingRubro) {
+            rubroField.value = matchingRubro.nombre;
+            saldoRubroField.value = "$" + matchingRubro.saldo;
+        } else {
+            rubroField.value = 'No existe ese rubro';
+            saldoRubroField.value = '-----';
+        }
+    }
 
                 // Obtén todos los botones de cierre con la clase "modal-close-btn"
     const closeModalBtns = document.querySelectorAll('.modal-close-btn');
