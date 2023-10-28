@@ -33,19 +33,3 @@
             </div>
         </div>
     </nav>
-<p style="display: inline-block">Roles: </p> <!-- Cosas para que el bombero testee -->
-<?php if ($isAdmin) : ?>
-    <p style="display: inline-block">-Administrador</p>
-<?php endif; ?>
-<?php if ($isFuncionario) : ?>
-    <p style="display: inline-block">-Funcionario</p>
-<?php endif; ?>
-<?php if ($isContador) : ?>
-    <p style="display: inline-block">-Contador</p>
-<?php endif; ?>
-<?php if ($isPresidente) : ?>
-    <p style="display: inline-block">-Presidente</p>
-<?php endif; ?>
-<?php if ($isSecretario) : ?>
-    <p style="display: inline-block">-Secretario</p>
-<?php endif; ?>

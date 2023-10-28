@@ -74,7 +74,7 @@
     <div class="bg-gray-100 p-4 pt-8">
     <?= csrf_field() ?>
     <div class="page-container bg-gray-200 p-4 pt-8">
-        <h1 class="text-3xl font-semibold mb-4 text-center">Detalle Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
+        <h1 class="text-3xl font-semibold mb-4 text-center">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
 
         <div class="solicitante-container p-4">
             <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
@@ -109,8 +109,12 @@
 
         <div class="descripcion-container p-1">
             <label class="font-semibold text-2xl mb-2 text-center block">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center mx-auto"
-                placeholder="No se ha proporcionado una descripción" spellcheck="false" readonly><?= $orden['descripcion'] ?></textarea>
+            <div class="flex justify-center items-center"> <!-- El div que centra el contenido verticalmente -->
+                <div class="w-1/2"> <!-- Este div tiene un ancho definido del 50% del ancho del contenedor padre -->
+                    <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center"
+                        style="background: transparent;" placeholder="No se ha proporcionado una descripción" spellcheck="false" readonly><?= $orden['descripcion'] ?></textarea>
+                </div>
+            </div>
         </div>
 
         <div class="productos-container p-20">
