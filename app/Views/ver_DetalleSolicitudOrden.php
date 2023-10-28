@@ -11,7 +11,8 @@
         .inputs-container {
             max-height: 270px;
             overflow-y: auto;
-            margin-top: 2rem;
+            margin-top: 60px;
+            margin-bottom: 10px;
             position: relative;
         }
 
@@ -25,10 +26,13 @@
             min-height: 100vh;
         }
 
+        
         textarea[readonly] {
             border: 1px solid #ccc;
-            background-color: #f8f9fa;
             color: #495057;
+            border:none;
+            height: 160px;
+            
         }
 
         .proveedores-container {
@@ -39,11 +43,12 @@
 
         .proveedores-textarea {
             width: 700px; /* Ancho del textarea (ajustado según tus necesidades) */
-            height: 300px; /* Altura del textarea (ajustado según tus necesidades) */
+            height: 300px!important; /* Altura del textarea (ajustado según tus necesidades) */
             padding: 20px; /* Espaciado interno del textarea */
             resize: none; /* Evitar que el textarea sea redimensionable por el usuario */
             overflow-y: auto; /* Mostrar barra de desplazamiento solo cuando sea necesario */
         }
+        
     
 
 
@@ -70,10 +75,51 @@
             <div class="page-container bg-gray-200 p-4 pt-8">
                 <h1 class="text-2xl font-semibold mb-4 text-center">Detalle Solicitud de Orden de Compra Nº "nro orden"</h1>
 
+                
+
+                <div class="inputs-container">
+                    
+                    <label class="font-semibold block text-2xl text-center pt-2 mb-4" for="descripcion">Solicitante:</label>
+                    
+                    <table class="w-full">
+                        <tr>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Apellido</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cedula</th>
+                        </tr>
+
+                        
+                        <tr class="producto-clone">
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre[]"
+                                        class="mt-1 p-2 w-full border rounded-md readonly-input"
+                                        readonly placeholder="Producto 1">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="precio_estimado[]"
+                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder="aaaaaaaaaa">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="cant_producto[]"
+                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder="aaaaaaaaaaa">
+                                </div>
+                            </td>
+                        </tr>
+                       
+                        <!-- Puedes agregar más filas según sea necesario -->
+                        
+                    </table>
+                </div>
+
                 <div class="descripcion-container">
                     <label class="font-semibold block text-2xl mb-2 text-center" for="descripcion">Descripción:</label>
                     <textarea id="descripcion" name="descripcion"
-                        class="border-2 p-4 rounded w-full resize-none text-base readonly-input"
+                        class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200"
                         placeholder="Lorem ipsum dolor sit amet..." spellcheck="false" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis elementum efficitur. Nam sodales nisl lectus, id rutrum nulla dapibus eget. Phasellus imperdiet est sed nibh consectetur, molestie mollis metus pulvinar. Proin rutrum at nibh vel venenatis. Suspendisse eget eros sollicitudin sapien sagittis iaculis a nec libero. Fusce consectetur fringilla turpis ut pretium. Donec hendrerit finibus velit vitae tincidunt. Nullam porta, sapien sed ornare vestibulum, metus mauris suscipit erat, sed vehicula mi eros eget risus.
 
 Maecenas bibendum vitae turpis ac mattis. Sed congue velit sed magna ornare, et vestibulum orci sagittis. Donec non lacus eget felis elementum sollicitudin eget ac arcu. Nam a tortor sit amet tortor mollis pretium at ut sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales, dolor at hendrerit volutpat, justo enim congue tortor, et luctus metus turpis nec elit. Donec vitae hendrerit lectus. Integer pellentesque lorem nec metus bibendum imperdiet.
@@ -86,9 +132,12 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
                 </div>
 
 
-                <label class="font-semibold block text-2xl mb-2 text-center" for="posibles_proveedores">Productos:</label>
+              
                 
                 <div class="inputs-container">
+                      
+                    <label class="font-semibold block text-2xl pt-10 mb-2 text-center" for="posibles_proveedores">Productos:</label>
+
                     <table class="w-full">
                         <tr>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre del producto</th>
