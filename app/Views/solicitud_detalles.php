@@ -71,10 +71,10 @@
     <?= view('layout/navbar') ?>
 </header>
 <body class="bg-gray-100">
-    <div class="bg-gray-100 p-4 pt-8">
+    <div class="bg-gray-100 p-2">
     <?= csrf_field() ?>
     <div class="page-container bg-gray-200 p-4 pt-8">
-        <h1 class="text-3xl font-semibold mb-4 text-center">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
+        <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
 
         <div class="solicitante-container p-4">
             <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
@@ -240,10 +240,10 @@
         </div>
 
         <div class="mt-0 text-center">
+            <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Posibles Proveedores</button>
             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                 <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Detalle Proveedores</button>
             <?php endif; ?>
-            <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Posibles Proveedores</button>
             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                 <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Observaciones</button>
             <?php endif; ?>
@@ -253,21 +253,22 @@
 
     
 <!-- Modal de Posibles Proveedores -->
-<div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="modal-content bg-white p-8 rounded shadow-lg">
+<div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="modal-content bg-white p-4 rounded shadow-lg w-1/2 mx-auto my-16"> <!-- Añadimos my-16 para centrar verticalmente -->
         <h2 class="text-xl font-semibold mb-4 text-center">Posibles proveedores</h2>
         <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
             placeholder="" spellcheck="false" readonly><?= $orden['posibles_proveedores'] ?></textarea>
-        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+        <button class="modal-close-btn bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
     </div>
 </div>
 
 <!-- Modal de Observaciones -->
-<div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="modal-content bg-white p-8 rounded shadow-lg">
-        <h2 class="text-xl font-semibold mb-4 text-center">Título del Modal</h2>
-        <textarea id="observacionesTextArea" class="modal-textarea"></textarea>
-        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+<div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="modal-content bg-white p-4 rounded shadow-lg w-1/2 mx-auto my-16"> <!-- Añadimos my-16 para centrar verticalmente -->
+        <h2 class="text-xl font-semibold mb-4 text-center">Observaciones del contador</h2>
+        <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
+            placeholder="" spellcheck="false" readonly></textarea>
+        <button class="modal-close-btn bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
     </div>
 </div>
 
