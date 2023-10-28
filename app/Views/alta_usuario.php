@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100">
 <div class="bg-gray-100 h-screen flex justify-center items-center">
-<div class="bg-white p-8 rounded shadow-md w-4/5 mx-auto text-center">
+<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center">
 
             <h2 class="text-2xl font-bold mb-6"><?= lang('Auth.register') ?></h2>
 

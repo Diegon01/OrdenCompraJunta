@@ -34,26 +34,27 @@
             height: 160px;
             
         }
-
-        .proveedores-container {
-            display: flex;
-            justify-content: center;
-            gap: 300px; /* Espacio de separación entre los textareas */
-        }
-
-        .proveedores-textarea {
-            width: 700px; /* Ancho del textarea (ajustado según tus necesidades) */
-            height: 300px!important; /* Altura del textarea (ajustado según tus necesidades) */
-            padding: 20px; /* Espaciado interno del textarea */
-            resize: none; /* Evitar que el textarea sea redimensionable por el usuario */
-            overflow-y: auto; /* Mostrar barra de desplazamiento solo cuando sea necesario */
-        }
-        
-    
+        .modal-textarea {
+    width: 60%;
+    height: 40%;
+    margin: 0 auto; /* Centra horizontalmente */
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
 
-       
-        
+
+/* Estilo para el botón de cerrar */
+.modal-close-btn {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
         .modal {
             display: none;
         }
@@ -69,10 +70,10 @@
 </head>
 
 <body class="bg-gray-100">
-    <div class="bg-gray-100 p-4 pt-8">
+    <div class="p-4 pt-8">
         <!--<form action="/alta-orden" method="POST" class="max-w-6x1 mx-auto bg-white p-4 rounded-md shadow-md">-->
             <?= csrf_field() ?>
-            <div class="page-container bg-gray-200 p-4 pt-8">
+            <div class="page-container bg-white p-4 pt-8">
                 <h1 class="text-2xl font-semibold mb-4 text-center">Detalle Solicitud de Orden de Compra Nº "nro orden"</h1>
 
                 
@@ -119,7 +120,7 @@
                 <div class="descripcion-container">
                     <label class="font-semibold block text-2xl mb-2 text-center" for="descripcion">Descripción:</label>
                     <textarea id="descripcion" name="descripcion"
-                        class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200"
+                        class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-white"
                         placeholder="Lorem ipsum dolor sit amet..." spellcheck="false" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis elementum efficitur. Nam sodales nisl lectus, id rutrum nulla dapibus eget. Phasellus imperdiet est sed nibh consectetur, molestie mollis metus pulvinar. Proin rutrum at nibh vel venenatis. Suspendisse eget eros sollicitudin sapien sagittis iaculis a nec libero. Fusce consectetur fringilla turpis ut pretium. Donec hendrerit finibus velit vitae tincidunt. Nullam porta, sapien sed ornare vestibulum, metus mauris suscipit erat, sed vehicula mi eros eget risus.
 
 Maecenas bibendum vitae turpis ac mattis. Sed congue velit sed magna ornare, et vestibulum orci sagittis. Donec non lacus eget felis elementum sollicitudin eget ac arcu. Nam a tortor sit amet tortor mollis pretium at ut sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales, dolor at hendrerit volutpat, justo enim congue tortor, et luctus metus turpis nec elit. Donec vitae hendrerit lectus. Integer pellentesque lorem nec metus bibendum imperdiet.
@@ -201,42 +202,40 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
                 </div>
     
     
-    
-                <div class="proveedores-container">
-        <div>
-            <label class="font-semibold block text-2xl mb-2 text-center pt-10" for="posibles_proveedores_izquierda">Posibles Proveedores:</label>
-            <div class="descripcion-container">
-                <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-                    placeholder="" spellcheck="false" readonly>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis elementum efficitur. Nam sodales nisl lectus, id rutrum nulla dapibus eget. Phasellus imperdiet est sed nibh consectetur, molestie mollis metus pulvinar. Proin rutrum at nibh vel venenatis. Suspendisse eget eros sollicitudin sapien sagittis iaculis a nec libero. Fusce consectetur fringilla turpis ut pretium. Donec hendrerit finibus velit vitae tincidunt. Nullam porta, sapien sed ornare vestibulum, metus mauris suscipit erat, sed vehicula mi eros eget risus.
 
-Maecenas bibendum vitae turpis ac mattis. Sed congue velit sed magna ornare, et vestibulum orci sagittis. Donec non lacus eget felis elementum sollicitudin eget ac arcu. Nam a tortor sit amet tortor mollis pretium at ut sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales, dolor at hendrerit volutpat, justo enim congue tortor, et luctus metus turpis nec elit. Donec vitae hendrerit lectus. Integer pellentesque lorem nec metus bibendum imperdiet.
-
-Nulla scelerisque nisl eu elit consectetur, ut vestibulum lectus tincidunt. Etiam orci lorem, bibendum at quam ut, fermentum ornare felis. Nullam risus mauris, egestas nec tortor ut, laoreet pharetra lacus. Mauris blandit pretium metus ornare vulputate. Morbi id commodo ipsum, vitae cursus sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam malesuada tincidunt ultrices.
-
-Nulla malesuada aliquam ligula, nec iaculis erat finibus sed. Phasellus sem justo, euismod at viverra quis, posuere et ante. Praesent egestas, nisi sed facilisis pharetra, neque velit hendrerit purus, vitae porta neque nisi ut nisi. Fusce sagittis ornare risus, mattis posuere urna mattis id. Cras a volutpat nisi. Curabitur in dui vel metus auctor venenatis. Phasellus consectetur leo et neque finibus, a luctus magna tincidunt. Donec quis suscipit enim. Praesent vitae massa vitae ligula vestibulum malesuada. Pellentesque blandit, massa non fringilla viverra, nulla sem tempor sapien, in blandit nibh lorem nec ex. Integer lorem metus, mollis in mollis convallis, bibendum vitae massa. Suspendisse commodo velit nisi, a dignissim leo porttitor vehicula.
-
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sit amet quam nulla. Cras finibus pulvinar tincidunt. Nam efficitur dictum erat eu auctor. Nullam ac efficitur ligula. Duis purus mauris, rutrum at ex vitae, viverra sagittis magna. Donec commodo molestie odio vitae commodo. </textarea>
-            </div>
-        </div>
-
-        <div>
-            <label class="font-semibold block text-2xl mb-2 text-center pt-10" for="posibles_proveedores_derecha">Observaciones:</label>
-            <div class="descripcion-container">
-                <textarea id="posibles_proveedores_derecha" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-                    placeholder="" spellcheck="false"></textarea>
-            </div>
-        </div>
-    </div>
+                
 
                 <div class="mt-4 text-center">
                     <button id="openModalBtn"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Detalle Proveedores</button>
+
+                    <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Posibles Proveedores</button>
+
+                    <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Observaciones</button>
                 </div>
                 
          <!--</form>--> 
     
     </div>
     
+<!-- Modal de Posibles Proveedores -->
+<div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="modal-content bg-white p-8 rounded shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-center">Título del Modal</h2>
+        <textarea id="posiblesProveedoresTextArea" class="modal-textarea"></textarea>
+        <button class="modal-close-btn">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal de Observaciones -->
+<div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="modal-content bg-white p-8 rounded shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-center">Título del Modal</h2>
+        <textarea id="observacionesTextArea" class="modal-textarea"></textarea>
+        <button class="modal-close-btn">Cerrar</button>
+    </div>
+</div>
+
     <!-- Modal -->
     <div id="myModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
         <div class="modal-content bg-white p-8 rounded shadow-lg"
@@ -327,6 +326,35 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
         // Agrega un event listener al botón para abrir el modal
         openModalBtn.addEventListener('click', function () {
             modal.style.display = 'block';
+        });
+
+        const openPosiblesProveedoresModalBtn = document.getElementById('openPosiblesProveedoresModalBtn');
+        const openObservacionesModalBtn = document.getElementById('openObservacionesModalBtn');
+
+        // Event listener para abrir el modal de Posibles Proveedores
+        openPosiblesProveedoresModalBtn.addEventListener('click', function () {
+            // Muestra el modal correspondiente (puedes modificar el contenido aquí)
+            // Por ejemplo, para mostrar el text area de Posibles Proveedores:
+            const posiblesProveedoresModal = document.getElementById('posiblesProveedoresModal');
+            posiblesProveedoresModal.style.display = 'block';
+        });
+
+        // Event listener para abrir el modal de Observaciones
+        openObservacionesModalBtn.addEventListener('click', function () {
+            // Muestra el modal correspondiente (puedes modificar el contenido aquí)
+            // Por ejemplo, para mostrar el text area de Observaciones:
+            const observacionesModal = document.getElementById('observacionesModal');
+            observacionesModal.style.display = 'block';
+        });
+
+        const closeModalBtns = document.querySelectorAll('.modal-close-btn');
+        const modals = document.querySelectorAll('.modal');
+
+        // Agrega un event listener a todos los botones de cerrar
+        closeModalBtns.forEach((btn, index) => {
+            btn.addEventListener('click', function () {
+                modals[index].style.display = 'none';
+            });
         });
 
         // Agrega un event listener al botón para cerrar el modal
