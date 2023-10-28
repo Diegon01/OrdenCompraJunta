@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\OrdenDeCompraModel;
+use App\Models\ProveedorModel;
 use App\Models\ProductoDeOrdenDeCompraModel;
 use CodeIgniter\Pager\Pager;
 use App\Models\UserModelo;
@@ -396,6 +397,9 @@ class Home extends BaseController
         $rubrosModel = new \App\Models\RubroModel();
         $rubros = $rubrosModel->findAll();
 
+        $proveedoresModel = new \App\Models\ProveedorModel();
+        $proveedores = $proveedoresModel->findAll();
+
         $solicitante_id = $orden['solicitante_id'];
         $userModel_orden = new \App\Models\UserModelo();
         $solicitante = $userModel_orden->find($solicitante_id);
@@ -410,6 +414,7 @@ class Home extends BaseController
             'productos' => $productos,
             'solicitante' => $solicitante,
             'rubros' => $rubros,
+            'proveedores' => $proveedores,
         ];
         return view('solicitud_detalles', $data);
     }    
