@@ -242,10 +242,10 @@
         <div class="mt-0 text-center">
             <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Posibles Proveedores</button>
             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Detalle Proveedores</button>
+                <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores</button>
             <?php endif; ?>
             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Observaciones</button>
+                <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
             <?php endif; ?>
         </div>
     </div>
@@ -274,12 +274,11 @@
 
     <!-- Modal -->
     <div id="myModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
-        <div class="modal-content bg-white p-8 rounded shadow-lg"
-            style="position: absolute; top: 50px; left: 50px; cursor: grab;">
+        <div class="modal-content bg-white p-4 rounded shadow-lg w-1/4 mx-auto my-16">
                   
             <!-- Barra de búsqueda -->
             <div class="flex mb-4">
-                <input type="text" id="searchInput" class="p-2 w-full border rounded" placeholder="Buscar...">
+                <input type="text" id="searchInput" class="p-2 w-1/2 item border rounded" placeholder="Buscar...">
                 <button id="searchButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded">Buscar</button>
             </div>
     
@@ -347,7 +346,7 @@
          </form>
     </div>
                     <button id="closeModalBtn"
-                        class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar Detalle</button>
+                        class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
                 </div>
             </div>
     
