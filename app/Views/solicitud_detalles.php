@@ -134,9 +134,20 @@
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
-                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
+                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                            <?php endif; ?>
+                            <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                                <?php if ($isPresidente || $isSecretario || $isContador) : ?>
+                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                                <?php endif; ?>
+                                <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
+                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </tr>
 
                     <?php 
@@ -169,24 +180,50 @@
                                         class="mt-1 p-2 w-full border rounded-md" readonly placeholder=<?= $precio_multiplicado ?>>
                                 </div>
                             </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="nro_rubro[]"
-                                        class="mt-1 p-2 w-full border rounded-md" placeholder="">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="rubro[]"
-                                        class="mt-1 p-2 w-full border rounded-md" placeholder="">
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="saldo_rubro[]"
-                                        class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
-                                </div>
-                            </td>
+                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nro_rubro[]"
+                                            class="mt-1 p-2 w-full border rounded-md" placeholder="">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="rubro[]"
+                                            class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="saldo_rubro[]"
+                                            class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                    </div>
+                                </td>
+                            <?php endif; ?>
+                            <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                                <?php if ($isPresidente || $isSecretario || $isContador) : ?>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="rubro[]"
+                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="saldo_rubro[]"
+                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+                                <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="rubro[]"
+                                                class="mt-1 p-2 w-full border rounded-md" readonly placeholder="">
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+                            <?php endif; ?>
                             
                         </tr>
                     <?php } ?>
@@ -198,33 +235,41 @@
     
     
     
-                <div class="proveedores-container">
-                    <div>
-                        <label class="font-semibold block text-2xl mb-2 text-center pt-10" for="posibles_proveedores_izquierda">Posibles Proveedores:</label>
-                        <div class="descripcion-container">
-                            <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-                                placeholder="" spellcheck="false" readonly><?= $orden['posibles_proveedores'] ?></textarea>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="font-semibold block text-2xl mb-2 text-center pt-10" for="posibles_proveedores_derecha">Observaciones:</label>
-                        <div class="descripcion-container">
-                            <textarea id="posibles_proveedores_derecha" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-                                placeholder="" spellcheck="false"></textarea>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="mt-4 text-center">
-                    <button id="openModalBtn"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Detalle Proveedores</button>
+                    <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                        <button id="openModalBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Detalle Proveedores</button>
+                    <?php endif; ?>
+
+                    <button id="openPosiblesProveedoresModalBtn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Posibles Proveedores</button>
+                    
+                    <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                        <button id="openObservacionesModalBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Observaciones</button>
+                    <?php endif; ?>   
                 </div>
                 
          <!--</form>--> 
     
     </div>
     
+<!-- Modal de Posibles Proveedores -->
+<div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="modal-content bg-white p-8 rounded shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-center">Posibles proveedores</h2>
+        <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
+            placeholder="" spellcheck="false" readonly><?= $orden['posibles_proveedores'] ?></textarea>
+        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal de Observaciones -->
+<div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="modal-content bg-white p-8 rounded shadow-lg">
+        <h2 class="text-xl font-semibold mb-4 text-center">Título del Modal</h2>
+        <textarea id="observacionesTextArea" class="modal-textarea"></textarea>
+        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+    </div>
+</div>
+
     <!-- Modal -->
     <div id="myModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
         <div class="modal-content bg-white p-8 rounded shadow-lg"
@@ -300,40 +345,59 @@
          </form>
     </div>
                     <button id="closeModalBtn"
-                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar Detalle</button>
+                        class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar Detalle</button>
                 </div>
             </div>
     
     
 
-    <script>
-        // Obtén el botón para abrir el modal y el modal en sí
-        const openModalBtn = document.getElementById('openModalBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const modal = document.getElementById('myModal');
+            <script>
 
-        // Agrega un event listener al botón para abrir el modal
+                // Obtén todos los botones de cierre con la clase "modal-close-btn"
+    const closeModalBtns = document.querySelectorAll('.modal-close-btn');
+    const modals = document.querySelectorAll('.modal');
+
+    // Agrega un event listener a todos los botones de cerrar
+    closeModalBtns.forEach((btn, index) => {
+        btn.addEventListener('click', function () {
+            modals[index].style.display = 'none';
+        });
+    });
+    
+    // Obtén el botón para abrir el modal y el modal en sí
+    const openModalBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('myModal');
+
+    // Agrega un event listener al botón para abrir el modal si existe
+    if (openModalBtn) {
         openModalBtn.addEventListener('click', function () {
             modal.style.display = 'block';
         });
+    }
 
-        // Agrega un event listener al botón para cerrar el modal
-        closeModalBtn.addEventListener('click', function () {
-            modal.style.display = 'none';
+    const openPosiblesProveedoresModalBtn = document.getElementById('openPosiblesProveedoresModalBtn');
+    const openObservacionesModalBtn = document.getElementById('openObservacionesModalBtn');
 
-            const searchButton = document.getElementById('searchButton');
+    // Event listener para abrir el modal de Posibles Proveedores si existe
+    if (openPosiblesProveedoresModalBtn) {
+        openPosiblesProveedoresModalBtn.addEventListener('click', function () {
+            // Muestra el modal correspondiente (puedes modificar el contenido aquí)
+            // Por ejemplo, para mostrar el text area de Posibles Proveedores:
+            const posiblesProveedoresModal = document.getElementById('posiblesProveedoresModal');
+            posiblesProveedoresModal.style.display = 'block';
         });
+    }
 
-        searchButton.addEventListener('click', function () {
-            // Aquí puedes agregar la lógica para realizar la búsqueda
-            const searchTerm = document.getElementById('searchInput').value;
-            // Realiza la búsqueda con el término searchTerm
-            console.log('Realizar búsqueda con término:', searchTerm);
+    // Event listener para abrir el modal de Observaciones si existe
+    if (openObservacionesModalBtn) {
+        openObservacionesModalBtn.addEventListener('click', function () {
+            // Muestra el modal correspondiente (puedes modificar el contenido aquí)
+            // Por ejemplo, para mostrar el text area de Observaciones:
+            const observacionesModal = document.getElementById('observacionesModal');
+            observacionesModal.style.display = 'block';
         });
-        
-
-        
-    </script>
+    }
+</script>
 
 </body>
 
