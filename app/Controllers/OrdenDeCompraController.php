@@ -67,6 +67,16 @@ class OrdenDeCompraController extends BaseController
             $orderId = $this->request->getPost('order_id');
 
             $orderPresidente = $this->request->getPost('order_Presidente_Aprobado');
+
+            $rubros = $this->request->getPost();
+            foreach ($rubros['rubro'] as $rubro) {
+                //echo $rubro;
+            }
+
+            $selectedIDs = $this->request->getPost('selectedIDs'); // Recibir los IDs seleccionados desde el formulario
+            foreach ($selectedIDs as $selected) {
+                //echo $selected;
+            }
     
             // Load the OrdenDeCompraModel
             $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
@@ -77,18 +87,18 @@ class OrdenDeCompraController extends BaseController
             // Check if the order exists
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
-                $ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
+                //$ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
     
                 // Redirect to the "ordenes" route or any other destination as needed
-                return redirect()->to('/ordenes');
+                //return redirect()->to('/ordenes');
             } else {
                 // Handle the case where the order doesn't exist
-                return redirect()->to('/ordenes')->with('error', 'Order not found');
+                //return redirect()->to('/ordenes')->with('error', 'Order not found');
             }
         }
     
         // If the request is not POST, redirect to the "ordenes" route
-        return redirect()->to('/ordenes');
+        //return redirect()->to('/ordenes');
     }
 
     public function presidente_aprueba() {
