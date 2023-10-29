@@ -252,6 +252,7 @@
             <input type="hidden" name="selectedIDs[]" value="">
 
             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
+            <input type="hidden" name="lista_productos" value="<?= htmlspecialchars(json_encode($productos)); ?>">
             <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">
             <input type="hidden" name="order_Contador_Aprobado" value="<?= $orden['Contador_Aprobado'] ?>">
             <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">

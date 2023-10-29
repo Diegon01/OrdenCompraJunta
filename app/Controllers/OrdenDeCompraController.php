@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\Controller;
 use App\Models\OrdenDeCompraModel;
+use App\Models\OrdenProveedorModel;
+use App\Models\ProveedorModel;
 use App\Models\ProductoDeOrdenDeCompraModel;
 
 class OrdenDeCompraController extends BaseController
@@ -65,17 +67,30 @@ class OrdenDeCompraController extends BaseController
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
+            
+            $productos = json_decode($_POST['lista_productos'], true);
 
             $orderPresidente = $this->request->getPost('order_Presidente_Aprobado');
 
             $rubros = $this->request->getPost();
+
+            foreach ($productos as $producto) {
+                echo $producto;
+            }
+            
             foreach ($rubros['rubro'] as $rubro) {
-                //echo $rubro;
+                
             }
 
             $selectedIDs = $this->request->getPost('selectedIDs'); // Recibir los IDs seleccionados desde el formulario
             foreach ($selectedIDs as $selected) {
-                //echo $selected;
+                $datas = [
+                    'orden_id' => $orderId,
+                    'proveedor_id' => $selected,
+                ];
+
+                $enlaceModel = new \App\Models\OrdenProveedorModel();
+                $enlaceModel->insert($datas);
             }
     
             // Load the OrdenDeCompraModel
