@@ -68,29 +68,49 @@ class OrdenDeCompraController extends BaseController
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
             
-            $productos = json_decode($_POST['lista_productos'], true);
+            $productos = json_decode($this->request->getPost('lista_productos'), true);
 
             $orderPresidente = $this->request->getPost('order_Presidente_Aprobado');
 
-            $rubros = $this->request->getPost();
+            $productos = $this->request->getPost();
 
-            foreach ($productos as $producto) {
-                echo $producto;
-            }
-            
-            foreach ($rubros['rubro'] as $rubro) {
+            //echo 'Productos: <br>';
+            foreach ($productos['id_producto'] as $key => $id) {
+  
+                $productoModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+                $producto = $productoModel->find($id);
+                $producto['rubro_id'] = $productos['nro_rubro'][$key];
                 
+                if ($productoModel->save($producto)) {
+
+                } else {
+
+                }
             }
 
             $selectedIDs = $this->request->getPost('selectedIDs'); // Recibir los IDs seleccionados desde el formulario
-            foreach ($selectedIDs as $selected) {
-                $datas = [
-                    'orden_id' => $orderId,
-                    'proveedor_id' => $selected,
-                ];
 
-                $enlaceModel = new \App\Models\OrdenProveedorModel();
-                $enlaceModel->insert($datas);
+            foreach ($selectedIDs as $selected) {
+                
+
+                $selectedIDsArray = explode(',', $selected);
+
+                foreach ($selectedIDsArray as $finally) {
+                    $finallyAsInt = intval($finally);
+                    $orderAsInt = intval($orderId);
+
+                    $datas = [
+                        'proveedor_id' => $finallyAsInt,
+                        'orden_id' => $orderAsInt,
+                    ];
+
+                    $enlaceModel = new \App\Models\OrdenProveedorModel();
+                    $enlaceModel->insert($datas);
+                }
+
+                
+
+                
             }
     
             // Load the OrdenDeCompraModel
@@ -102,18 +122,18 @@ class OrdenDeCompraController extends BaseController
             // Check if the order exists
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
-                //$ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
+                $ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
     
                 // Redirect to the "ordenes" route or any other destination as needed
-                //return redirect()->to('/ordenes');
+                return redirect()->to('/ordenes');
             } else {
                 // Handle the case where the order doesn't exist
-                //return redirect()->to('/ordenes')->with('error', 'Order not found');
+                return redirect()->to('/ordenes')->with('error', 'Order not found');
             }
         }
     
         // If the request is not POST, redirect to the "ordenes" route
-        //return redirect()->to('/ordenes');
+        return redirect()->to('/ordenes');
     }
 
     public function presidente_aprueba() {

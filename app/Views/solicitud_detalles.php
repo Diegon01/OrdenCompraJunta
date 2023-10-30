@@ -156,40 +156,45 @@
                             $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
                             $precio_multiplicado = $producto['precio_estimado'] * $producto['cantidad']; ?>
                         <tr class="producto-clone">
+                            <input type="hidden" name="id_producto[]" value="<?= $producto['id'] ?>">
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="total_producto[]"
+                                    <input type="text" name="nombre_producto[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder="<?= $producto['nombre'] ?>">
+                                        placeholder="<?= $producto['nombre'] ?>"
+                                        value="<?= $producto['nombre'] ?>">
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="total_producto[]"
+                                    <input type="text" name="precio_producto[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder="$<?= $producto['precio_estimado'] ?>">
+                                        placeholder="$<?= $producto['precio_estimado'] ?>"
+                                        value="<?= $producto['precio_estimado'] ?>">
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="total_producto[]"
+                                    <input type="text" name="cantidad_producto[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder="<?= $producto['cantidad'] ?>">
+                                        placeholder="<?= $producto['cantidad'] ?>"
+                                        value="<?= $producto['cantidad'] ?>">
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="total_producto[]"
+                                    <input type="text" name="preciototal_producto[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder="$<?= $precio_multiplicado ?>">
+                                        placeholder="$<?= $precio_multiplicado ?>"
+                                        value="<?= $precio_multiplicado ?>">
                                 </div>
                             </td>
                             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
@@ -249,8 +254,8 @@
             </div>
 
             <div id="selectedIDsList"></div>
+            
             <input type="hidden" name="selectedIDs[]" value="">
-
             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
             <input type="hidden" name="lista_productos" value="<?= htmlspecialchars(json_encode($productos)); ?>">
             <input type="hidden" name="order_estado" value="<?= $orden['estado'] ?>">

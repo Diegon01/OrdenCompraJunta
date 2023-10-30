@@ -23,7 +23,7 @@ class AddOrdenProveedorTable extends Migration
         $this->forge->addKey(['proveedor_id', 'orden_id'], true);
         $this->forge->addForeignKey('proveedor_id', 'proveedores', 'id');
         $this->forge->addForeignKey('orden_id', 'ordenesdecompra', 'id');
-        $this->forge->createTable('Enlace_OrdenesProveedores');
+        $this->forge->createTable('Enlace_OrdenesProveedores', true);
     }
 
     public function down()

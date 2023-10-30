@@ -8,15 +8,13 @@ class OrdenProveedorModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'Enlace_OrdenesProveedores';
-    protected $primaryKey       = ['proveedor_id', 'orden_id']; // Clave principal compuesta
+    protected $primaryKey       = 'proveedor_id'; // Clave principal compuesta
     protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'proveedor_id', // Debes incluir las columnas que deseas acceder o modificar
-        'orden_id'
-    ];
+    protected $allowedFields = ['proveedor_id', 'orden_id']; // Define the allowed fields
+
     
     // Dates
     protected $useTimestamps = false;
@@ -41,4 +39,14 @@ class OrdenProveedorModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function proveedor()
+    {
+        return $this->belongsTo('App\Models\ProveedorModel', 'proveedor_id', 'id');
+    }
+
+    public function ordendecompra()
+    {
+        return $this->belongsTo('App\Models\OrdenDeCompraModel', 'orden_id', 'id');
+    }
 }
