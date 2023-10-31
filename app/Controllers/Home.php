@@ -7,6 +7,7 @@ use App\Models\ProductoDeOrdenDeCompraModel;
 use CodeIgniter\Pager\Pager;
 use App\Models\UserModelo;
 use App\Models\RubroModel;
+use App\Models\OrdenProveedorModel;
 
 class Home extends BaseController
 {
@@ -394,6 +395,9 @@ class Home extends BaseController
         $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
         $productos = $productoOrdenCompraModel->where('orden_id', $orden_id)->findAll();
 
+        $enlaceModel = new \App\Models\OrdenProveedorModel();
+        $enlaces = $enlaceModel->where('orden_id', $orden_id)->findAll();
+
         $rubrosModel = new \App\Models\RubroModel();
         $rubros = $rubrosModel->findAll();
 
@@ -415,6 +419,7 @@ class Home extends BaseController
             'solicitante' => $solicitante,
             'rubros' => $rubros,
             'proveedores' => $proveedores,
+            'enlaces' => $enlaces,
         ];
         return view('solicitud_detalles', $data);
     }    

@@ -305,25 +305,25 @@
                                             }
                                         }
                                     ?>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="rubro[]"
-                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                                style="background: transparent;"
-                                                readonly
-                                                placeholder="<?= $nombre ?>"
-                                                value="<?= $nombre ?>">
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="saldo_rubro[]"
-                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                                style="background: transparent;"
-                                                readonly
-                                                placeholder="<?= $saldo ?>">
-                                        </div>
-                                    </td>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="rubro[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder="<?= $nombre ?>"
+                                                    value="<?= $nombre ?>">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="saldo_rubro[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder="<?= $saldo ?>">
+                                            </div>
+                                        </td>
                                     <?php endif; ?>
                                     <?php if (!$isPresidente && !$isSecretario && !$isContador) : 
                                         $saldo = '';
@@ -337,15 +337,15 @@
                                         }
                                     ?>
                                         <td class="text-center">
-                                        <div class="input-wrapper">
-                                            <input type="text" name="rubro[]"
-                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                                style="background: transparent;"
-                                                readonly
-                                                placeholder="<?= $nombre ?>"
-                                                value="<?= $nombre ?>">
-                                        </div>
-                                    </td>
+                                            <div class="input-wrapper">
+                                                <input type="text" name="rubro[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder="<?= $nombre ?>"
+                                                    value="<?= $nombre ?>">
+                                            </div>
+                                        </td>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </tr>
@@ -353,6 +353,124 @@
                     </table>
                 </div>
 
+                <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                    <div class="productos-container p-0">
+                    <label class="font-semibold text-2xl pb-2 block text-center">Proveedores asociados:</label>
+                    <table class="w-full">
+                        <tr>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Empresa estatal</th>
+
+                        </tr>
+                    <?php foreach ($enlaces as $enlace) { ?>
+                        <?php foreach ($proveedores as $proveedor) { ?>
+                            <?php if ($enlace['proveedor_id'] === $proveedor['id']) : ?>
+                                <tr class="producto-clone">
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_producto[]"
+                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                style="background: transparent;"
+                                                readonly
+                                                placeholder=""
+                                                value="<?= $proveedor['RUT'] ?>">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_producto[]"
+                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                style="background: transparent;"
+                                                readonly
+                                                placeholder=""
+                                                value="<?= $proveedor['nombre'] ?>">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_producto[]"
+                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                style="background: transparent;"
+                                                readonly
+                                                placeholder=""
+                                                value="<?= $proveedor['numero_de_contacto'] ?>">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_producto[]"
+                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                style="background: transparent;"
+                                                readonly
+                                                placeholder=""
+                                                value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_dgi'])) ?>">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-wrapper">
+                                            <input type="text" name="nombre_producto[]"
+                                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                style="background: transparent;"
+                                                readonly
+                                                placeholder=""
+                                                value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_bps'])) ?>">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php if ($proveedor['rupe']) : ?>
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Sí">
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!$proveedor['rupe']) : ?>
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="No">
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php if ($proveedor['empresa_del_estado']) : ?>
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Sí">
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!$proveedor['empresa_del_estado']) : ?>
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="No">
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                    <?php }} ?>
+                    </table>
+                <?php endif; ?>
+                
                 <div id="selectedIDsList"></div>
                 
                 <input type="hidden" name="selectedIDs[]" value="">
@@ -364,7 +482,9 @@
             
 
             <div class="mt-0 text-center">
-                <button id="openPosiblesProveedoresModalBtn" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                    <button id="openPosiblesProveedoresModalBtn" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
+                <?php endif; ?>
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Asignar proveedor</button>
                 <?php endif; ?>
@@ -378,6 +498,19 @@
                 <?php endif; ?>
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="rechazarBtn" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                <?php endif; ?>
+            </div>
+            <div class="mt-0 py-2 text-center">
+                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
+                <?php endif; ?>
+                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                    <button id="rechazarBtn_p" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                <?php endif; ?>
+            </div>
+            <div class="mt-0 py-2 text-center">
+                <?php if ($isSecretario && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '1' && $orden['Secretario_Aprobado'] === '0') : ?>
+                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Aprobar</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -497,6 +630,24 @@
         var formulario = document.querySelector('form');
         // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
         formulario.action = "/solicitud-rechaza";
+        // Realizar el envío del formulario
+        formulario.submit();
+    }
+
+    function enviarFormularioPresidente() {
+        // Obtener el formulario actual
+        var formulario = document.querySelector('form');
+        // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
+        formulario.action = "/presidente-aprueba";
+        // Realizar el envío del formulario
+        formulario.submit();
+    }
+
+    function enviarFormularioSecretario() {
+        // Obtener el formulario actual
+        var formulario = document.querySelector('form');
+        // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
+        formulario.action = "/secretario-aprueba";
         // Realizar el envío del formulario
         formulario.submit();
     }
