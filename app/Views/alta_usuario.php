@@ -61,7 +61,7 @@
 
                 <div class="mb-4">
                     <label for="cedula" class="block text-sm font-medium text-gray-600">Cedula:</label>
-                    <input type="text" id="cedula" name="cedula" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="<?= old('username') ?>" required />
+                    <input type="number" id="cedula" min="10000000" max="99999999" name="cedula" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="<?= old('username') ?>" required />
                 </div>
 
                 <!-- Password -->

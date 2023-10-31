@@ -88,21 +88,30 @@
             <!-- Botón de filtro -->
             <div class="mr-auto">
                 <div class="filtro-button" id="filtroButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2x000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                             d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </div>
             </div>
+            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" maring>Borrar Filtros</button>
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
 
             <!-- Barra de búsqueda -->
-            <div class="flex items-center">
+
+
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
                 <form action="<?= site_url('ordenes') ?>" method="get">
+                
                     <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1"
+                    
                         placeholder="Ingrese búsqueda...">
                         <button type="submit"></button>
+                        
                 </form>
             </div>
         </div>
@@ -115,10 +124,12 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?sort=newest') ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?sort=oldest') ?>" class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+
                         </label>
                     </div>
 
@@ -133,8 +144,14 @@
                         <label class="flex items-center">
                             <a href="<?= site_url('/ordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
                         </label>
+                     
+    <!-- ... (otros elementos) ... -->
+    <!-- Botón de Borrar Filtros -->
+    <br>
+   
                     </div>
                 </div>
+                
             </div>
         </div>
 
@@ -273,6 +290,19 @@
             // Submit the form when Enter is pressed
             document.getElementById('searchForm').submit();
         }
+    });
+    function borrarFiltros() {
+        // Eliminar el valor de búsqueda
+        document.getElementById('busqueda').value = '';
+
+        // Redirigir a la página de órdenes sin filtros
+        window.location.href = '<?= site_url('/ordenes') ?>';
+    }
+
+    // Agregar evento de clic al botón de Borrar Filtros
+    const borrarFiltrosButton = document.getElementById('borrarFiltros');
+    borrarFiltrosButton.addEventListener('click', function () {
+        borrarFiltros();
     });
 </script>
     

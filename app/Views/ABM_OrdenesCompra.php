@@ -107,10 +107,13 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Más Reciente
+                        <label class="flex items-center">
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+
                         </label>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Más Antigua
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+
                         </label>
                     </div>
 

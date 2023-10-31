@@ -42,7 +42,7 @@
             <!-- Campo RUT -->
             <div class="mb-4 flex items-center">
                 <label for="rut" class="block text-sm font-medium text-gray-600 w-[150px] text-left">RUT</label>
-                <input type="text" id="rut" name="rut" class="ml-2 mt-1 p-2 pr-5 w-full border rounded">
+                <input type="numer" min="100000000000" max="999999999999"id="rut" name="rut" class="ml-2 mt-1 p-2 pr-5 w-full border rounded">
             </div>
 
             <!-- Campo Número de Cuenta -->
