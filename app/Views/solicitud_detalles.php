@@ -353,9 +353,30 @@
                     </table>
                 </div>
 
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                    <div class="text-center">
+                        <input type="checkbox" id="esLicitacion" name="esLicitacion" value="1" class="form-check-input">
+                        <label for="esLicitacion" class="form-check-label">¿Es licitación?</label>
+                    </div>
+                    <br>
+                <?php endif; ?>
+
+                <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                    <div class="text-center">
+                        <?php if ($orden['licitacion'] === '0') : ?>
+                            NO ES LICITACIÓN
+                        <?php endif; ?>
+                        <?php if ($orden['licitacion'] === '1') : ?>
+                            ES LICITACIÓN
+                        <?php endif; ?>
+                    </div>
+                    <br>
+                <?php endif; ?>
+
+
                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                     <div class="productos-container p-0">
-                    <label class="font-semibold text-2xl pb-2 block text-center">Proveedores asociados:</label>
+                    <label class="font-semibold text-2xl pb-2 block text-center">Posibles proveedores:</label>
                     <table class="w-full">
                         <tr>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>

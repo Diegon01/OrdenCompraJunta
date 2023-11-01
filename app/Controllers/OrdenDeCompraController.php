@@ -67,6 +67,8 @@ class OrdenDeCompraController extends BaseController
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
+
+            $esLicitacion = $this->request->getPost('esLicitacion');
             
             $productos = json_decode($this->request->getPost('lista_productos'), true);
 
@@ -123,6 +125,14 @@ class OrdenDeCompraController extends BaseController
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
+
+                if ($esLicitacion === '1') {
+                    $ordenCompraModel->update($orderId, ['licitacion' => 1]);
+                }
+
+                if ($esLicitacion === '0' || $esLicitacion == null) {
+                    $ordenCompraModel->update($orderId, ['licitacion' => 0]);
+                }
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');
