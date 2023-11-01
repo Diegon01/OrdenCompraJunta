@@ -153,6 +153,8 @@ class OrdenDeCompraController extends BaseController
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
             $orderContador = $this->request->getPost('order_Contador_Aprobado');
+            $esLicitacion = $this->request->getPost('esLicitacion');
+
     
             // Load the OrdenDeCompraModel
             $ordenCompraModel = new \App\Models\OrdenDeCompraModel();

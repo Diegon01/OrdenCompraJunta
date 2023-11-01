@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Órdenes de Compra</title>
+    <title>Solicitudes de compra</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Estilos para el modal de filtros */
@@ -226,11 +226,25 @@
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
                                         <?php endif; ?>
                                     <?php endif; ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
                             <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
+                            <?php if ($isContador && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                                <br>
+                                <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar ofertas</a>
+                            <?php endif; ?>
+                            <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                                <br>
+                                <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

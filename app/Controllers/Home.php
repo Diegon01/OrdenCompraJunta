@@ -121,6 +121,7 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
          // Cargar el modelo
          $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
 
@@ -212,6 +213,7 @@ class Home extends BaseController
              'isContador' => $isContador,
              'isPresidente' => $isPresidente,
              'isSecretario' => $isSecretario,
+             'currentUserId' => $currentUserId,
          ];
  
          return view('ABM_SolicitudesCompra', $data);
@@ -322,26 +324,10 @@ class Home extends BaseController
              'isContador' => $isContador,
              'isPresidente' => $isPresidente,
              'isSecretario' => $isSecretario,
+             'currentUserId' => $currentUserId,
          ];
  
          return view('ABM_SolicitudesPropias', $data);
-    }
-    public function a(): string 
-    {
-        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
-        $isAdmin = $userModelo->isAdmin();
-        $isFuncionario = $userModelo->isFuncionario();
-        $isContador = $userModelo->isContador();
-        $isPresidente = $userModelo->isPresidente();
-        $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('a', $data);
     }
     public function rubro_crear(): string 
     {
@@ -422,5 +408,23 @@ class Home extends BaseController
             'enlaces' => $enlaces,
         ];
         return view('solicitud_detalles', $data);
-    }    
+    }
+    
+    public function ingresar_ofertas($orden_id): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+        ];
+        return view('ingresar_ofertas', $data);
+    } 
 }

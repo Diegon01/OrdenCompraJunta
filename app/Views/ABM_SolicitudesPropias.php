@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Órdenes de Compra</title>
+    <title>Mis solicitudes</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Estilos para el modal de filtros */
@@ -70,7 +70,7 @@
         .description-cell {
         max-width: 500px; /* Adjust the maximum height as needed */
         overflow: auto;
-        }
+    }
     </style>
 </head>
 
@@ -81,7 +81,7 @@
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <!-- Título de la tabla y barra de búsqueda -->
-            <div class="flex justify-between items-start">
+        <div class="flex justify-between items-start">
                 <!-- Texto a la izquierda -->
                 <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
                 
@@ -96,28 +96,36 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- ... Resto de tu contenido ... -->
+
         <!-- Contenedor para filtro y búsqueda -->
         <div class="w-full bg-white border border-gray-300 rounded-t-lg p-4 mb-4 flex flex-col lg:flex-row items-center relative">
             <!-- Botón de filtro -->
             <div class="mr-auto">
                 <div class="filtro-button" id="filtroButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2x000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                             d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </div>
             </div>
+            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" maring>Borrar Filtros</button>
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
 
             <!-- Barra de búsqueda -->
-            <div class="flex items-center">
+
+
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
-                <form action="<?= site_url('misordenes') ?>" method="get">
+                <form action="<?= site_url('ordenes') ?>" method="get">
+                
                     <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1"
+                    
                         placeholder="Ingrese búsqueda...">
                         <button type="submit"></button>
+                        
                 </form>
             </div>
         </div>
@@ -130,26 +138,34 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/misordenes?sort=newest') ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/misordenes?sort=oldest') ?>" class="btn-filter text-blue-500" id="btnMasAntigua">Más Antigua</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+
                         </label>
                     </div>
 
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/misordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
+                            <a href="<?= site_url('/ordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/misordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
+                            <a href="<?= site_url('/ordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/misordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
+                            <a href="<?= site_url('/ordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
                         </label>
+                     
+    <!-- ... (otros elementos) ... -->
+    <!-- Botón de Borrar Filtros -->
+    <br>
+   
                     </div>
                 </div>
+                
             </div>
         </div>
 
@@ -206,25 +222,43 @@
                                 <?php if ($orden['estado'] === 'Aceptada'): ?>
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
-                                    <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                    <?php if ($orden['Presidente_Autorizado'] === '0') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de autorización</span>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Presidente_Autorizado'] === '1') : ?>
+                                        <?php if ($orden['Secretario_Aprobado'] === '0') : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de secretario</span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Secretario_Aprobado'] === '1') : ?>
+                                        <?php if ($orden['Contador_Aprobado'] === '0') : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
-                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente presidente</span>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
                                         <?php endif; ?>
-                                        <?php if ($orden['Presidente_Aprobado'] === '1') : ?>
-                                            <?php if ($orden['Secretario_Aprobado'] === '0') : ?>
-                                                <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente secretario</span>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
-                            <!-- Botones de acciones -->
                             <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
+                            <?php if ($isContador && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                                <br>
+                                <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ingresar ofertas</a>
+                            <?php endif; ?>
+                            <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                                <br>
+                                <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -278,6 +312,32 @@
             positionModal();
         });
     </script>
+
+<script>
+    // Get the search input field
+    const searchInput = document.getElementById('busqueda');
+
+    // Listen for the Enter key press
+    searchInput.addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') {
+            // Submit the form when Enter is pressed
+            document.getElementById('searchForm').submit();
+        }
+    });
+    function borrarFiltros() {
+        // Eliminar el valor de búsqueda
+        document.getElementById('busqueda').value = '';
+
+        // Redirigir a la página de órdenes sin filtros
+        window.location.href = '<?= site_url('/ordenes') ?>';
+    }
+
+    // Agregar evento de clic al botón de Borrar Filtros
+    const borrarFiltrosButton = document.getElementById('borrarFiltros');
+    borrarFiltrosButton.addEventListener('click', function () {
+        borrarFiltros();
+    });
+</script>
     
 </body>
 
