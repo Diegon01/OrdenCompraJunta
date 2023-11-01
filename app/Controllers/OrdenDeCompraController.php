@@ -28,6 +28,7 @@ class OrdenDeCompraController extends BaseController
                 'Contador_Aprobado' => 0,
                 'Presidente_Aprobado' => 0,
                 'Secretario_Aprobado' => 0,
+                'Presidente_Autorizado' => 0,
             ];
 
             // Validar los datos si es necesario
@@ -163,6 +164,14 @@ class OrdenDeCompraController extends BaseController
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['Presidente_Aprobado' => 1]);
+
+                if ($esLicitacion === '1') {
+                    // PENDIENTE IMPLEMENTACION
+                }
+
+                if ($esLicitacion === '0') {
+                    // PENDIENTE IMPLEMENTACION
+                }
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');
@@ -193,7 +202,38 @@ class OrdenDeCompraController extends BaseController
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['Secretario_Aprobado' => 1]);
-                $ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+                //$ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+    
+                // Redirect to the "ordenes" route or any other destination as needed
+                return redirect()->to('/ordenes');
+            } else {
+                // Handle the case where the order doesn't exist
+                return redirect()->to('/ordenes')->with('error', 'Order not found');
+            }
+        }
+    
+        // If the request is not POST, redirect to the "ordenes" route
+        return redirect()->to('/ordenes');
+    }
+
+    public function presidente_autoriza() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            // Get the order ID from the POST data
+            $orderId = $this->request->getPost('order_id');
+            $orderContador = $this->request->getPost('order_Secretario_Aprobado');
+    
+            // Load the OrdenDeCompraModel
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+    
+            // Find the order by ID
+            $order = $ordenCompraModel->find($orderId);
+    
+            // Check if the order exists
+            if ($order) {
+                // Update the "Contador_Aprueba" column to 1
+                $ordenCompraModel->update($orderId, ['Presidente_Autorizado' => 1]);
+                //$ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');

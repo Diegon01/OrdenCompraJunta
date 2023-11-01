@@ -503,22 +503,32 @@
             
 
             <div class="mt-0 text-center">
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openPosiblesProveedoresModalBtn" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                     <button id="openModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Asignar proveedor</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                     <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
+                <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
+                    <button id="autorizarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioAutorizacion()">Autorizar</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
                     <button id="rechazarBtn" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                <?php endif; ?>
+            </div>
+            <div class="mt-0 py-2 text-center">
+                <?php if ($isSecretario && $orden['Presidente_Autorizado'] === '1' && $orden['Secretario_Aprobado'] === '0') : ?>
+                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Aprobar</button>
+                <?php endif; ?>
+            </div>
+            <div class="mt-0 py-2 text-center">
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                    <button id="aprobarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
@@ -527,11 +537,6 @@
                 <?php endif; ?>
                 <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
                     <button id="rechazarBtn_p" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
-                <?php endif; ?>
-            </div>
-            <div class="mt-0 py-2 text-center">
-                <?php if ($isSecretario && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '1' && $orden['Secretario_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Aprobar</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -651,6 +656,15 @@
         var formulario = document.querySelector('form');
         // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
         formulario.action = "/solicitud-rechaza";
+        // Realizar el envío del formulario
+        formulario.submit();
+    }
+
+    function enviarFormularioAutorizacion() {
+        // Obtener el formulario actual
+        var formulario = document.querySelector('form');
+        // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
+        formulario.action = "/presidente-autoriza";
         // Realizar el envío del formulario
         formulario.submit();
     }
