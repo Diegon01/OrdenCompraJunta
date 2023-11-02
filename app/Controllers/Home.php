@@ -418,12 +418,38 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+        $orden = $ordenCompraModel->find($orden_id);
+
+        $rubrosModel = new \App\Models\RubroModel();
+        $rubros = $rubrosModel->findAll();
+
+        $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+        $productos = $productoOrdenCompraModel->where('orden_id', $orden_id)->findAll();
+
+        $enlaceModel = new \App\Models\OrdenProveedorModel();
+        $enlaces = $enlaceModel->where('orden_id', $orden_id)->findAll();
+
+        $proveedoresModel = new \App\Models\ProveedorModel();
+        $proveedores = $proveedoresModel->findAll();
+
+        $solicitante_id = $orden['solicitante_id'];
+        $userModel_orden = new \App\Models\UserModelo();
+        $solicitante = $userModel_orden->find($solicitante_id);
+
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
+            'orden' => $orden,
+            'productos' => $productos,
+            'solicitante' => $solicitante,
+            'proveedores' => $proveedores,
+            'enlaces' => $enlaces,
+            'rubros' => $rubros,
         ];
         return view('ingresar_ofertas', $data);
     } 
