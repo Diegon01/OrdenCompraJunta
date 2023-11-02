@@ -175,6 +175,7 @@
             <!-- Encabezados de la tabla -->
             <thead>
                 <tr>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Nº</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Productos solicitados</th>
@@ -186,6 +187,7 @@
             <tbody>
                 <?php foreach ($ordenes as $orden): ?>
                     <tr>
+                        <td class="px-6 py-4 border-r text-center"><?= $orden['id'] ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
                         <td class="px-6 py-4 border-r text-center">

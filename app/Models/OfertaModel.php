@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class OfertaModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'ofertas';
+    protected $table            = 'ofertas_producto_proveedor';
     protected $primaryKey       = 'producto_id';
     protected $useAutoIncrement = false;
     protected $returnType       = 'array';

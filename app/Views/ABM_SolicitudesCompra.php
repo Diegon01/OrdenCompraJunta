@@ -161,6 +161,7 @@
             <!-- Encabezados de la tabla -->
             <thead>
                 <tr>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Nº</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Productos solicitados</th>
@@ -172,6 +173,7 @@
             <tbody>
                 <?php foreach ($ordenes as $orden): ?>
                     <tr>
+                        <td class="px-6 py-4 border-r text-center"><?= $orden['id'] ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
                         <td class="px-6 py-4 border-r text-center">
@@ -226,22 +228,25 @@
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
                                         <?php endif; ?>
                                     <?php endif; ?>
-                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
                                     <?php endif; ?>
-                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                                    <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                    <?php endif; ?>
+                                    <?php if ($orden['Ofertas_Ingresadas'] === '1') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
                             <a href="<?= site_url('/solicitud-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
-                            <?php if ($isContador && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1') : ?>
+                            <?php if ($isContador && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar ofertas</a>
                             <?php endif; ?>
-                            <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0') : ?>
+                            <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
                             <?php endif; ?>

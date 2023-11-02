@@ -203,7 +203,7 @@
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
-                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
@@ -266,7 +266,7 @@
                                             value="<?= $precio_multiplicado ?>">
                                     </div>
                                 </td>
-                                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                                     <td class="text-center">
                                         <div class="input-wrapper">
                                             <input type="text" name="nro_rubro[]"
@@ -353,7 +353,7 @@
                     </table>
                 </div>
 
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                     <div class="text-center">
                         <input type="checkbox" id="esLicitacion" name="esLicitacion" value="1" class="form-check-input">
                         <label for="esLicitacion" class="form-check-label">¿Es licitación?</label>
@@ -515,7 +515,7 @@
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
-                    <button id="autorizarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioAutorizacion()">Autorizar</button>
+                    <button id="autorizarBtn" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioAutorizacion()">Autorizar</button>
                 <?php endif; ?>
                 <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
                     <button id="rechazarBtn" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>

@@ -8,6 +8,7 @@ use App\Models\OrdenDeCompraModel;
 use App\Models\OrdenProveedorModel;
 use App\Models\ProveedorModel;
 use App\Models\ProductoDeOrdenDeCompraModel;
+use App\Models\OfertaModel;
 
 class OrdenDeCompraController extends BaseController
 {
@@ -29,6 +30,7 @@ class OrdenDeCompraController extends BaseController
                 'Presidente_Aprobado' => 0,
                 'Secretario_Aprobado' => 0,
                 'Presidente_Autorizado' => 0,
+                'Ofertas_Ingresadas' => 0,
             ];
 
             // Validar los datos si es necesario
@@ -278,4 +280,46 @@ class OrdenDeCompraController extends BaseController
         // If the request is not POST, redirect to the "ordenes" route
         return redirect()->to('/ordenes');
     }
+
+    public function ingreso_oferta() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            $orderId = $this->request->getPost('order_id');
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+            $order = $ordenCompraModel->find($orderId);
+            
+            $proveedores = $this->request->getPost('id_proveedor');
+
+            $ofertas = $this->request->getPost('id_producto');
+
+            $precio_ofertado = $this->request->getPost('precio_producto');
+
+            $notas = $this->request->getPost('notas_producto');
+
+            foreach ($ofertas as $key => $idProducto) {
+                $productoModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+                $producto = $productoModel->find($idProducto);
+
+                $proveedorModel = new \App\Models\ProveedorModel();
+                $proveedor = $proveedorModel->find($proveedores[$key]);
+
+                $datas = [
+                    'producto_id' => $producto['id'],
+                    'proveedor_id' => $proveedor['id'],
+                    'precio_oferta' => $precio_ofertado[$key],
+                    'notas' => $notas[$key],
+                ];
+
+                $ofertaModel = new \App\Models\OfertaModel();
+                $ofertaModel->insert($datas);
+           }
+           $ordenCompraModel->update($orderId, ['Ofertas_Ingresadas' => '1']);
+            return redirect()->to('/ordenes');
+
+        }
+
+        return redirect()->to('/ordenes');
+
+    }
+
 }

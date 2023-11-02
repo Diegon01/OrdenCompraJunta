@@ -11,70 +11,8 @@
     <?= view('layout/navbar') ?>
 </header>
 <body class="bg-gray-100">
+    <form action="/ingreso-oferta" method="POST">
     <br><br>
-    <div class="productos-container p-20">
-        <label class="font-semibold text-2xl pb-2 block text-center">Productos solicitados:</label>
-        <table class="w-full">
-            <tr>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre del producto</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
-            </tr>
-
-            <?php 
-                $totalPrecioEstimado = 0;
-                foreach ($productos as $producto) { 
-                    $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
-                    $precio_multiplicado = $producto['precio_estimado'] * $producto['cantidad']; ?>
-                <tr class="producto-clone">
-                    <input type="hidden" name="id_producto[]" value="<?= $producto['id'] ?>">
-                    <td class="text-center">
-                        <div class="input-wrapper">
-                            <input type="text" name="nombre_producto[]"
-                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                style="background: transparent;"
-                                readonly
-                                placeholder="<?= $producto['nombre'] ?>"
-                                value="<?= $producto['nombre'] ?>">
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="input-wrapper">
-                            <input type="text" name="precio_producto[]"
-                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                style="background: transparent;"
-                                readonly
-                                placeholder="$<?= $producto['precio_estimado'] ?>"
-                                value="<?= $producto['precio_estimado'] ?>">
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="input-wrapper">
-                            <input type="text" name="cantidad_producto[]"
-                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                style="background: transparent;"
-                                readonly
-                                placeholder="<?= $producto['cantidad'] ?>"
-                                value="<?= $producto['cantidad'] ?>">
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="input-wrapper">
-                            <input type="text" name="preciototal_producto[]"
-                                class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                style="background: transparent;"
-                                readonly
-                                placeholder="$<?= $precio_multiplicado ?>"
-                                value="<?= $precio_multiplicado ?>">
-                        </div>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
-    </div>
-
-    <br>
 
     <div class="productos-container p-0">
         <label class="font-semibold text-2xl pb-2 block text-center">Posibles proveedores:</label>
@@ -212,6 +150,8 @@
                             foreach ($productos as $key => $producto) { 
                                 $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
                                 $precio_multiplicado = $producto['precio_estimado'] * $producto['cantidad']; ?>
+                                                    <input type="hidden" name="id_proveedor[]" value="<?= $proveedor['id'] ?>">
+
                             <tr class="producto-clone">
                                 <input type="hidden" name="id_producto[]" value="<?= $producto['id'] ?>">
                                 <td class="text-center">
@@ -257,8 +197,15 @@
                     </table>
                 <?php endif; ?>
         <?php }} ?>
+
+        <div class="mt-0 py-8 text-center">
+            <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Ingresar</button>
+        </div>
+
     </div>
     <br><br>
+    <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
+    </form>
 
     <script>
         function calculateTotal(input, targetName) {
