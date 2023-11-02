@@ -27,13 +27,7 @@
         }
 
         
-        textarea[readonly] {
-            border: 1px solid #ccc;
-            color: #495057;
-            border:none;
-            height: 160px;
-            
-        }
+
 
         .proveedores-container {
             display: flex;
@@ -47,12 +41,7 @@
             padding: 20px; /* Espaciado interno del textarea */
             resize: none; /* Evitar que el textarea sea redimensionable por el usuario */
             overflow-y: auto; /* Mostrar barra de desplazamiento solo cuando sea necesario */
-        }
-        
-    
-
-
-       
+        } 
         
         .modal {
             display: none;
@@ -84,6 +73,22 @@
         <?= csrf_field() ?>
         <div class="page-container bg-gray-200 p-4 pt-8">
             <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
+
+            <?php if ($orden['Contador_Aprobado'] === '1') : ?>
+                    <div class="text-center pt-5">
+                        <?php if ($orden['licitacion'] === '0') : ?>
+                            <span class="bg-blue-500 text-white p-2">
+                            NO ES LICITACIÓN
+                            </span>
+                        <?php endif; ?>
+                        <?php if ($orden['licitacion'] === '1') : ?>
+                            <span class="bg-blue-500 text-white p-2">
+                            ES LICITACIÓN
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                    <br>
+                <?php endif; ?>
 
             <div class="solicitante-container p-4">
                 <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
@@ -355,23 +360,19 @@
 
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                     <div class="text-center">
-                        <input type="checkbox" id="esLicitacion" name="esLicitacion" value="1" class="form-check-input">
-                        <label for="esLicitacion" class="form-check-label">¿Es licitación?</label>
+                        <label for="esLicitacion" class="form-check-label block mb-2">Es Licitación?</label>
+                        <div class="flex justify-center">
+                            <input type="checkbox" id="esLicitacionSi" name="esLicitacion" value="1" class="form-check-input mr-2">
+                            <label for="esLicitacionSi" class="form-check-label mr-4">Si</label>
+                            <input type="checkbox" id="esLicitacionNo" name="esLicitacion" value="0" class="form-check-input mr-2">
+                            <label for="esLicitacionNo" class="form-check-label">No</label>
+                        </div>
                     </div>
                     <br>
                 <?php endif; ?>
 
-                <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                    <div class="text-center">
-                        <?php if ($orden['licitacion'] === '0') : ?>
-                            NO ES LICITACIÓN
-                        <?php endif; ?>
-                        <?php if ($orden['licitacion'] === '1') : ?>
-                            ES LICITACIÓN
-                        <?php endif; ?>
-                    </div>
-                    <br>
-                <?php endif; ?>
+
+               
 
 
                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
@@ -547,21 +548,19 @@
     
 <!-- Modal de Posibles Proveedores -->
 <div id="posiblesProveedoresModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="modal-content bg-white p-4 rounded shadow-lg w-1/2 mx-auto my-16"> <!-- Añadimos my-16 para centrar verticalmente -->
-        <h2 class="text-xl font-semibold mb-4 text-center">Posibles proveedores</h2>
-        <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-            placeholder="" spellcheck="false" readonly><?= $orden['posibles_proveedores'] ?></textarea>
-        <button class="modal-close-btn bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+    <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-3/4 h-3/4 mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
+        <h2 class="text-2xl font-semibold mb-4 text-center">Posibles proveedores</h2>
+        <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base mb-4 w-4/5 h-4/5 resize-none" placeholder="" spellcheck="false" readonly><?= $orden['posibles_proveedores'] ?></textarea>
+        <button id="cerrarModal" class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
     </div>
 </div>
 
 <!-- Modal de Observaciones -->
 <div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="modal-content bg-white p-4 rounded shadow-lg w-1/2 mx-auto my-16"> <!-- Añadimos my-16 para centrar verticalmente -->
-        <h2 class="text-xl font-semibold mb-4 text-center">Observaciones del contador</h2>
-        <textarea id="posibles_proveedores_izquierda" name="descripcion" class="border-2 p-4 rounded text-base readonly-input proveedores-textarea"
-            placeholder="" spellcheck="false" readonly></textarea>
-        <button class="modal-close-btn bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 mt-4 rounded">Cerrar</button>
+    <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-3/4 h-3/4 mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
+        <h2 class="text-2xl font-semibold mb-4 text-center">Observaciones del contador</h2>
+        <textarea id="observacionesTextarea" name="descripcion" class="border-2 p-4 rounded text-base mb-4 w-4/5 h-4/5 resize-none" placeholder="" spellcheck="false"></textarea>
+        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
     </div>
 </div>
 
@@ -590,7 +589,7 @@
 
             <div class="mb-4 flex items-center">
                 <label for="personaContacto" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Persona de Contacto</label>
-                <input type="text" id="personaContacto" name "personaContacto" class="mt-1 p-2 w-full border rounded" readonly>
+                <input type="text" id="personaContacto" name="personaContacto" class="mt-1 p-2 w-full border rounded" readonly>
             </div>
 
             <div class="mb-4 flex items-center">
@@ -835,6 +834,21 @@
             observacionesModal.style.display = 'block';
         });
     }
+</script>
+
+<script>
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(function(innerCheckbox) {
+                    if (innerCheckbox !== checkbox) {
+                        innerCheckbox.checked = false;
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 </body>
