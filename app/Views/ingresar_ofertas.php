@@ -11,37 +11,23 @@
     <?= view('layout/navbar') ?>
 </header>
 <body class="bg-gray-100">
+<div class="bg-white p-2 mt-8 mx-auto w-1/2 rounded-md">
     <form action="/ingreso-oferta" method="POST">
     <br><br>
 
     <div class="productos-container p-0">
         <label class="font-semibold text-2xl pb-2 block text-center">Posibles proveedores:</label>
-        <table class="w-full">
+        <table class="w-full px-2 py-1">
             <tr>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
-                <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Empresa estatal</th>
-
+                <th class="font-semibold text-center sticky top-0 bg-white z-10">Nombre</th>
+                <th class="font-semibold text-center sticky top-0 bg-white z-10">Detalle de Proveedor</th>
+                <th class="font-semibold text-center sticky top-0 bg-white z-10">Ofertas</th>
             </tr>
         <?php foreach ($enlaces as $enlace) { ?>
             <?php foreach ($proveedores as $proveedor) { ?>
                 <?php if ($enlace['proveedor_id'] === $proveedor['id']) : ?>
                     <tr class="producto-clone">
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= $proveedor['RUT'] ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
+                        <td class="text-center px-2 py-1">
                             <div class="input-wrapper">
                                 <input type="text" name="nombre_producto[]"
                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
@@ -51,85 +37,34 @@
                                     value="<?= $proveedor['nombre'] ?>">
                             </div>
                         </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= $proveedor['numero_de_contacto'] ?>">
-                            </div>
+                        
+                         <!--agregar codigo php -->
+                         <td class="text-center px-2 py-1">
+                            <!-- Botón de apertura del modal -->
+                            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded open-modal-btn">
+                                Ver
+                            </button>
                         </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_dgi'])) ?>">
-                            </div>
+
+                        <!--agregar codigo php -->
+                        <td class="text-center px-2 py-1">
+                            <!-- Botón de apertura del modal -->
+                            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded open-modal-btn" data-target="modal<?= $proveedor['id'] ?>">
+                                Ingresar
+                            </button>
                         </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_bps'])) ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <?php if ($proveedor['rupe']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="Sí">
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!$proveedor['rupe']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="No">
-                                </div>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if ($proveedor['empresa_del_estado']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="Sí">
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!$proveedor['empresa_del_estado']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="No">
-                                </div>
-                            <?php endif; ?>
+
                         </td>
                     </tr>
                 <?php endif; ?>
         <?php }} ?>
+        
         </table>
     </div>
+    
+  <!-- Modal -->
+<div id="modal<?= $proveedor['id'] ?>" class="modal hidden fixed inset-0 flex items-center justify-center z-50">
+    <div class="modal-content bg-white border border-gray-300 shadow-md rounded-lg p-6 w-3/4">
 
     <div class="productos-container p-0">
         <?php foreach ($enlaces as $enlace) { ?>
@@ -202,10 +137,40 @@
             <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Ingresar</button>
         </div>
 
+        <button class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('modal<?= $proveedor['id'] ?>')">&times;</button>
+        <div id="modalContent<?= $proveedor['id'] ?>"></div>
+    </div>
+</div>                    
+
+    
+    </div>
     </div>
     <br><br>
     <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
     </form>
+
+    <script>
+        // Selecciona todos los botones con la clase open-modal-btn
+    const openModalButtons = document.querySelectorAll('.open-modal-btn');
+
+    // Asocia un evento de clic a cada botón para abrir el modal correspondiente
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-target');
+            openModal(modalId);
+        });
+    });
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add('hidden');
+    }
+    </script>
 
     <script>
         function calculateTotal(input, targetName) {
