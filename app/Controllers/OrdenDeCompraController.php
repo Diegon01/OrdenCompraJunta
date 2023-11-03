@@ -71,7 +71,9 @@ class OrdenDeCompraController extends BaseController
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
 
-            $esLicitacion = $this->request->getPost('esLicitacion');
+            $esLicitacion = $this->request->getPost('esLicitacionSi');
+
+            echo $esLicitacion;
             
             $productos = json_decode($this->request->getPost('lista_productos'), true);
 
@@ -138,15 +140,15 @@ class OrdenDeCompraController extends BaseController
                 }
     
                 // Redirect to the "ordenes" route or any other destination as needed
-                return redirect()->to('/ordenes');
+                //return redirect()->to('/ordenes');
             } else {
                 // Handle the case where the order doesn't exist
-                return redirect()->to('/ordenes')->with('error', 'Order not found');
+                //return redirect()->to('/ordenes')->with('error', 'Order not found');
             }
         }
     
         // If the request is not POST, redirect to the "ordenes" route
-        return redirect()->to('/ordenes');
+        //return redirect()->to('/ordenes');
     }
 
     public function presidente_aprueba() {

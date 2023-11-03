@@ -360,7 +360,7 @@
 
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
                     <div class="text-center">
-                        <label for="esLicitacion" class="form-check-label block mb-2">Es Licitación?</label>
+                        <label for="esLicitacion" class="form-check-label block mb-2">¿Es Licitación?</label>
                         <div class="flex justify-center">
                             <input type="checkbox" id="esLicitacionSi" name="esLicitacion" value="1" class="form-check-input mr-2">
                             <label for="esLicitacionSi" class="form-check-label mr-4">Si</label>
