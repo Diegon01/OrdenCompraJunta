@@ -211,21 +211,46 @@
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                        <?php if ($isContador) : ?>
+                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                        <?php endif; ?>
+                                        <?php if (!$isContador) : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
-                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
+                                            <?php if ($isPresidente) : ?>
+                                                <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de aprobación</span>
+                                            <?php endif; ?>
+                                            <?php if (!$isPresidente) : ?>
+                                                <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                        <?php if ($isContador) : ?>
+                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                        <?php endif; ?>
+                                        <?php if (!$isContador) : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                        <?php if ($currentUserId == $orden['solicitante_id']) : ?>
+                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                        <?php endif; ?>
+                                        <?php if ($currentUserId != $orden['solicitante_id']) : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Ofertas_Ingresadas'] === '1') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
+                                        <?php if ($isPresidente) : ?>
+                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
+                                        <?php endif; ?>
+                                        <?php if (!$isPresidente) : ?>
+                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
