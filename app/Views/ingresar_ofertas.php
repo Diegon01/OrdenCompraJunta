@@ -48,7 +48,7 @@
                                     <td class="text-center px-2 py-1">
                                         <!-- Botón de apertura del modal -->
                                         <button type="button" class="open-modal-btn bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                                            data-target="modal<?= $proveedorId ?>">
+                                            data-target="vermodal<?= $proveedorId ?>">
                                             Ver
                                         </button>
                                     </td>
@@ -123,9 +123,9 @@
                                                 <input type="number" name="precio_total_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                                     style="background: transparent;"
-                                                    readonly
                                                     placeholder=""
-                                                    value="">
+                                                    value=""
+                                                    oninput="calculateTotal_inv(this, 'precio_producto[]')">
                                             </div>
                                         </td>
                                         <td class="text-center">
@@ -144,6 +144,21 @@
                             <br><br>
                             <button type="button" class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('modal<?= $proveedorId ?>')">&times;</button>
                             <div id="modalContent<?= $proveedorId ?>"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Ver Modal -->
+                <div id="vermodal<?= $proveedorId ?>" class="modal hidden fixed inset-0 flex items-center justify-center z-50">
+                    <div class="modal-content bg-white border border-gray-300 shadow-md rounded-lg p-6 w-3/4">
+                        <div class="productos-container p-0">
+                            <br>
+                            <label class="font-semibold text-2xl pb-2 block text-center">Detalles de <?= $proveedorNombre ?>:</label>
+                            
+                            <br><br>
+                            <div id="modalContent<?= $proveedorId ?>"></div>
+                            <button type="button" class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('vermodal<?= $proveedorId ?>')">&times;</button>
                         </div>
                     </div>
                 </div>
@@ -184,6 +199,18 @@
             const cantidadInput = input.closest('tr').querySelector(`input[name^="cant_producto"]`);
             const cantidadProducto = parseFloat(cantidadInput.value);
             const precioTotal = precioProducto * cantidadProducto;
+            const precioTotalInput = input.closest('tr').querySelector(`input[name="${targetName}"]`);
+
+            if (precioTotalInput) {
+                precioTotalInput.value = precioTotal;
+            }
+        }
+
+        function calculateTotal_inv(input, targetName) {
+            const precioProducto = parseFloat(input.value);
+            const cantidadInput = input.closest('tr').querySelector(`input[name^="cant_producto"]`);
+            const cantidadProducto = parseFloat(cantidadInput.value);
+            const precioTotal = precioProducto / cantidadProducto;
             const precioTotalInput = input.closest('tr').querySelector(`input[name="${targetName}"]`);
 
             if (precioTotalInput) {
