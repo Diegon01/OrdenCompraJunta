@@ -210,18 +210,8 @@
                                 <?php if ($orden['estado'] === 'Aceptada'): ?>
                                     <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
                                 <?php else: ?>
-                                    <?php if ($orden['Presidente_Autorizado'] === '0') : ?>
-                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de autorización</span>
-                                    <?php endif; ?>
-                                    <?php if ($orden['Presidente_Autorizado'] === '1') : ?>
-                                        <?php if ($orden['Secretario_Aprobado'] === '0') : ?>
-                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de secretario</span>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                    <?php if ($orden['Secretario_Aprobado'] === '1') : ?>
-                                        <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
-                                        <?php endif; ?>
+                                    <?php if ($orden['Contador_Aprobado'] === '0') : ?>
+                                        <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
                                     <?php endif; ?>
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>

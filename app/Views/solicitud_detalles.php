@@ -208,7 +208,7 @@
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio unitario estimado</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Precio estimado</th>
-                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nro Rubro</th>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
@@ -271,7 +271,7 @@
                                             value="<?= $precio_multiplicado ?>">
                                     </div>
                                 </td>
-                                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                                     <td class="text-center">
                                         <div class="input-wrapper">
                                             <input type="text" name="nro_rubro[]"
@@ -358,13 +358,13 @@
                     </table>
                 </div>
 
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <div class="text-center">
                         <label for="esLicitacion" class="form-check-label block mb-2">¿Es Licitación?</label>
                         <div class="flex justify-center">
-                            <input type="checkbox" id="esLicitacionSi" name="esLicitacion" value="1" class="form-check-input mr-2">
+                            <input type="checkbox" id="esLicitacionSi" name="esLicitacionSi" value="1" class="form-check-input mr-2">
                             <label for="esLicitacionSi" class="form-check-label mr-4">Si</label>
-                            <input type="checkbox" id="esLicitacionNo" name="esLicitacion" value="0" class="form-check-input mr-2">
+                            <input type="checkbox" id="esLicitacionNo" name="esLicitacionNo" value="0" class="form-check-input mr-2">
                             <label for="esLicitacionNo" class="form-check-label">No</label>
                         </div>
                     </div>
@@ -507,28 +507,15 @@
                 <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openPosiblesProveedoresModalBtn" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Asignar proveedor</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
-                <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
-                    <button id="autorizarBtn" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioAutorizacion()">Autorizar</button>
-                <?php endif; ?>
-                <?php if ($isPresidente && $orden['Presidente_Autorizado'] === '0') : ?>
-                    <button id="rechazarBtn" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
-                <?php endif; ?>
-            </div>
-            <div class="mt-0 py-2 text-center">
-                <?php if ($isSecretario && $orden['Presidente_Autorizado'] === '1' && $orden['Secretario_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Aprobar</button>
-                <?php endif; ?>
-            </div>
-            <div class="mt-0 py-2 text-center">
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '0' && $orden['Secretario_Aprobado'] === '1') : ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="aprobarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
                 <?php endif; ?>
             </div>
