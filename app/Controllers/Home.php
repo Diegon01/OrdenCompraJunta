@@ -8,6 +8,7 @@ use CodeIgniter\Pager\Pager;
 use App\Models\UserModelo;
 use App\Models\RubroModel;
 use App\Models\OrdenProveedorModel;
+use App\Models\OfertaModel;
 
 class Home extends BaseController
 {
@@ -452,5 +453,57 @@ class Home extends BaseController
             'rubros' => $rubros,
         ];
         return view('ingresar_ofertas', $data);
+    } 
+
+    public function elegir_ofertas($orden_id): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+        $orden = $ordenCompraModel->find($orden_id);
+
+        $rubrosModel = new \App\Models\RubroModel();
+        $rubros = $rubrosModel->findAll();
+
+        $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+        $productos = $productoOrdenCompraModel->where('orden_id', $orden_id)->findAll();
+
+        $ofertaModel = new \App\Models\OfertaModel();
+        $ofertas = []; // Initialize the $ofertas array
+        foreach ($productos as $pro) {
+            $newOfertas = $ofertaModel->where('producto_id', $pro['id'])->findAll();
+            $ofertas = array_merge($ofertas, $newOfertas);
+        }
+
+        $enlaceModel = new \App\Models\OrdenProveedorModel();
+        $enlaces = $enlaceModel->where('orden_id', $orden_id)->findAll();
+
+        $proveedoresModel = new \App\Models\ProveedorModel();
+        $proveedores = $proveedoresModel->findAll();
+
+        $solicitante_id = $orden['solicitante_id'];
+        $userModel_orden = new \App\Models\UserModelo();
+        $solicitante = $userModel_orden->find($solicitante_id);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'orden' => $orden,
+            'productos' => $productos,
+            'solicitante' => $solicitante,
+            'proveedores' => $proveedores,
+            'enlaces' => $enlaces,
+            'rubros' => $rubros,
+            'ofertas' => $ofertas,
+        ];
+        return view('elegir_ofertas', $data);
     } 
 }

@@ -324,4 +324,15 @@ class OrdenDeCompraController extends BaseController
 
     }
 
+    public function eleccion_oferta() {
+        // Check if the request method is POST
+        if ($this->request->getMethod() === 'post') {
+            return redirect()->to('/ordenes');
+
+        }
+
+        return redirect()->to('/ordenes');
+
+    }
+
 }

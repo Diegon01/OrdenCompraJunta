@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de ofertas</title>
+    <title>Elección de ofertas</title>
     <!-- Enlaza el archivo CSS compilado de Tailwind CSS -->
     <link href="/css/app.css" rel="stylesheet">
 </head>
@@ -15,7 +15,7 @@
     </header>
 
     <div class="bg-white p-2 mt-8 mx-auto w-1/2 rounded-md">
-        <form action="/ingreso-oferta" method="POST">
+        <form action="/eleccion-oferta" method="POST">
             <br><br>
 
             <div class="productos-container p-0">
@@ -25,6 +25,7 @@
                         <th class="font-semibold text-center sticky top-0 bg-white z-10">Nombre</th>
                         <th class="font-semibold text-center sticky top-0 bg-white z-10">Detalle de Proveedor</th>
                         <th class="font-semibold text-center sticky top-0 bg-white z-10">Ofertas</th>
+                        <th class="font-semibold text-center sticky top-0 bg-white z-10">Acciones</th>
                     </tr>
                     <?php
                     foreach ($enlaces as $enlace) {
@@ -57,8 +58,15 @@
                                         <!-- Botón de apertura del modal -->
                                         <button type="button" class="open-modal-btn bg-blue-500 hover-bg-blue-700 text-white font-semibold py-2 px-4 rounded"
                                             data-target="modal<?= $proveedorId ?>">
-                                            Ingresar
+                                            Ver
                                         </button>
+                                    </td>
+
+                                    <td class="text-center px-2 py-1">
+                                        <!-- Botón de apertura del modal -->
+                                        <div class="mt-0 py-8 text-center">
+                                            <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Elegir esta oferta</button>
+                                        </div>
                                     </td>
                                 </tr>
                     <?php
@@ -81,7 +89,7 @@
                     <div class="modal-content bg-white border border-gray-300 shadow-md rounded-lg p-6 w-3/4">
                         <div class="productos-container p-0">
                             <br>
-                            <label class="font-semibold text-2xl pb-2 block text-center">Ingresar oferta de <?= $proveedorNombre ?>:</label>
+                            <label class="font-semibold text-2xl pb-2 block text-center">Mostrando oferta de <?= $proveedorNombre ?>:</label>
                             <table class="w-full">
                                 <tr>
                                     <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Producto</th>
@@ -94,6 +102,8 @@
                                 foreach ($productos as $producto) {
                                     $totalPrecioEstimado += $producto['precio_estimado'] * $producto['cantidad'];
                                     $precioMultiplicado = $producto['precio_estimado'] * $producto['cantidad'];
+                                    foreach ($ofertas as $oferta) {
+                                        if (($oferta['producto_id'] === $producto['id']) && ($oferta['proveedor_id'] === $proveedor['id'])) :
                                 ?>
                                     <input type="hidden" name="id_proveedor[]" value="<?= $proveedorId ?>">
                                     <tr class="producto-row">
@@ -113,9 +123,10 @@
                                             <div class="input-wrapper">
                                                 <input type="number" name="precio_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
                                                     placeholder=""
-                                                    value=""
-                                                    oninput="calculateTotal(this, 'precio_total_producto[]')">
+                                                    value="<?= $oferta['precio_oferta'] ?>">
                                             </div>
                                         </td>
                                         <td class="text-center">
@@ -123,22 +134,25 @@
                                                 <input type="number" name="precio_total_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                                     style="background: transparent;"
+                                                    readonly
                                                     placeholder=""
-                                                    value=""
-                                                    oninput="calculateTotal_inv(this, 'precio_producto[]')">
+                                                    value="<?= $oferta['precio_oferta'] * $producto['cantidad'] ?>">
                                             </div>
                                         </td>
                                         <td class="text-center">
                                             <div class="input-wrapper">
                                                 <input type="text" name="notas_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
                                                     placeholder=""
-                                                    value="">
+                                                    value="<?= $oferta['notas'] ?>">
                                             </div>
                                         </td>
                                     </tr>
+                                    <?php endif; ?>
                                 <?php
-                                }
+                                }}
                                 ?>
                             </table>
                             <br><br>
@@ -168,9 +182,6 @@
             ?>
             <br><br>
             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-            <div class="mt-0 py-8 text-center">
-                <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Ingresar</button>
-            </div>
         </form>
     </div>
 
