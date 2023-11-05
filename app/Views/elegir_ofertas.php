@@ -169,7 +169,17 @@
                         <div class="productos-container p-0">
                             <br>
                             <label class="font-semibold text-2xl pb-2 block text-center">Detalles de <?= $proveedorNombre ?>:</label>
-                            
+                            Persona de contacto: <?= $proveedor['persona_de_contacto'] ?>
+                            <br><br>
+                            Número de contacto: <?= $proveedor['numero_de_contacto'] ?>
+                            <br><br>
+                            RUT: <?= $proveedor['RUT'] ?>
+                            <br><br>
+                            Número de cuenta: <?= $proveedor['numero_de_cuenta'] ?>
+                            <br><br>
+                            Fecha de vencimiento de DGI: <?= $proveedor['fecha_de_vencimiento_dgi'] ?>
+                            <br><br>
+                            Fecha de vencimiento de BPS: <?= $proveedor['fecha_de_vencimiento_bps'] ?>
                             <br><br>
                             <div id="modalContent<?= $proveedorId ?>"></div>
                             <button type="button" class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('vermodal<?= $proveedorId ?>')">&times;</button>
