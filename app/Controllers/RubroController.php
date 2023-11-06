@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\RubroModel;
+use App\Models\RubroSaldoCongeladoModel;
 
 class RubroController extends BaseController
 {
@@ -18,12 +19,20 @@ class RubroController extends BaseController
                 'saldo' => $this->request->getPost('presupuesto'),
             ];
 
+            $congelado_data = [
+                'codigo' => $this->request->getPost('codigo'),
+                'saldo_congelado' => 0,
+            ];
+
             // Validar los datos si es necesario
             // Puedes agregar reglas de validación aquí
 
             // Insertar en la base de datos
             $rubroModel = new RubroModel();
             $rubroModel->insert($data);
+
+            $rubroconModel = new RubroSaldoCongeladoModel();
+            $rubroconModel->insert($congelado_data);
 
             // Redirigir a una página de éxito o a la misma página
             // Puedes personalizar esta parte según tus necesidades

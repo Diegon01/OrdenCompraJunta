@@ -265,7 +265,7 @@
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
                             <?php endif; ?>
-                            <?php if ($isPresidente && $orden['Ofertas_Ingresadas'] === '1') : ?>
+                            <?php if ($isPresidente && $orden['Ofertas_Ingresadas'] === '1' && $orden['estado'] != 'Aceptada') : ?>
                                 <br>
                                 <a href="<?= site_url('/elegir-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Elegir ofertas</a>
                             <?php endif; ?>

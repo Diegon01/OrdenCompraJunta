@@ -9,6 +9,8 @@ use App\Models\OrdenProveedorModel;
 use App\Models\ProveedorModel;
 use App\Models\ProductoDeOrdenDeCompraModel;
 use App\Models\OfertaModel;
+use App\Models\OrdenFinalModel;
+
 
 class OrdenDeCompraController extends BaseController
 {
@@ -328,15 +330,80 @@ class OrdenDeCompraController extends BaseController
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             //return redirect()->to('/ordenes');
-            $ordenId = $this->request->getPost('order_id');
+            $orderId = $this->request->getPost('order_id');
             $provId = $this->request->getPost('prov_id');
-            echo $ordenId;
-            echo "<br>";
-            echo $provId;
+
+            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+            $order = $ordenCompraModel->find($orderId);
+
+            $proveedorModel = new \App\Models\ProveedorModel();
+            $proveedor = $proveedorModel->find($provId);
+
+            $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+            $productos = $productoOrdenCompraModel->where('orden_id', $orderId)->findAll();
+
+            $ofertaModel = new \App\Models\OfertaModel();
+            $ofertas = []; // Initialize the $ofertas array
+            foreach ($productos as $pro) {
+                $newOfertas = $ofertaModel->where('producto_id', $pro['id'])
+                ->where('proveedor_id', $proveedor['id'])
+                ->findAll();                
+                $ofertas = array_merge($ofertas, $newOfertas);
+            }
+
+            $rubrosModel = new \App\Models\RubroModel();
+            $rubrosCongeladoModel = new \App\Models\RubroSaldoCongeladoModel();
+            $rubro = null;
+            $rubro_congelado = null;
+            foreach ($ofertas as $ofer) { // CONGELA EL SALDO UTILIZADO DEL RUBRO
+                foreach ($productos as $product) {
+                    if ($product['id'] === $ofer['producto_id']) {
+                        $rubro = $rubrosModel->find($product['rubro_id']);
+                        $rubro_congelado = $rubrosCongeladoModel->find($product['rubro_id']);
+                        $arestar = $ofer['precio_oferta'] * $product['cantidad'];
+                        $nuevosaldo = $rubro['saldo'] - $arestar;
+                        $nuevocongelado = $rubro_congelado['saldo_congelado'] + $arestar;
+                        $rubrosCongeladoModel->update($product['rubro_id'], ['saldo_congelado' => $nuevocongelado]);
+                        $rubrosModel->update($product['rubro_id'], ['saldo' => $nuevosaldo]);
+                    }
+                }
+            }
+
+            $data_ordenfinal = [
+                'proveedor_id' => $proveedor['id'],
+                'solicitante_id' => $order['solicitante_id'],
+                'solicitud_id' => $order['id'],
+                'secretario_visto' => 0,
+            ];
+
+            $ordenfinalModel = new \App\Models\OrdenFinalModel();
+            $ordenfinalModel->insert($data_ordenfinal);
+            $ordenFinalID = $ordenfinalModel->insertID();
+
+            $ordenfinalproductoModel = new \App\Models\OrdenFinalProductosModel();
+            $data_ordenfinal_producto = [];
+            foreach ($ofertas as $ofer) {
+                foreach ($productos as $product) {
+                    if ($product['id'] === $ofer['producto_id']) {
+                        $data_ordenfinal_producto = [
+                            'ordenfinal_id' => $ordenFinalID,
+                            'proveedor_id' => $ofer['proveedor_id'],
+                            'rubro_id' => $product['rubro_id'],
+                            'costo' => $ofer['precio_oferta'],
+                            'cantidad' => $product['cantidad'],
+                            'notas' => $ofer['notas'],
+                        ];
+                        $ordenfinalproductoModel->insert($data_ordenfinal_producto);
+                    }
+                }
+            }
+
+            $ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+            
 
         }
 
-        //return redirect()->to('/ordenes');
+        return redirect()->to('/ordenes');
 
     }
 
