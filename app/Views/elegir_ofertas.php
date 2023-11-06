@@ -15,7 +15,6 @@
     </header>
 
     <div class="bg-white p-2 mt-8 mx-auto w-1/2 rounded-md">
-        <form action="/eleccion-oferta" method="POST">
             <br><br>
 
             <div class="productos-container p-0">
@@ -64,9 +63,13 @@
 
                                     <td class="text-center px-2 py-1">
                                         <!-- Botón de apertura del modal -->
-                                        <div class="mt-0 py-8 text-center">
-                                            <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Elegir esta oferta</button>
-                                        </div>
+                                        <form action="/eleccion-oferta" method="POST">
+                                            <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
+                                            <input type="hidden" name="prov_id" value="<?= $proveedor['id'] ?>">
+                                            <div class="mt-0 py-8 text-center">
+                                                <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Elegir esta oferta</button>
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                     <?php
@@ -192,7 +195,6 @@
             ?>
             <br><br>
             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
-        </form>
     </div>
 
     <script>
