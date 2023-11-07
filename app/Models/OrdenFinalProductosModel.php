@@ -13,7 +13,7 @@ class OrdenFinalProductosModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'ordenfinal_id', 'proveedor_id', 'rubro_id', 'costo', 'cantidad', 'notas'];
+    protected $allowedFields    = ['id', 'ordenfinal_id', 'proveedor_id', 'rubro_id', 'costo', 'cantidad', 'notas', 'nombre'];
 
     // Dates
     protected $useTimestamps = false;

@@ -549,4 +549,44 @@ class Home extends BaseController
         ];
         return view('ABM_OrdenesCompra', $data);
     }  
+
+    public function ver_orden_detalles($orden_id): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $ordenfinalModel = new \App\Models\OrdenFinalModel();
+        $orden = $ordenfinalModel->find($orden_id);
+
+        $ordenfinalprModel = new \App\Models\OrdenFinalProductosModel();
+        $productos = $ordenfinalprModel->where('ordenfinal_id', $orden_id)->findAll();
+
+        $rubrosModel = new \App\Models\RubroModel();
+        $rubros = $rubrosModel->findAll();
+
+        $proveedoresModel = new \App\Models\ProveedorModel();
+        $proveedor = $proveedoresModel->find($orden['proveedor_id']);
+
+        $solicitante_id = $orden['solicitante_id'];
+        $userModel_orden = new \App\Models\UserModelo();
+        $solicitante = $userModel_orden->find($solicitante_id);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'orden' => $orden,
+            'productos' => $productos,
+            'solicitante' => $solicitante,
+            'rubros' => $rubros,
+            'proveedor' => $proveedor,
+        ];
+        return view('orden_detalles', $data);
+    }
 }

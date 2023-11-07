@@ -198,10 +198,9 @@ class OrdenDeCompraController extends BaseController
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
             $orderId = $this->request->getPost('order_id');
-            $orderContador = $this->request->getPost('order_Secretario_Aprobado');
     
             // Load the OrdenDeCompraModel
-            $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
+            $ordenCompraModel = new \App\Models\OrdenFinalModel();
     
             // Find the order by ID
             $order = $ordenCompraModel->find($orderId);
@@ -209,14 +208,14 @@ class OrdenDeCompraController extends BaseController
             // Check if the order exists
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
-                $ordenCompraModel->update($orderId, ['Secretario_Aprobado' => 1]);
+                $ordenCompraModel->update($orderId, ['secretario_visto' => 1]);
                 //$ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
     
                 // Redirect to the "ordenes" route or any other destination as needed
-                return redirect()->to('/ordenes');
+                return redirect()->to('/ordenescompra');
             } else {
                 // Handle the case where the order doesn't exist
-                return redirect()->to('/ordenes')->with('error', 'Order not found');
+                return redirect()->to('/ordenescompra')->with('error', 'Order not found');
             }
         }
     
@@ -392,6 +391,7 @@ class OrdenDeCompraController extends BaseController
                             'costo' => $ofer['precio_oferta'],
                             'cantidad' => $product['cantidad'],
                             'notas' => $ofer['notas'],
+                            'nombre' => $product['nombre'],
                         ];
                         $ordenfinalproductoModel->insert($data_ordenfinal_producto);
                     }

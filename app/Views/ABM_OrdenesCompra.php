@@ -172,7 +172,7 @@
                             <?php foreach ($productos as $producto) {
                                 if ($producto['ordenfinal_id'] == $orden['id']) {
                             ?>
-                                <?= $producto['notas'] ?><br> <!-- PLACEHOLDER, AGREGAR NOMBRE A PRODUCTOS DE ORDENES -->
+                                -<?= $producto['nombre'] ?><br> <!-- PLACEHOLDER, AGREGAR NOMBRE A PRODUCTOS DE ORDENES -->
                             <?php }} ?>
                         </td>
                         <td class="px-6 py-4 border-r text-center">
@@ -189,6 +189,8 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botones de acciones -->
+                            <a href="<?= site_url('/orden-detalles/' . $orden['id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Ver detalles</a>
+                            <br>
                             <a href="<?= site_url('/solicitud-detalles/' . $orden['solicitud_id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Solicitud original</a>
                         </td>
                     </tr>

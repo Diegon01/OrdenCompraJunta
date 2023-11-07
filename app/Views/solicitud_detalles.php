@@ -75,20 +75,20 @@
             <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
 
             <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                    <div class="text-center pt-5">
-                        <?php if ($orden['licitacion'] === '0') : ?>
-                            <span class="bg-blue-500 text-white p-2">
-                            NO ES LICITACIÓN
-                            </span>
-                        <?php endif; ?>
-                        <?php if ($orden['licitacion'] === '1') : ?>
-                            <span class="bg-blue-500 text-white p-2">
-                            ES LICITACIÓN
-                            </span>
-                        <?php endif; ?>
-                    </div>
-                    <br>
-                <?php endif; ?>
+                <div class="text-center pt-5">
+                    <?php if ($orden['licitacion'] === '0') : ?>
+                        <span class="bg-green-500 text-white p-2">
+                        COMPRA DIRECTA
+                        </span>
+                    <?php endif; ?>
+                    <?php if ($orden['licitacion'] === '1') : ?>
+                        <span class="bg-blue-500 text-white p-2">
+                        LICITACIÓN
+                        </span>
+                    <?php endif; ?>
+                </div>
+                <br>
+            <?php endif; ?>
 
             <div class="solicitante-container p-4">
                 <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
