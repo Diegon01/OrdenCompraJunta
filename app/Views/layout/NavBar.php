@@ -13,6 +13,9 @@
             <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
                 <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Administrar solicitudes</a>
             <?php endif; ?>
+            <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
+                <a href="<?= site_url('/ordenescompra') ?>" class="hover:underline text-lg font-semibold">Administrar órdenes</a>
+            <?php endif; ?>
             <?php if ($isAdmin) : ?>
                 <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
             <?php endif; ?>

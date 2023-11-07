@@ -154,9 +154,10 @@
             <!-- Encabezados de la tabla -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Nro de Orden</th>
-                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Nº</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha de emisión</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
+                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Ítems</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Estado</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase">Acciones</th>
                 </tr>
@@ -166,18 +167,29 @@
                     <tr>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['id'] ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
-                        <td class="px-6 py-4 border-r text-center"><?= $orden['solicitante_id'] ?></td>
+                        <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
                         <td class="px-6 py-4 border-r text-center">
-                            <?php if ($orden['estado'] === 'Prueba'): ?>
-                                <span class="bg-red-200 text-red-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                            <?php foreach ($productos as $producto) {
+                                if ($producto['ordenfinal_id'] == $orden['id']) {
+                            ?>
+                                <?= $producto['notas'] ?><br> <!-- PLACEHOLDER, AGREGAR NOMBRE A PRODUCTOS DE ORDENES -->
+                            <?php }} ?>
+                        </td>
+                        <td class="px-6 py-4 border-r text-center">
+                            <?php if ($orden['secretario_visto'] === '0'): ?>
+                                <?php if ($isSecretario): ?>
+                                    <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>
+                                <?php endif; ?>
+                                <?php if (!$isSecretario): ?>
+                                    <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>
+                                <?php endif; ?>
                             <?php else: ?>
-                                <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full"><?= $orden['estado'] ?></span>
+                                <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Emitida y aprobada</span>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botones de acciones -->
-                            <button class="text-blue-500 hover:underline mr-2">Ver detalles</button>
-                            <button class="text-blue-500 hover:underline mr-2">Editar</button>
+                            <a href="<?= site_url('/solicitud-detalles/' . $orden['solicitud_id']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Solicitud original</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

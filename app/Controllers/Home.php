@@ -506,4 +506,47 @@ class Home extends BaseController
         ];
         return view('elegir_ofertas', $data);
     } 
+
+    public function verABMordenes(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $ordenfinalModel = new \App\Models\OrdenFinalModel();
+        $ordenes = $ordenfinalModel->findAll();
+
+        $ordenfinalprModel = new \App\Models\OrdenFinalProductosModel();
+        $productos = $ordenfinalprModel->findAll();
+
+        // Configurar la paginación
+        $pager = \Config\Services::pager();
+        $page = $this->request->getVar('page') ?? 1; // Obtener el número de página de la URL
+        $perPage = 8; // Número de resultados por página
+        $totalResults = $ordenfinalModel->countAll(); // Obtener el total de resultados
+
+        // Set the default sort order
+        $sortOrder = 'desc'; // Default to newest
+
+        $ordenes = $ordenfinalModel->select('ordenfinal.*, users.nombres, users.apellidos')
+                ->join('users', 'users.id = ordenfinal.solicitante_id')
+                ->groupBy('ordenfinal.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
+                ->orderBy('ordenfinal.created_at', $sortOrder) // Adjust the order here
+                ->paginate($perPage, 'default', $page);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'ordenes' => $ordenes,
+            'productos' => $productos,
+            'pager' => $ordenfinalModel->pager,
+        ];
+        return view('ABM_OrdenesCompra', $data);
+    }  
 }
