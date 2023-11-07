@@ -184,7 +184,7 @@
                                     <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Emitida y aprobada</span>
+                                <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Emitida y lista</span>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4">
