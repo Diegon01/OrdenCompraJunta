@@ -77,6 +77,47 @@ class Home extends BaseController
         $rutEmisor = '214198620015';
         $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);
         $nombre = $datosRUT['WS_PersonaActEmpresarial']['Denominacion'];
+        $numero = null;
+        $contactos = [];
+
+        $contactos = [];
+
+        // Verificar si el nivel WS_PersonaActEmpresarial existe
+        if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
+            $domFiscalLocPrincipal = $datosRUT['WS_PersonaActEmpresarial']['WS_DomFiscalLocPrincipal'];
+
+            // Verificar si el nivel WS_DomFiscalLocPrincipal existe
+            if (isset($domFiscalLocPrincipal['WS_PersonaActEmpresarial.WS_DomFiscalLocPrincipalItem'])) {
+                $contactosData = $domFiscalLocPrincipal['WS_PersonaActEmpresarial.WS_DomFiscalLocPrincipalItem'];
+
+                // Verificar si Contactos es un array y contiene WS_Domicilio.WS_DomicilioItem.Contacto
+                if (isset($contactosData['Contactos']) && is_array($contactosData['Contactos']) && isset($contactosData['Contactos']['WS_Domicilio.WS_DomicilioItem.Contacto'])) {
+                    $contactos = $contactosData['Contactos']['WS_Domicilio.WS_DomicilioItem.Contacto'];
+                }
+            }
+        }
+
+        if (is_array($contactos)) {
+            foreach ($contactos as $contacto) {
+                if (is_array($contacto)) {
+                    if ($contacto['TipoCtt_Des'] === 'TELEFONO FIJO') {
+                        $numero = $contacto['DomCtt_Val'];
+                        break;
+                    }
+                }
+                else {
+                    if ($contactos['TipoCtt_Des'] === 'TELEFONO FIJO') {
+                        $numero = $contactos['DomCtt_Val'];
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            if ($contactos['TipoCtt_Des'] === 'TELEFONO FIJO') {
+                $numero = $contactos['DomCtt_Val'];
+            }
+        }
 
         $data = [
             'isAdmin' => $isAdmin,
@@ -86,6 +127,7 @@ class Home extends BaseController
             'isSecretario' => $isSecretario,
             'rut' => $rut,
             'nombre' => $nombre,
+            'numero' => $numero,
         ];
         return view('alta_proveedor_pasodos', $data);
     }
@@ -618,7 +660,7 @@ class Home extends BaseController
 
     function prueba_dgi() {
         $accessToken = $this->obtenerToken();
-        $rut = '214860570013';
+        $rut = '213149970018';
         $rutEmisor = '214198620015';
 
         $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);

@@ -36,7 +36,7 @@
             <!-- Campo Número de Contacto -->
             <div class="mb-4 flex items-center">
                 <label for="numeroContacto" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Número de Contacto</label>
-                <input type="text" id="numeroContacto" name="numeroContacto" class="mt-1 p-2 w-full border rounded">
+                <input type="text" id="numeroContacto" name="numeroContacto" class="mt-1 p-2 w-full border rounded" value="<?= $numero ?>">
             </div>
 
             <!-- Campo RUT -->
