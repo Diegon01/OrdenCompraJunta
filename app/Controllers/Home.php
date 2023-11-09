@@ -76,7 +76,7 @@ class Home extends BaseController
         $accessToken = $this->obtenerToken();
         $rutEmisor = '214198620015';
         $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);
-        $nombre = $datosRUT['WS_PersonaActEmpresarial']['Denominacion'];
+        $nombre = null;
         $numero = null;
         $contactos = [];
 
@@ -85,6 +85,7 @@ class Home extends BaseController
         // Verificar si el nivel WS_PersonaActEmpresarial existe
         if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
             $domFiscalLocPrincipal = $datosRUT['WS_PersonaActEmpresarial']['WS_DomFiscalLocPrincipal'];
+            $nombre = $datosRUT['WS_PersonaActEmpresarial']['Denominacion'];
 
             // Verificar si el nivel WS_DomFiscalLocPrincipal existe
             if (isset($domFiscalLocPrincipal['WS_PersonaActEmpresarial.WS_DomFiscalLocPrincipalItem'])) {
@@ -95,6 +96,10 @@ class Home extends BaseController
                     $contactos = $contactosData['Contactos']['WS_Domicilio.WS_DomicilioItem.Contacto'];
                 }
             }
+
+        }
+        else {
+            return 'El RUT ingresado no existe';
         }
 
         if (is_array($contactos)) {
