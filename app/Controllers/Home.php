@@ -20,14 +20,26 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return $this->mis_ordenes();
+        if ($isFuncionario) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return $this->mis_ordenes();
+        }
+        else {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('permission_denied', $data);
+        }
     }
     public function proveedor_created(): string 
     {
@@ -37,14 +49,26 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('proveedor_exito', $data);
+        if ($isFuncionario) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('proveedor_exito', $data);
+        }
+        else {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('permission_denied', $data);
+        }
     }
     public function proveedor_crear(): string 
     {
@@ -54,14 +78,26 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('alta_proveedor', $data);
+        if ($isContador || $isAdmin) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('alta_proveedor', $data);
+        }
+        else {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('permission_denied', $data);
+        }
     }
     public function proveedor_crear_pasodos(): string 
     {
@@ -672,10 +708,12 @@ class Home extends BaseController
 
         $this->imprimirRecursivo($datosRUT);
 
-        echo '<br><br>PRUEBA RUT: ';
-        echo $datosRUT['WS_PersonaActEmpresarial']['RUT']; // Accede al índice "RUT" dentro de "WS_PersonaActEmpresarial"
+        $notificacionController = new \App\Controllers\NotificacionController();
+        $destino = 'santiago.sosa.m@estudiantes.utec.edu.uy';
+        $notificacionController->correoPrueba($destino);
 
         return ' ';
+
     }
 
     function imprimirRecursivo($array, $nivel = 0, $padre = null) {
