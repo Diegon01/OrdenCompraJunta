@@ -34,14 +34,9 @@ class NotificacionController extends BaseController
         $email = \Config\Services::email();
 
         $email->setTo($destino);
-        $email->setFrom('proyectojuntadepartamental@gmail.com', 'Asuntos internos');
-        $email->setSubject('Notificación de prueba');
-        $email->setMessage('Esto es un correo de prueba');
-
-        if ($email->send()) {
-            echo 'Correo enviado exitosamente';
-        } else {
-            echo $email->printDebugger();
-        }
+        $email->setFrom('proyectojuntadepartamental@gmail.com', 'Junta departamental - Asuntos internos');
+        $email->setSubject('Intervención realizada');
+        $email->setMessage('Se ha realizado la intervención de la solicitud Nº ' . $orden);
+        $email->send();
     }
 }

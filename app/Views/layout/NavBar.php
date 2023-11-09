@@ -25,7 +25,7 @@
             <?php if ($isContador || $isAdmin) : ?>
                 <a href="<?= site_url('/alta-rubro') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
             <?php endif; ?>
-            <a href="<?= site_url('/prueba-dgi') ?>" class="hover:underline text-lg font-semibold">Prueba API DGI</a>
+            <a href="<?= site_url('/prueba-dgi') ?>" class="hover:underline text-lg font-semibold">TESTING COSA</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->

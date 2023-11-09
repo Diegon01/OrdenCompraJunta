@@ -140,6 +140,17 @@ class OrdenDeCompraController extends BaseController
                 if ($esLicitacion === '0' || $esLicitacion == null) {
                     $ordenCompraModel->update($orderId, ['licitacion' => 0]);
                 }
+
+                $solicitante_id = $order['solicitante_id'];
+                $userModel_orden = new \App\Models\UserModelo();
+                $solicitante = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->find($solicitante_id);
+
+                $notificacionController = new \App\Controllers\NotificacionController();
+                $destino = $solicitante->secret;
+                $oid = $order['id'];
+                $notificacionController->intervencionFinalizada($destino, $oid); // auth()->user()->id
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');
