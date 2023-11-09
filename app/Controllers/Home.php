@@ -613,7 +613,10 @@ class Home extends BaseController
             'rubros' => $rubros,
             'proveedor' => $proveedor,
         ];
-        //return view('orden_detalles', $data);
+        return view('orden_detalles', $data);
+    }
+
+    function prueba_dgi() {
         $accessToken = $this->obtenerToken();
         $rut = '214860570013';
         $rutEmisor = '214198620015';
@@ -626,7 +629,6 @@ class Home extends BaseController
         echo $datosRUT['WS_PersonaActEmpresarial']['RUT']; // Accede al índice "RUT" dentro de "WS_PersonaActEmpresarial"
 
         return ' ';
-        
     }
 
     function imprimirRecursivo($array, $nivel = 0, $padre = null) {
