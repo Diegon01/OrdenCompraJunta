@@ -63,6 +63,32 @@ class Home extends BaseController
         ];
         return view('alta_proveedor', $data);
     }
+    public function proveedor_crear_pasodos(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        $rut = $this->request->getPost('rut');
+
+        $accessToken = $this->obtenerToken();
+        $rutEmisor = '214198620015';
+        $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);
+        $nombre = $datosRUT['WS_PersonaActEmpresarial']['Denominacion'];
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'rut' => $rut,
+            'nombre' => $nombre,
+        ];
+        return view('alta_proveedor_pasodos', $data);
+    }
     public function solicitud_orden_compra_crear(): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
@@ -587,6 +613,99 @@ class Home extends BaseController
             'rubros' => $rubros,
             'proveedor' => $proveedor,
         ];
-        return view('orden_detalles', $data);
+        //return view('orden_detalles', $data);
+        $accessToken = $this->obtenerToken();
+        $rut = '214860570013';
+        $rutEmisor = '214198620015';
+
+        $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);
+
+        $this->imprimirRecursivo($datosRUT);
+
+        echo '<br><br>PRUEBA RUT: ';
+        echo $datosRUT['WS_PersonaActEmpresarial']['RUT']; // Accede al índice "RUT" dentro de "WS_PersonaActEmpresarial"
+
+        return ' ';
+        
+    }
+
+    function imprimirRecursivo($array, $nivel = 0, $padre = null) {
+        foreach ($array as $clave => $valor) {
+            
+            if (is_array($valor)) {
+                echo '<br>';
+                echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $nivel); // Espacios para indentación
+                echo "[ $clave ] \n";
+                $this->imprimirRecursivo($valor, $nivel + 1, $clave);
+            } else {
+                echo '<br>';
+                echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $nivel);
+                echo "$clave => $valor \n";
+            }
+        }
+    }
+
+    function obtenerToken() {
+        $url = 'https://auth-test.facturaelectronica.com.uy/token';
+    
+        $data = [
+            'username' => 'api-test@isbo.edu.uy',
+            'password' => 'Isb0.test',
+            'grant_type' => 'password',
+            'scope' => '214198620015',
+        ];
+
+        $jsonData = json_encode($data);
+
+        $body = '{
+
+            "username": "api-test@isbo.edu.uy",
+        
+            "password": "Isb0.test",
+        
+            "grant_type": "password",
+        
+            "scope": "214198620015"
+        
+        }';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+    
+    
+        $response = curl_exec($ch);
+        $tokenData = json_decode($response, true);
+    
+        if (isset($tokenData['access_token'])) {
+            return $tokenData['access_token'];
+        } else {
+
+        }
+    }
+
+    function obtenerDatosRUT($rut, $accessToken, $rutEmisor) {
+        $url = "https://api-test.facturaelectronica.com.uy/consulta-dgi/actividad-empresarial/{$rut}";
+    
+        $headers = [
+            'Authorization: Bearer ' . $accessToken,
+            'Accept: application/json',
+            "x-emisor: {$rutEmisor}",
+        ];
+    
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    
+        $response = curl_exec($ch);
+        $datosRUT = json_decode($response, true);
+    
+        // Puedes manejar los datos de respuesta según tus necesidades
+    
+        return $datosRUT;
     }
 }
