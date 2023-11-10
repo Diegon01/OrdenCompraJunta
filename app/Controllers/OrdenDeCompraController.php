@@ -145,12 +145,24 @@ class OrdenDeCompraController extends BaseController
                 $userModel_orden = new \App\Models\UserModelo();
                 $solicitante = $userModel_orden
                     ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
                     ->find($solicitante_id);
 
                 $notificacionController = new \App\Controllers\NotificacionController();
                 $destino = $solicitante->secret;
                 $oid = $order['id'];
-                $notificacionController->intervencionFinalizada($destino, $oid); // auth()->user()->id
+                $notificacionController->intervencionFinalizada($destino, $oid);
+
+                $presis = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->where('Presidente', 1)
+                    ->findAll();
+                
+                foreach ($presis as $presi) {
+                    $destino = $presi->secret;
+                    $notificacionController->intervencionFinalizada($destino, $oid);
+                }
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');
@@ -184,12 +196,32 @@ class OrdenDeCompraController extends BaseController
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['Presidente_Aprobado' => 1]);
 
-                if ($esLicitacion === '1') {
-                    // PENDIENTE IMPLEMENTACION
-                }
+                $solicitante_id = $order['solicitante_id']; // Buscar solicitante
+                $userModel_orden = new \App\Models\UserModelo();
+                $solicitante = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->find($solicitante_id);
 
-                if ($esLicitacion === '0') {
-                    // PENDIENTE IMPLEMENTACION
+                $notificacionController = new \App\Controllers\NotificacionController(); // Notificacion
+                $destino = $solicitante->secret;
+                $oid = $order['id']; // Buscar orden
+                if ($order['licitacion'] === '1') {
+                    $notificacionController->pendienteOfertas($destino, $oid);
+
+                    $contadoras = $userModel_orden // Buscar contadoras
+                        ->join('auth_identities', 'auth_identities.user_id = users.id')
+                        ->join('user_roles', 'user_roles.user_id = users.id')
+                        ->where('Contador', 1)
+                        ->findAll();
+                    
+                    foreach ($contadoras as $contadora) { // Notificar por cada una
+                        $destino = $contadora->secret;
+                        $notificacionController->pendienteOfertas($destino, $oid);
+                    }
+                }
+                if ($order['licitacion'] === '0') {
+                    $notificacionController->pendienteCotizar($destino, $oid);
                 }
     
                 // Redirect to the "ordenes" route or any other destination as needed
@@ -221,6 +253,29 @@ class OrdenDeCompraController extends BaseController
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['secretario_visto' => 1]);
                 //$ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+
+                $solicitante_id = $order['solicitante_id']; // Buscar solicitante
+                $userModel_orden = new \App\Models\UserModelo();
+                $solicitante = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->find($solicitante_id);
+
+                $notificacionController = new \App\Controllers\NotificacionController(); // Notificacion
+                $destino = $solicitante->secret;
+                $oid = $order['id']; // Buscar orden
+                $notificacionController->ordenCompraVisto($destino, $oid);
+
+                $contadoras = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->where('Contador', 1)
+                    ->findAll();
+                
+                foreach ($contadoras as $contadora) {
+                    $destino = $contadora->secret;
+                    $notificacionController->ordenCompraVisto($destino, $oid);
+                }
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenescompra');
@@ -282,6 +337,29 @@ class OrdenDeCompraController extends BaseController
             if ($order) {
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['estado' => 'Rechazada']);
+
+                $solicitante_id = $order['solicitante_id']; // Buscar solicitante
+                $userModel_orden = new \App\Models\UserModelo();
+                $solicitante = $userModel_orden
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->find($solicitante_id);
+
+                $notificacionController = new \App\Controllers\NotificacionController(); // Notificacion
+                $destino = $solicitante->secret;
+                $oid = $order['id']; // Buscar orden
+                $notificacionController->presidenteRechaza($destino, $oid);
+
+                $contadoras = $userModel_orden // Buscar contadoras
+                    ->join('auth_identities', 'auth_identities.user_id = users.id')
+                    ->join('user_roles', 'user_roles.user_id = users.id')
+                    ->where('Contador', 1)
+                    ->findAll();
+                
+                foreach ($contadoras as $contadora) { // Notificar por cada una
+                    $destino = $contadora->secret;
+                    $notificacionController->presidenteRechaza($destino, $oid);
+                }
     
                 // Redirect to the "ordenes" route or any other destination as needed
                 return redirect()->to('/ordenes');
@@ -328,6 +406,30 @@ class OrdenDeCompraController extends BaseController
                 $ofertaModel->insert($datas);
            }
            $ordenCompraModel->update($orderId, ['Ofertas_Ingresadas' => '1']);
+
+            $solicitante_id = $order['solicitante_id']; // Buscar solicitante
+            $userModel_orden = new \App\Models\UserModelo();
+            $solicitante = $userModel_orden
+                ->join('auth_identities', 'auth_identities.user_id = users.id')
+                ->join('user_roles', 'user_roles.user_id = users.id')
+                ->find($solicitante_id);
+
+            $notificacionController = new \App\Controllers\NotificacionController(); // Notificacion
+            $destino = $solicitante->secret;
+            $oid = $order['id']; // Buscar orden
+            $notificacionController->pendienteElegirOferta($destino, $oid);
+
+            $presis = $userModel_orden
+                ->join('auth_identities', 'auth_identities.user_id = users.id')
+                ->join('user_roles', 'user_roles.user_id = users.id')
+                ->where('Presidente', 1)
+                ->findAll();
+            
+            foreach ($presis as $presi) {
+                $destino = $presi->secret;
+                $notificacionController->pendienteElegirOferta($destino, $oid);
+            }
+
             return redirect()->to('/ordenes');
 
         }
@@ -410,6 +512,29 @@ class OrdenDeCompraController extends BaseController
             }
 
             $ordenCompraModel->update($orderId, ['estado' => 'Aceptada']);
+
+            $solicitante_id = $order['solicitante_id']; // Buscar solicitante
+            $userModel_orden = new \App\Models\UserModelo();
+            $solicitante = $userModel_orden
+                ->join('auth_identities', 'auth_identities.user_id = users.id')
+                ->join('user_roles', 'user_roles.user_id = users.id')
+                ->find($solicitante_id);
+
+            $notificacionController = new \App\Controllers\NotificacionController(); // Notificacion
+            $destino = $solicitante->secret;
+            $oid = $order['id']; // Buscar orden
+            $notificacionController->ordenCompraEmitida($destino, $oid, $ordenFinalID);
+
+            $secres = $userModel_orden
+                ->join('auth_identities', 'auth_identities.user_id = users.id')
+                ->join('user_roles', 'user_roles.user_id = users.id')
+                ->where('Secretario', 1)
+                ->findAll();
+            
+            foreach ($secres as $secre) {
+                $destino = $secre->secret;
+                $notificacionController->ordenCompraEmitida($destino, $oid, $ordenFinalID);
+            }
             
 
         }
