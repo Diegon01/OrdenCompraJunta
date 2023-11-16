@@ -71,6 +71,21 @@ class ProyectoUsersController extends BaseController
         $user->apellidos = $this->request->getPost('apellidos');
         $user->cedula = $this->request->getPost('cedula');
 
+        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $stringAleatorio = '';
+
+        for ($i = 0; $i < 10; $i++) {
+            $indiceAleatorio = rand(0, strlen($caracteres) - 1);
+            $stringAleatorio .= $caracteres[$indiceAleatorio];
+        }
+
+        $pass_random = $stringAleatorio;
+        $user->setPassword($pass_random);
+
+        $notificacionController = new \App\Controllers\NotificacionController();
+        $destino = $this->request->getPost('email');
+        $notificacionController->notificarUsuarioCreado($destino, $pass_random);
+
         try {
             $users->save($user);
         } catch (ValidationException $e) {
@@ -93,6 +108,68 @@ class ProyectoUsersController extends BaseController
         $userRolesModel->insert($userRolesData);
 
         return redirect()->to('/registrar/exito');
+    }
+
+    public function changePassAction() {
+        $users = auth()->getProvider();
+        $currentUserId = auth()->user()->id;
+        $newPass = $this->request->getPost('password');
+        $repPass = $this->request->getPost('password_confirm');
+    
+        // Reglas de validación
+        $validationRules = [
+            'password' => 'required|min_length[8]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]',
+            'password_confirm' => 'matches[password]'
+        ];
+    
+        // Mensajes de error personalizados
+        $validationMessages = [
+            'password' => [
+                'regex_match' => 'La contraseña debe contener al menos una mayúscula y un número.'
+            ]
+        ];
+    
+        // Validar
+        if ($this->validate($validationRules, $validationMessages)) {
+            if ($this->old_password($newPass)) {
+                echo 'La nueva contraseña no puede ser igual a la actual';
+            } else {
+                $user = $users->findById($currentUserId);
+                $user->fill([
+                    'password' => $newPass
+                ]);
+                $users->save($user);
+                echo 'Éxito';
+            }
+        } 
+        else {
+            // Muestra los mensajes de error de validación
+            echo 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número';
+        }
+    }
+
+    public function changeMailAction() {
+        $users = auth()->getProvider();
+        $currentUserId = auth()->user()->id;
+        $user = $users->findById($currentUserId);
+        $pass = $this->request->getPost('password');
+        $newMail = $this->request->getPost('email');
+
+        $result = auth()->check([
+            'email'    => auth()->user()->email,
+            'password' => $pass,
+        ]);
+
+        if( $result->isOK() ) {
+            $user->fill([
+                'email' => $newMail
+            ]);
+            $users->save($user);
+            echo 'Éxito';
+        }
+        else {
+            echo 'Nuh huh';
+        }
     }
 
     protected function getUserProvider(): UserModel
@@ -124,4 +201,21 @@ class ProyectoUsersController extends BaseController
 
         return $rules->getRegistrationRules();
     }
+
+    public function old_password(string $password, ?string &$error = null): bool
+    {
+        $result = auth()->check([
+            'email'    => auth()->user()->email,
+            'password' => $password,
+        ]);
+
+        if( !$result->isOK() ) {
+            // Send back the error message
+            $error = lang('Auth.errorOldPassword');
+
+            return false;
+        }
+
+        return true;
+    } 
 }

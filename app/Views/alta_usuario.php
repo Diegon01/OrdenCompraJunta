@@ -17,7 +17,7 @@
 <div class="bg-gray-100 h-screen flex justify-center items-center">
 <div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center">
 
-            <h2 class="text-2xl font-bold mb-6"><?= lang('Auth.register') ?></h2>
+            <h2 class="text-2xl font-bold mb-6">Dar de alta nuevo usuario</h2>
 
             <?php if (session('error') !== null) : ?>
                 <div class="bg-red-500 text-white p-2 mb-4"><?= session('error') ?></div>
@@ -66,14 +66,12 @@
 
                 <!-- Password -->
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-600">Contraseña:</label>
-                    <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+                    <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="Contrasenia123" hidden />
                 </div>
 
                 <!-- Password (Again) -->
                 <div class="mb-4">
-                    <label for="password_confirm" class="block text-sm font-medium text-gray-600">Confirmar contraseña:</label>
-                    <input type="password" id="password_confirm" name="password_confirm" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+                    <input type="password" id="password_confirm" name="password_confirm" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="Contrasenia123" hidden />
                 </div>
 
                 <!-- Checkboxes -->
@@ -104,7 +102,7 @@
                 </div>
 
                 <div class="flex items-center justify-center mt-4">
-                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"><?= lang('Auth.register') ?></button>
+                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300">Registrar</button>
                 </div>
 
                 

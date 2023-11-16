@@ -111,4 +111,15 @@ class NotificacionController extends BaseController
         $email->setMessage('El Secretario ha dado el visto a la Órden de Compra Nº ' . $orden . '. La órden de compra se encuentra emitida y lista.');
         $email->send();
     }
+
+    public function notificarUsuarioCreado($destino, $pass) {
+        // Lógica para enviar el correo electrónico aquí
+        $email = \Config\Services::email();
+
+        $email->setTo($destino);
+        $email->setFrom('proyectojuntadepartamental@gmail.com', 'Junta departamental - Asuntos internos');
+        $email->setSubject('Usuario registrado exitosamente');
+        $email->setMessage('Se ha registrado el usuario y asignado automáticamente la siguiente contraseña: "' . $pass . '" (sin comillas). Se puede cambiar la contraseña dentro del sistema, en la pestaña de "Cambiar contraseña".');
+        $email->send();
+    }
 }

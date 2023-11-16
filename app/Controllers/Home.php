@@ -197,15 +197,28 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('alta_usuario', $data);
+        if ($isAdmin) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('alta_usuario', $data);
+        }
+        else {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('permission_denied', $data);
+        }
     }
+
     public function registrar_created(): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
@@ -794,5 +807,53 @@ class Home extends BaseController
         // Puedes manejar los datos de respuesta según tus necesidades
     
         return $datosRUT;
+    }
+
+    public function usuario_editar(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $logged,
+        ];
+        return view('editar_usuario', $data);
+    }
+
+    public function usuario_editar_mail(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $logged,
+        ];
+        return view('editar_usuario_mail', $data);
     }
 }
