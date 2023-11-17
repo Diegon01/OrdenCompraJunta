@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100">
 <div class="bg-gray-100 h-screen flex justify-center items-center">
-<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center">
+<div class="bg-white p-8 rounded shadow-md w-1/5 mx-auto text-center">
 
             <h2 class="text-2xl font-bold mb-6">Cambio de Contraseña</h2>
 
@@ -36,6 +36,12 @@
 
             <form action="<?= url_to('editar-perfil-a') ?>" method="post">
                 <?= csrf_field() ?>
+
+                <!-- C Password -->
+                <div class="mb-4">
+                    <label for="password_current" class="block text-sm font-medium text-gray-600">Contraseña actual:</label>
+                    <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+                </div>
                 
                 <!-- Password -->
                 <div class="mb-4">

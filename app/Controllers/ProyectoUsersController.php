@@ -113,6 +113,7 @@ class ProyectoUsersController extends BaseController
     public function changePassAction() {
         $users = auth()->getProvider();
         $currentUserId = auth()->user()->id;
+        $oldPass = $this->request->getPost('password_current');
         $newPass = $this->request->getPost('password');
         $repPass = $this->request->getPost('password_confirm');
     
@@ -131,15 +132,20 @@ class ProyectoUsersController extends BaseController
     
         // Validar
         if ($this->validate($validationRules, $validationMessages)) {
-            if ($this->old_password($newPass)) {
-                echo 'La nueva contraseña no puede ser igual a la actual';
-            } else {
-                $user = $users->findById($currentUserId);
-                $user->fill([
-                    'password' => $newPass
-                ]);
-                $users->save($user);
-                echo 'Éxito';
+            if ($this->check_password($oldPass)) {
+                if ($this->check_password($newPass)) {
+                    echo 'La nueva contraseña no puede ser igual a la actual';
+                } else {
+                    $user = $users->findById($currentUserId);
+                    $user->fill([
+                        'password' => $newPass
+                    ]);
+                    $users->save($user);
+                    echo 'Éxito';
+                }
+            }
+            else {
+                echo 'La contraseña ingresada no es correcta';
             }
         } 
         else {
@@ -202,7 +208,7 @@ class ProyectoUsersController extends BaseController
         return $rules->getRegistrationRules();
     }
 
-    public function old_password(string $password, ?string &$error = null): bool
+    public function check_password(string $password, ?string &$error = null): bool
     {
         $result = auth()->check([
             'email'    => auth()->user()->email,
