@@ -29,7 +29,7 @@ class Home extends BaseController
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
             ];
-            return $this->mis_ordenes();
+            return $this->ordenes_botones();
         }
         else {
             $data = [

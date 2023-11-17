@@ -28,7 +28,7 @@
         <div class="flex items-center space-x-4">
             <div class="relative inline-block">
                 <div id="optionsButton" class="profile-image-container ml-2" style="max-width: 70px; max-height: 70px;">
-                    <img src="<?= base_url('assets/images/personaprueba.jpg') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="cursor: pointer;">
+                    <img src="<?= base_url('assets/images/new_user.png') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="cursor: pointer;">
                 </div>
                 <div id="optionsMenu" class="absolute hidden mt-2 bg-blue-500 rounded shadow-md" style="width: 225px; left: -175px; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.50));">
                     <div class="mb-4">
