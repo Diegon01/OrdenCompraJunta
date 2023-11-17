@@ -23,6 +23,8 @@ $routes->post('/editar-perfil-a', 'ProyectoUsersController::changePassAction');
 $routes->get('/registrar/exito', 'Home::registrar_created');
 $routes->get('/ordenes', 'Home::ver_ordenes');
 $routes->get('/misordenes', 'Home::mis_ordenes');
+$routes->get('/ordenes-botones', 'Home::ordenes_botones');
+$routes->get('/administracion', 'Home::administracion');
 $routes->post('/alta-orden', 'OrdenDeCompraController::alta_orden_compra');
 service('auth')->routes($routes, ['except' => ['/login', '/register']]);
 $routes->get('/login', '\App\Controllers\Auth\LoginController::loginView');

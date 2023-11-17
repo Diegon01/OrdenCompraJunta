@@ -1,3 +1,12 @@
+    <style>
+        .box-shadow-hover:hover {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.90));
+        }
+
+        .box-shadow-hover {
+        transition: filter 0.3s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
+    </style>
 
     <nav class=" bg-blue-500 p-2 text-white flex justify-between items-center shadow-md">
         <!-- Logo a la izquierda -->
@@ -8,29 +17,17 @@
         <!-- Botones de redirección en el centro -->
         <div class="space-x-4">
             <?php if ($isFuncionario) : ?>
-                <a href="<?= site_url('/misordenes') ?>" class="hover:underline text-lg font-semibold">Mis solicitudes</a>
-            <?php endif; ?>
-            <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
-                <a href="<?= site_url('/ordenes') ?>" class="hover:underline text-lg font-semibold">Administrar solicitudes</a>
-            <?php endif; ?>
-            <?php if ($isContador || $isAdmin || $isPresidente || $isSecretario) : ?>
-                <a href="<?= site_url('/ordenescompra') ?>" class="hover:underline text-lg font-semibold">Administrar órdenes</a>
-            <?php endif; ?>
-            <?php if ($isAdmin) : ?>
-                <a href="<?= site_url('/registrar') ?>" class="hover:underline text-lg font-semibold">Alta Usuario</a>
+                <a href="<?= site_url('/ordenes-botones') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Solicitudes y Órdenes</a>
             <?php endif; ?>
             <?php if ($isContador || $isAdmin) : ?>
-                <a href="<?= site_url('/alta-proveedor/crear') ?>" class="hover:underline text-lg font-semibold">Alta Proveedor</a>
-            <?php endif; ?>     
-            <?php if ($isContador || $isAdmin) : ?>
-                <a href="<?= site_url('/alta-rubro') ?>" class="hover:underline text-lg font-semibold">Alta Rubro</a>
-            <?php endif; ?>
-            <a href="<?= site_url('/editar-perfil') ?>" class="hover:underline text-lg font-semibold">Cambiar contraseña</a>
+                <a href="<?= site_url('/administracion') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Administración</a>
+            <?php endif; ?> 
+            <a href="<?= site_url('/editar-perfil') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Cambiar contraseña</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->
         <div class="flex items-center">
-            <a href="<?= site_url('/logout') ?>" class="hover:underline text-lg font-semibold mr-4">Cerrar sesión</a>
+            <a href="<?= site_url('/logout') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover mr-4">Cerrar sesión</a>
             <div class="profile-image-container ml-2" style="max-width: 70px; max-height: 70px;">
                 <img src="<?= base_url('assets/images/personaprueba.jpg') ?>" alt="Imagen de perfil" class="profile-image rounded-full">
             </div>
