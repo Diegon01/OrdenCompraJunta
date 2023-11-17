@@ -7,6 +7,7 @@ use App\Models\ProductoDeOrdenDeCompraModel;
 use CodeIgniter\Pager\Pager;
 use App\Models\UserModelo;
 use App\Models\RubroModel;
+use App\Models\RubroSaldoCongeladoModel;
 use App\Models\OrdenProveedorModel;
 use App\Models\OfertaModel;
 
@@ -892,5 +893,31 @@ class Home extends BaseController
             'usuario' => $logged,
         ];
         return view('editar_usuario_mail', $data);
+    }
+
+    public function ver_rubros(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $rubrosModel = new \App\Models\RubroModel();
+        $rubros = $rubrosModel->findAll();
+        $rubroconModel = new RubroSaldoCongeladoModel();
+        $rubros_con = $rubroconModel->findAll();
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'rubros' => $rubros,
+            'rubros_con' => $rubros_con,
+        ];
+        return view('ABM_Rubros', $data);
     }
 }

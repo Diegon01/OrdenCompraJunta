@@ -10,7 +10,7 @@
 
     <nav class=" bg-blue-500 p-2 text-white flex justify-between items-center shadow-md">
         <!-- Logo a la izquierda -->
-        <a href="<?= base_url('/') ?>">
+        <a class="hover:no-underline text-lg font-semibold box-shadow-hover" href="<?= base_url('/') ?>">
             <img src="<?= base_url('assets/images/LogoJunta.png') ?>" alt="Logo" width="80" height="80">
         </a>
         
@@ -22,14 +22,29 @@
             <?php if ($isContador || $isAdmin) : ?>
                 <a href="<?= site_url('/administracion') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Administración</a>
             <?php endif; ?> 
-            <a href="<?= site_url('/editar-perfil') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Cambiar contraseña</a>
         </div>
         
         <!-- Cerrar sesión y la imagen de usuario a la derecha usando ml-auto -->
-        <div class="flex items-center">
-            <a href="<?= site_url('/logout') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover mr-4">Cerrar sesión</a>
-            <div class="profile-image-container ml-2" style="max-width: 70px; max-height: 70px;">
-                <img src="<?= base_url('assets/images/personaprueba.jpg') ?>" alt="Imagen de perfil" class="profile-image rounded-full">
+        <div class="flex items-center space-x-4">
+            <div class="relative inline-block">
+                <div id="optionsButton" class="profile-image-container ml-2" style="max-width: 70px; max-height: 70px;">
+                    <img src="<?= base_url('assets/images/personaprueba.jpg') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="cursor: pointer;">
+                </div>
+                <div id="optionsMenu" class="absolute hidden mt-2 bg-blue-500 rounded shadow-md" style="width: 225px; left: -175px; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.50));">
+                    <div class="mb-4">
+                        <a href="<?= site_url('/editar-perfil') ?>" class="hover:no-underline box-shadow-hover px-4 text-lg font-semibold">🗝 Cambiar contraseña</a>
+                    </div>
+                    <div class="mb-2">
+                        <a href="<?= site_url('/logout') ?>" class="hover:no-underline box-shadow-hover mr-4 px-4 text-lg font-semibold">🚪 Cerrar sesión</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
+
+    <script>
+        document.getElementById('optionsButton').addEventListener('click', function() {
+            var optionsMenu = document.getElementById('optionsMenu');
+            optionsMenu.classList.toggle('hidden');
+        });
+    </script>

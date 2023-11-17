@@ -13,7 +13,7 @@
 
 <style>
     .box-shadow-hover-dos:hover {
-    filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));
+    filter: drop-shadow(0 0 25px rgba(66, 135, 245, 0.90));
     }
 
     .box-shadow-hover-dos {
@@ -38,6 +38,11 @@
         <?php if ($isContador || $isAdmin) : ?>
             <a href="<?= site_url('/alta-rubro') ?>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-8 px-4 rounded hover:no-underline box-shadow-hover-dos">
                 Dar de alta un Rubro</a>
+            <br><br><br><br>
+        <?php endif; ?>
+        <?php if ($isContador || $isAdmin) : ?>
+            <a href="<?= site_url('/ver-rubros') ?>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-8 px-4 rounded hover:no-underline box-shadow-hover-dos">
+                Ver Rubros</a>
             <br><br><br><br>
         <?php endif; ?>
     </div>

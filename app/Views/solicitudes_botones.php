@@ -13,7 +13,7 @@
 
 <style>
     .box-shadow-hover-dos:hover {
-    filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));
+    filter: drop-shadow(0 0 25px rgba(66, 135, 245, 0.90));
     }
 
     .box-shadow-hover-dos {
