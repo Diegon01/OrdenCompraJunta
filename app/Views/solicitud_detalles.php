@@ -69,7 +69,7 @@
 </header>
 <body class="bg-gray-100">
     <div class="bg-gray-100 p-2">
-    <form action="<?= base_url('contador-aprueba') ?>" method="POST">
+    <form action="<?= base_url('contador-aprueba') ?>" method="POST" onsubmit="return validarFormulario()">
         <?= csrf_field() ?>
         <div class="page-container bg-gray-200 p-4 pt-8">
             <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
@@ -294,7 +294,7 @@
                                                 class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                                 style="background: transparent;"
                                                 readonly
-                                                placeholder="">
+                                                placeholder="" required>
                                         </div>
                                     </td>
                                 <?php endif; ?>
@@ -362,9 +362,9 @@
                     <div class="text-center">
                         <label for="esLicitacion" class="form-check-label block mb-2">¿Es Licitación?</label>
                         <div class="flex justify-center">
-                            <input type="checkbox" id="esLicitacionSi" name="esLicitacionSi" value="1" class="form-check-input mr-2">
+                            <input type="checkbox" id="esLicitacionSi" name="esLicitacionSi" value="1" class="form-check-input mr-2" required>
                             <label for="esLicitacionSi" class="form-check-label mr-4">Si</label>
-                            <input type="checkbox" id="esLicitacionNo" name="esLicitacionNo" value="0" class="form-check-input mr-2">
+                            <input type="checkbox" id="esLicitacionNo" name="esLicitacionNo" value="0" class="form-check-input mr-2" required>
                             <label for="esLicitacionNo" class="form-check-label">No</label>
                         </div>
                     </div>
@@ -637,6 +637,36 @@
     const searchResults = document.getElementById('searchResults');
     var selectedIDs = [];
 
+    function validarFormulario() {
+        // Obtén el valor del campo hidden
+        var selectedIDs = document.querySelector('input[name="selectedIDs[]"]').value;
+        var saldoRubroFields = document.querySelectorAll('input[name="saldo_rubro[]"]');
+        var rubroInvalido = false;
+
+        saldoRubroFields.forEach(function(saldoRubroField) {
+            if (saldoRubroField.value === '-----') {
+                rubroInvalido = true;
+            }
+        });
+
+        if (rubroInvalido) {
+            alert('Al menos uno de los rubros ingresados no es válido.');
+            return false;
+        }
+
+        // Verifica si el arreglo está vacío
+        if (selectedIDs.trim() === '') {
+            // Muestra un mensaje de error (puedes personalizar esto)
+            alert('Debes seleccionar al menos un proveedor.');
+
+            // Evita que el formulario se envíe
+            return false;
+        }
+
+        // Si llegamos hasta aquí, el formulario puede enviarse
+        return true;
+    }
+
     function enviarFormularioRechazo() {
         // Obtener el formulario actual
         var formulario = document.querySelector('form');
@@ -830,7 +860,9 @@
             if (this.checked) {
                 checkboxes.forEach(function(innerCheckbox) {
                     if (innerCheckbox !== checkbox) {
+                        innerCheckbox.removeAttribute('required');
                         innerCheckbox.checked = false;
+                        checkbox.setAttribute('required', 'required');
                     }
                 });
             }
