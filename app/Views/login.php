@@ -4,7 +4,7 @@
 <head>
     <title>Iniciar sesión</title>
     <!-- Agrega los estilos de Tailwind CSS -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-96">

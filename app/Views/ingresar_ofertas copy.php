@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a mi sitio</title>
     <!-- Enlaza el archivo CSS compilado de Tailwind CSS -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <header> 
     <?= view('layout/navbar') ?>
