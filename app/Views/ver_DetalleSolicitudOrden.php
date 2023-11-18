@@ -251,7 +251,7 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
         <h1 class="text-2xl font-semibold mb-2 text-center">Detalle Proveedor</h1>
 
         <!-- Formulario para el alta de proveedor -->
-        <form action="/alta-proveedor" method="POST">
+        <form action="<?= base_url('alta-proveedor') ?>" method="POST">
 
                     <!-- Campo Nombre de Proveedor -->
             <div class="mb-4 flex items-center">

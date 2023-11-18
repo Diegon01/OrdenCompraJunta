@@ -315,7 +315,7 @@
                 </table>
             </div>
 
-            <form action="/secretario-aprueba" method="POST">
+            <form action="<?= base_url('secretario-aprueba') ?>" method="POST">
                 <?= csrf_field() ?>
                 <br>
                 <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">

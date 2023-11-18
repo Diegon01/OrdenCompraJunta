@@ -19,7 +19,7 @@
             <h1 class="text-2xl font-semibold mb-6 text-center">Alta de Proveedor</h1>
 
         <!-- Formulario para el alta de proveedor -->
-        <form action="/alta-proveedor/pasouno" method="POST">
+        <form action="<?= base_url('alta-proveedor/pasouno') ?>" method="POST">
 
  
             <!-- Campo RUT -->

@@ -63,7 +63,7 @@
 
                                     <td class="text-center px-2 py-1">
                                         <!-- Botón de apertura del modal -->
-                                        <form action="/eleccion-oferta" method="POST">
+                                        <form action="<?= base_url('eleccion-oferta') ?>" method="POST">
                                             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
                                             <input type="hidden" name="prov_id" value="<?= $proveedor['id'] ?>">
                                             <div class="mt-0 py-8 text-center">
@@ -90,6 +90,7 @@
                 <!-- Modal -->
                 <div id="modal<?= $proveedorId ?>" class="modal hidden fixed inset-0 flex items-center justify-center z-50">
                     <div class="modal-content bg-white border border-gray-300 shadow-md rounded-lg p-6 w-3/4">
+                    <button type="button" class="top-4 right-4 text-red-600 text-3xl" onclick="closeModal('modal<?= $proveedorId ?>')">&times;</button>
                         <div class="productos-container p-0">
                             <br>
                             <label class="font-semibold text-2xl pb-2 block text-center">Mostrando oferta de <?= $proveedorNombre ?>:</label>
@@ -159,7 +160,6 @@
                                 ?>
                             </table>
                             <br><br>
-                            <button type="button" class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('modal<?= $proveedorId ?>')">&times;</button>
                             <div id="modalContent<?= $proveedorId ?>"></div>
                         </div>
                     </div>
@@ -169,6 +169,7 @@
                 <!-- Ver Modal -->
                 <div id="vermodal<?= $proveedorId ?>" class="modal hidden fixed inset-0 flex items-center justify-center z-50">
                     <div class="modal-content bg-white border border-gray-300 shadow-md rounded-lg p-6 w-3/4">
+                    <button type="button" class="top-4 right-4 text-red-600 text-3xl" onclick="closeModal('vermodal<?= $proveedorId ?>')">&times;</button>
                         <div class="productos-container p-0">
                             <br>
                             <label class="font-semibold text-2xl pb-2 block text-center">Detalles de <?= $proveedorNombre ?>:</label>
@@ -185,7 +186,6 @@
                             Fecha de vencimiento de BPS: <?= $proveedor['fecha_de_vencimiento_bps'] ?>
                             <br><br>
                             <div id="modalContent<?= $proveedorId ?>"></div>
-                            <button type="button" class="close absolute top-4 right-4 text-gray-600 text-3xl" onclick="closeModal('vermodal<?= $proveedorId ?>')">&times;</button>
                         </div>
                     </div>
                 </div>

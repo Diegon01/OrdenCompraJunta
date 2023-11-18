@@ -69,7 +69,7 @@
 </header>
 <body class="bg-gray-100">
     <div class="bg-gray-100 p-2">
-    <form action="/contador-aprueba" method="POST">
+    <form action="<?= base_url('contador-aprueba') ?>" method="POST">
         <?= csrf_field() ?>
         <div class="page-container bg-gray-200 p-4 pt-8">
             <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
@@ -641,7 +641,7 @@
         // Obtener el formulario actual
         var formulario = document.querySelector('form');
         // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
-        formulario.action = "/solicitud-rechaza";
+        formulario.action = "<?= base_url('solicitud-rechaza') ?>";
         // Realizar el envío del formulario
         formulario.submit();
     }
@@ -659,7 +659,7 @@
         // Obtener el formulario actual
         var formulario = document.querySelector('form');
         // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
-        formulario.action = "/presidente-aprueba";
+        formulario.action = "<?= base_url('presidente-aprueba') ?>";
         // Realizar el envío del formulario
         formulario.submit();
     }

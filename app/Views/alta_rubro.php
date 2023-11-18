@@ -17,7 +17,7 @@
 <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-16">
         <h2 class="text-2xl font-semibold mb-4">Alta de Rubros</h2>
         <!-- Formulario de alta de rubros -->
-        <form action="alta-rubro/crear" method="POST">
+        <form action="<?= base_url('alta-rubro/crear') ?>" method="POST">
             <!-- Campo Código -->
             <div class="mb-4">
                 <label for="codigo" class="block text-sm font-medium text-gray-600">Código</label>

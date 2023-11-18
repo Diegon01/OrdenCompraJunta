@@ -19,7 +19,7 @@
             <h1 class="text-2xl font-semibold mb-6 text-center">Alta de Proveedor</h1>
 
         <!-- Formulario para el alta de proveedor -->
-        <form action="/alta-proveedor" method="POST">
+        <form action="<?= base_url('alta-proveedor') ?>" method="POST">
 
             <!-- Campo Nombre de Proveedor -->
             <div class="mb-4 flex items-center">
