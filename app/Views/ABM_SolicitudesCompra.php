@@ -70,7 +70,31 @@
         .description-cell {
         max-width: 500px; /* Adjust the maximum height as needed */
         overflow: auto;
-    }
+        }
+
+        .box-shadow-hover-dos:hover {
+        filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));
+        }
+
+        .box-shadow-hover-dos {
+        transition: filter 0.3s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
+
+        .box-shadow-hover-tres:hover {
+        filter: drop-shadow(0 0 10px rgba(66, 205, 135, 0.90));
+        }
+
+        .box-shadow-hover-tres {
+        transition: filter 0.3s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
+
+        .box-shadow-hover-cuatro:hover {
+        filter: drop-shadow(0 0 7px rgba(255, 0, 0, 0.50));
+        }
+
+        .box-shadow-hover-cuatro {
+        transition: filter 0.2s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
     </style>
 </head>
 
@@ -95,7 +119,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" maring>Borrar Filtros</button>
+            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded hover:no-underline box-shadow-hover-cuatro" maring>Borrar Filtros</button>
             &nbsp; 
             &nbsp; 
             &nbsp; 
@@ -106,12 +130,18 @@
 
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
                 <form action="<?= site_url('ordenes') ?>" method="get">
-                
-                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1"
-                    
-                        placeholder="Ingrese búsqueda...">
-                        <button type="submit"></button>
-                        
+                    <!-- Input para el filtro actual -->
+                    <?php foreach ($_GET as $key => $value): ?>
+                        <?php if ($key !== 'search'): ?>
+                            <input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <!-- Campo de búsqueda -->
+                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1" placeholder="Ingrese búsqueda...">
+
+                    <!-- Botón de submit -->
+                    <button type="submit"></button>
                 </form>
             </div>
         </div>
@@ -124,11 +154,11 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más recientes</a>
 
                         </label>
                         <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más antiguas</a>
 
                         </label>
                     </div>
@@ -136,18 +166,18 @@
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
+                            <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'pendiente'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
+                            <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'aceptada'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
+                            <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'rechazada'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
                         </label>
                      
     <!-- ... (otros elementos) ... -->
     <!-- Botón de Borrar Filtros -->
-    <br>
+    
    
                     </div>
                 </div>
@@ -216,7 +246,7 @@
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de intervención</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
@@ -225,7 +255,7 @@
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
                                             <?php if ($isPresidente) : ?>
-                                                <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de aprobación</span>
+                                                <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de aprobación</span>
                                             <?php endif; ?>
                                             <?php if (!$isPresidente) : ?>
                                                 <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
@@ -234,7 +264,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de recibir ofertas</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
@@ -242,7 +272,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($currentUserId == $orden['solicitante_id']) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de pedir cotizaciones</span>
                                         <?php endif; ?>
                                         <?php if ($currentUserId != $orden['solicitante_id']) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
@@ -250,7 +280,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Ofertas_Ingresadas'] === '1') : ?>
                                         <?php if ($isPresidente) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de elegir oferta</span>
                                         <?php endif; ?>
                                         <?php if (!$isPresidente) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>

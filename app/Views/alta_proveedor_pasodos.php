@@ -24,7 +24,7 @@
             <!-- Campo Nombre de Proveedor -->
             <div class="mb-4 flex items-center">
                 <label for="nombreProveedor" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Nombre de Proveedor</label>
-                <input type="text" id="nombreProveedor" name="nombreProveedor" class="mt-1 p-2 w-full border rounded" value="<?= $nombre ?>">
+                <input type="text" id="nombreProveedor" name="nombreProveedor" class="mt-1 p-2 w-full border rounded" value="<?= $nombre ?>" readonly>
             </div>
 
             <!-- Campo Persona de Contacto -->
@@ -42,7 +42,7 @@
             <!-- Campo RUT -->
             <div class="mb-4 flex items-center">
                 <label for="rut" class="block text-sm font-medium text-gray-600 w-[150px] text-left">RUT</label>
-                <input type="numer" min="100000000000" max="999999999999" id="rut" name="rut" class="ml-2 mt-1 p-2 pr-5 w-full border rounded" value="<?= $rut ?>">
+                <input type="numer" min="100000000000" max="999999999999" id="rut" name="rut" class="ml-2 mt-1 p-2 pr-5 w-full border rounded" value="<?= $rut ?>" readonly>
             </div>
 
             <!-- Campo Número de Cuenta -->

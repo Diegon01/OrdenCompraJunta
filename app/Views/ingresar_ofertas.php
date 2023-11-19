@@ -112,20 +112,22 @@
                                         <td class="text-center">
                                             <input type="hidden" name="cant_producto[]" value="<?= $producto['cantidad'] ?>">
                                             <div class="input-wrapper">
-                                                <input type="number" name="precio_producto[]"
+                                                <input type="text" name="precio_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                                     placeholder=""
                                                     value=""
+                                                    pattern="[0-9]+([,\.][0-9]+)?"
                                                     oninput="calculateTotal(this, 'precio_total_producto[]')">
                                             </div>
                                         </td>
                                         <td class="text-center">
                                             <div class="input-wrapper">
-                                                <input type="number" name="precio_total_producto[]"
+                                                <input type="text" name="precio_total_producto[]"
                                                     class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                                     style="background: transparent;"
                                                     placeholder=""
                                                     value=""
+                                                    pattern="[0-9]+([,\.][0-9]+)?"
                                                     oninput="calculateTotal_inv(this, 'precio_producto[]')">
                                             </div>
                                         </td>

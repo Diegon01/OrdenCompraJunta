@@ -63,12 +63,12 @@ textarea {
                                     </td>
                                     <td class="text-center">
                                         <div class="input-wrapper">
-                                            <input type="number" name="precio_estimado[]" class="mt-1 p-2 w-full border rounded-md">
+                                            <input type="text" name="precio_estimado[]" class="mt-1 p-2 w-full border rounded-md" pattern="[0-9]+([,\.][0-9]+)?" title="Ingrese un número decimal válido">
                                         </div>
                                     </td>
                                     <td class="text-center">
                                         <div class="input-wrapper">
-                                            <input type="text" name="cant_producto[]" class="mt-1 p-2 w-full border rounded-md">
+                                            <input type="number" name="cant_producto[]" class="mt-1 p-2 w-full border rounded-md">
                                         </div>
                                     </td>
                                     <td class="text-center">
