@@ -17,11 +17,24 @@ class App extends BaseConfig
      *    http://example.com/
      */
     public string $baseURL;
+    //public string $baseURL = 'http://localhost/OrdenCompraJunta/public/';
 
     public function __construct()
     {
-        $this->baseURL = $this->detectBaseURL();
+        if ($_SERVER['SERVER_NAME']== 'localhost') {
+
+            $this->baseURL = 'http://localhost:8080/';
+
+        }else{
+
+            $this->baseURL = $this->detectBaseURL();
+        }
     }
+
+    /*public function __construct() ACTIVAR LUEGO
+    {
+        $this->baseURL = $this->detectBaseURL();
+    }*/
 
     private function detectBaseURL(): string
     {
