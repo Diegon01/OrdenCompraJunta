@@ -181,10 +181,14 @@
                             $recorrido = 0;
                             foreach ($productos as $producto) {
                                 if ($producto['orden_id'] == $orden['id']) {
+                                    if ($recorrido == 3) {
+                                        echo '<br>(...)';
+                                        break;
+                                    }
                                     if ($recorrido != 0) {
                                         echo '<br>';
                                     }
-                                    echo '-', $producto['nombre'], ' (', $producto['cantidad'], ')';
+                                    echo '⋄ ', $producto['nombre'], ' (', $producto['cantidad'], ')';
                                     $recorrido += 1;
                                 }
                             }

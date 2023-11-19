@@ -75,6 +75,8 @@ class OrdenDeCompraController extends BaseController
 
             $esLicitacion = $this->request->getPost('esLicitacionSi');
 
+            $observaciones = $this->request->getPost('observacionesTextarea');
+
             echo $esLicitacion;
             
             $productos = json_decode($this->request->getPost('lista_productos'), true);
@@ -130,6 +132,9 @@ class OrdenDeCompraController extends BaseController
     
             // Check if the order exists
             if ($order) {
+
+                $ordenCompraModel->update($orderId, ['observaciones' => $observaciones]);
+
                 // Update the "Contador_Aprueba" column to 1
                 $ordenCompraModel->update($orderId, ['Contador_Aprobado' => 1]);
 

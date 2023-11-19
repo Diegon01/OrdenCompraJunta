@@ -513,6 +513,9 @@
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
                 <?php endif; ?>
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '1') : ?>
+                    <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Ver observaciones</button>
+                <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
@@ -530,6 +533,29 @@
         </div>
     <?php endif; ?>
 </div>
+
+<?php if ($orden['Contador_Aprobado'] === '0') : ?>
+    <!-- Modal de Observaciones -->
+    <div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-3/4 h-3/4 mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
+            <h2 class="text-2xl font-semibold mb-4 text-center">Observaciones del contador</h2>
+            <textarea id="observacionesTextarea" name="observacionesTextarea" class="border-2 p-4 rounded text-base mb-4 w-4/5 h-4/5 resize-none" placeholder="" spellcheck="false"></textarea>
+            <button type="button" class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($orden['Contador_Aprobado'] === '1') : ?>
+    <!-- Modal de Observaciones -->
+    <div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-3/4 h-3/4 mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
+            <h2 class="text-2xl font-semibold mb-4 text-center">Observaciones del contador</h2>
+            <textarea id="observacionesTextarea" name="observacionesTextarea" class="border-2 p-4 rounded text-base mb-4 w-4/5 h-4/5 resize-none" placeholder="<?= $orden['observaciones'] ?>" spellcheck="false" readonly><?= $orden['observaciones'] ?></textarea>
+            <button type="button" class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
+        </div>
+    </div>
+<?php endif; ?>
+
 </form>
 
     
@@ -542,14 +568,7 @@
     </div>
 </div>
 
-<!-- Modal de Observaciones -->
-<div id="observacionesModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-3/4 h-3/4 mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
-        <h2 class="text-2xl font-semibold mb-4 text-center">Observaciones del contador</h2>
-        <textarea id="observacionesTextarea" name="descripcion" class="border-2 p-4 rounded text-base mb-4 w-4/5 h-4/5 resize-none" placeholder="" spellcheck="false"></textarea>
-        <button class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
-    </div>
-</div>
+
 
 <!-- Modal -->
 <div id="myModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">

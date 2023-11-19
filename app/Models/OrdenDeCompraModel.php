@@ -13,7 +13,7 @@ class OrdenDeCompraModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['posibles_proveedores', 'descripcion', 'solicitante_id', 'estado', 'Contador_Aprobado', 'Presidente_Aprobado', 'Secretario_Aprobado', 'licitacion', 'Presidente_Autorizado', 'Ofertas_Ingresadas'];
+    protected $allowedFields    = ['posibles_proveedores', 'descripcion', 'solicitante_id', 'estado', 'Contador_Aprobado', 'Presidente_Aprobado', 'Secretario_Aprobado', 'licitacion', 'Presidente_Autorizado', 'Ofertas_Ingresadas', 'observaciones'];
 
     // Dates
     protected $useTimestamps = true;

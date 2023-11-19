@@ -46,5 +46,16 @@
         document.getElementById('optionsButton').addEventListener('click', function() {
             var optionsMenu = document.getElementById('optionsMenu');
             optionsMenu.classList.toggle('hidden');
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', function(event) {
+            var optionsMenu = document.getElementById('optionsMenu');
+            var optionsButton = document.getElementById('optionsButton');
+
+            // Verificar si el clic no ocurrió dentro del optionsMenu ni en el optionsButton
+            if (!optionsMenu.contains(event.target) && event.target !== optionsButton && event.target !== optionsMenu) {
+                optionsMenu.classList.add('hidden');
+            }
         });
     </script>

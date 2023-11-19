@@ -19,7 +19,7 @@ class App extends BaseConfig
     //public string $baseURL;
     public string $baseURL = 'http://localhost/OrdenCompraJunta/public/';
 
-    /*public function __construct()
+    public function __construct()
     {
         if ($_SERVER['SERVER_NAME']== 'localhost') {
 
@@ -29,7 +29,7 @@ class App extends BaseConfig
 
             $this->baseURL = $this->detectBaseURL();
         }
-    }*/
+    }
 
     /*public function __construct() ACTIVAR LUEGO
     {
