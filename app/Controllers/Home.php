@@ -161,19 +161,53 @@ class Home extends BaseController
             }
         }
 
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-            'rut' => $rut,
-            'nombre' => $nombre,
-            'numero' => $numero,
-        ];
-        return view('alta_proveedor_pasodos', $data);
+        if ($isContador || $isAdmin) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+                'rut' => $rut,
+                'nombre' => $nombre,
+                'numero' => $numero,
+            ];
+            return view('alta_proveedor_pasodos', $data);
+        }
+        else {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('permission_denied', $data);
+        }
     }
     public function solicitud_orden_compra_crear(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        if ($isFuncionario) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('alta_solicitudOrdenCompra', $data);
+        }
+        else {
+            return $this->permission_redirect();
+        }
+    }
+    public function permission_redirect(): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
         $isAdmin = $userModelo->isAdmin();
@@ -188,7 +222,7 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
         ];
-        return view('alta_solicitudOrdenCompra', $data);
+        return view('permission_denied', $data);
     }
     public function usuario_crear(): string 
     {
@@ -246,14 +280,19 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('solicitudes_botones', $data);
+        if ($isFuncionario) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('solicitudes_botones', $data);
+        }
+        else {
+            return $this->permission_redirect();
+        }
     }
 
     public function administracion(): string 
@@ -264,14 +303,20 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
-        $data = [
-            'isAdmin' => $isAdmin,
-            'isFuncionario' => $isFuncionario,
-            'isContador' => $isContador,
-            'isPresidente' => $isPresidente,
-            'isSecretario' => $isSecretario,
-        ];
-        return view('administracion', $data);
+        if ($isAdmin || $isContador) {
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+            ];
+            return view('administracion', $data);
+        }
+        else {
+            return $this->permission_redirect();
+        }
+        
     }
 
     public function ver_ordenes(): string 
@@ -283,6 +328,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
         $currentUserId = auth()->user()->id;
+
+        if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
+            return $this->permission_redirect();
+        }
          // Cargar el modelo
          $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
 
@@ -378,6 +427,8 @@ class Home extends BaseController
          ];
  
          return view('ABM_SolicitudesCompra', $data);
+
+         
     }
     public function mis_ordenes(): string 
     {
@@ -389,6 +440,10 @@ class Home extends BaseController
         $isSecretario = $userModelo->isSecretario();
 
         $currentUserId = auth()->user()->id;
+
+        if (!$isFuncionario) {
+            return $this->permission_redirect();
+        }
 
          // Cargar el modelo
          $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
@@ -498,6 +553,11 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isAdmin && !$isContador) {
+            return $this->permission_redirect();
+        }
+
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
@@ -515,6 +575,11 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
+            return $this->permission_redirect();
+        }
+
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
@@ -538,6 +603,10 @@ class Home extends BaseController
 
         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
         $orden = $ordenCompraModel->find($orden_id);
+
+        if ((!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) && (auth()->user()->id != $orden['solicitante_id'])) {
+            return $this->permission_redirect();
+        }
 
         $productoOrdenCompraModel = new \App\Models\ProductoDeOrdenDeCompraModel();
         $productos = $productoOrdenCompraModel->where('orden_id', $orden_id)->findAll();
@@ -583,6 +652,17 @@ class Home extends BaseController
         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
         $orden = $ordenCompraModel->find($orden_id);
 
+        if ($orden['licitacion'] === '1') {
+            if (!$isContador) {
+                return $this->permission_redirect();
+            }
+        }
+        if ($orden['licitacion'] === '0') {
+            if (auth()->user()->id != $orden['solicitante_id']) {
+                return $this->permission_redirect();
+            }
+        }
+
         $rubrosModel = new \App\Models\RubroModel();
         $rubros = $rubrosModel->findAll();
 
@@ -623,6 +703,10 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isPresidente) {
+            return $this->permission_redirect();
+        }
 
         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
         $orden = $ordenCompraModel->find($orden_id);
@@ -676,6 +760,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
 
+        if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
+            return $this->permission_redirect();
+        }
+
         $ordenfinalModel = new \App\Models\OrdenFinalModel();
         $ordenes = $ordenfinalModel->findAll();
 
@@ -718,6 +806,10 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
+            return $this->permission_redirect();
+        }
 
         $ordenfinalModel = new \App\Models\OrdenFinalModel();
         $orden = $ordenfinalModel->find($orden_id);
@@ -904,6 +996,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
 
+        if (!$isAdmin && !$isContador) {
+            return $this->permission_redirect();
+        }
+
         $rubrosModel = new \App\Models\RubroModel();
         $rubros = $rubrosModel->findAll();
         $rubroconModel = new RubroSaldoCongeladoModel();
@@ -930,6 +1026,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
 
+        if (!$isAdmin && !$isContador) {
+            return $this->permission_redirect();
+        }
+
         $proveedorModel = new \App\Models\ProveedorModel();
         $proveedores = $proveedorModel->findAll();
 
@@ -952,6 +1052,10 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isAdmin) {
+            return $this->permission_redirect();
+        }
 
         $userModel = new \App\Models\UserModelo();
         $usuarios = $userModel
@@ -980,6 +1084,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
 
+        if (!$isAdmin && !$isContador) {
+            return $this->permission_redirect();
+        }
+
         $rubrosModel = new \App\Models\RubroModel();
         $rubro = $rubrosModel->find($rubro_codigo);
         $rubroconModel = new \App\Models\RubroSaldoCongeladoModel();
@@ -1006,6 +1114,10 @@ class Home extends BaseController
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
 
+        if (!$isAdmin && !$isContador) {
+            return $this->permission_redirect();
+        }
+
         $proveedorModel = new \App\Models\ProveedorModel();
         $proveedor = $proveedorModel->find($prov_codigo);
 
@@ -1028,6 +1140,10 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+
+        if (!$isAdmin) {
+            return $this->permission_redirect();
+        }
 
         $newUserModelo = new \App\Models\UserModelo();
         $usuario = $newUserModelo

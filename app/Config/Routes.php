@@ -11,6 +11,7 @@ use App\Controllers\ProyectoUsersController;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/alta-proveedor/crear', 'Home::proveedor_crear');
+$routes->get('/permission-denied', 'Home::permission_redirect');
 $routes->post('/alta-proveedor/pasouno', 'Home::proveedor_crear_pasodos');
 $routes->post('/alta-proveedor', 'ProveedorController::altaProveedor');
 $routes->get('/alta-proveedor/exito', 'Home::proveedor_created');
