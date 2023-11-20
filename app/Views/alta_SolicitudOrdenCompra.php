@@ -72,7 +72,7 @@ textarea {
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button class="bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 rounded delete-producto">Eliminar</button>
+                                        <button class="bg-gray-500 hover-bg-gray-700 text-white font-bold py-2 px-4 rounded delete-producto" disabled>Eliminar</button>
                                     </td>
                                 </tr>
                             </table>
@@ -118,11 +118,17 @@ textarea {
                     input.value = "";
                 });
 
+                // Habilitar el botón "Eliminar" y cambiar el color a "red"
+                var botonEliminar = productoClonado.querySelector(".delete-producto");
+                botonEliminar.removeAttribute("disabled");
+                botonEliminar.classList.remove("bg-gray-500");
+                botonEliminar.classList.add("bg-red-500");
+
                 // Agregar el conjunto clonado al contenedor de productos
                 document.querySelector(".inputs-container table").appendChild(productoClonado);
 
                 // Agrega el evento de clic para los botones de eliminar en el producto clonado
-                productoClonado.querySelector(".delete-producto").addEventListener("click", function (event) {
+                botonEliminar.addEventListener("click", function (event) {
                     event.preventDefault();
 
                     // Encuentra el padre (fila) del botón y elimínala
