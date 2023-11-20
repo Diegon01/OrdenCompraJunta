@@ -77,6 +77,11 @@ class RubroController extends BaseController
                 ->join('user_roles', 'user_roles.user_id = users.id')
                 ->where('Admin', 1)
                 ->findAll();
+            $contadoras = $userModel_orden
+                ->join('auth_identities', 'auth_identities.user_id = users.id')
+                ->join('user_roles', 'user_roles.user_id = users.id')
+                ->where('Contador', 1)
+                ->findAll();
 
             // Insertar en la base de datos
             $rubroModel = new RubroModel();
@@ -97,6 +102,10 @@ class RubroController extends BaseController
             }
             foreach ($admins as $admin) {
                 $destino = $admin->secret;
+                $notificacionController->rubroEditado($destino, $nombres_logged, $apellidos_logged, $correo_logged, $codigo, $nombre, $saldo, $saldo_congelado, $nombre_old, $saldo_old, $saldo_con_old);
+            }
+            foreach ($contadoras as $contadora) {
+                $destino = $contadora->secret;
                 $notificacionController->rubroEditado($destino, $nombres_logged, $apellidos_logged, $correo_logged, $codigo, $nombre, $saldo, $saldo_congelado, $nombre_old, $saldo_old, $saldo_con_old);
             }
 

@@ -48,3 +48,5 @@ $routes->get('/orden-detalles/(:num)', 'Home::ver_orden_detalles/$1');
 $routes->get('/editar-rubro/(:num)', 'Home::edicion_rubro/$1');
 $routes->post('/editar-rubro/aceptar', 'RubroController::editRubro');
 $routes->get('/ver-proveedores', 'Home::ver_proveedores');
+$routes->get('/editar-proveedor/(:num)', 'Home::edicion_proveedor/$1');
+$routes->post('/editar-proveedor/aceptar', 'ProveedorController::editProv');

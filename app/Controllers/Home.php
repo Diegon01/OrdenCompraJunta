@@ -969,4 +969,27 @@ class Home extends BaseController
         ];
         return view('editar_rubro', $data);
     }
+
+    public function edicion_proveedor($prov_codigo): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $proveedorModel = new \App\Models\ProveedorModel();
+        $proveedor = $proveedorModel->find($prov_codigo);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'proveedor' => $proveedor,
+        ];
+        return view('editar_proveedor', $data);
+    }
 }
