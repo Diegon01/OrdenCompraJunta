@@ -776,14 +776,67 @@ class Home extends BaseController
         $perPage = 8; // Número de resultados por página
         $totalResults = $ordenfinalModel->countAll(); // Obtener el total de resultados
 
-        // Set the default sort order
-        $sortOrder = 'desc'; // Default to newest
+         // Get the "sort" query parameter from the URL
+         $sort = $this->request->getGet('sort');
+         $estado = $this->request->getGet('estado');
+         $searchQuery = $this->request->getGet('search');
+ 
+         if ($searchQuery == null) {
+             $searchQuery = '';
+         }
+ 
+         // Set the default sort order
+         $sortOrder = 'desc'; // Default to newest
+ 
+         if ($sort === 'oldest') {
+             $sortOrder = 'asc';
+         }
+ 
+         $estadoFiltro = '2';
+ 
+         if ($estado === 'pendiente') {
+             $estadoFiltro = '0';
+         }
+ 
+         if ($estado === 'lista') {
+             $estadoFiltro = '1';
+         }
 
-        $ordenes = $ordenfinalModel->select('ordenfinal.*, users.nombres, users.apellidos')
+         if ($estadoFiltro === '2') {
+            $ordenes = $ordenfinalModel->select('ordenfinal.*, users.nombres, users.apellidos')
                 ->join('users', 'users.id = ordenfinal.solicitante_id')
+                ->groupStart()
+                    ->like("DATE(ordenfinal.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('ordenfinal_productos')
+                        ->where('ordenfinal_productos.ordenfinal_id = ordenfinal.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
+                ->groupEnd()
                 ->groupBy('ordenfinal.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
                 ->orderBy('ordenfinal.created_at', $sortOrder) // Adjust the order here
                 ->paginate($perPage, 'default', $page);
+         }
+         else {
+            $ordenes = $ordenfinalModel->select('ordenfinal.*, users.nombres, users.apellidos')
+                ->join('users', 'users.id = ordenfinal.solicitante_id')
+                ->groupStart()
+                    ->like("DATE(ordenfinal.created_at)", $searchQuery) // Replace 'column_name' with the actual column you want to search in
+                    ->orLike("CONCAT(users.nombres, ' ', users.apellidos)", $searchQuery) // Search in the combined 'nombres' and 'apellidos' columns
+                    ->orGroupStart()
+                        ->select('nombre')
+                        ->from('ordenfinal_productos')
+                        ->where('ordenfinal_productos.ordenfinal_id = ordenfinal.id')
+                        ->like('nombre', $searchQuery) // Search for 'product_name' in 'productos' table
+                    ->groupEnd()
+                ->groupEnd()
+                ->where('secretario_visto', $estadoFiltro)
+                ->groupBy('ordenfinal.id') // Group by the unique identifier (e.g., 'id' of 'ordenesdecompra')
+                ->orderBy('ordenfinal.created_at', $sortOrder) // Adjust the order here
+                ->paginate($perPage, 'default', $page);
+         }
 
         $data = [
             'isAdmin' => $isAdmin,

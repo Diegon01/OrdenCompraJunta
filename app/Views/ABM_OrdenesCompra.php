@@ -83,19 +83,37 @@
             <!-- Botón de filtro -->
             <div class="mr-auto">
                 <div class="filtro-button" id="filtroButton">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2x000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                             d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </div>
             </div>
+            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded hover:no-underline box-shadow-hover-cuatro" maring>Borrar Filtros</button>
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
+            &nbsp; 
 
             <!-- Barra de búsqueda -->
-            <div class="flex items-center">
+
+
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
-                <input type="text" id="busqueda" class="border rounded px-2 py-1"
-                    placeholder="Ingrese búsqueda...">
+                <form action="<?= site_url('ordenescompra') ?>" method="get">
+                    <!-- Input para el filtro actual -->
+                    <?php foreach ($_GET as $key => $value): ?>
+                        <?php if ($key !== 'search'): ?>
+                            <input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <!-- Campo de búsqueda -->
+                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1" placeholder="Ingrese búsqueda...">
+
+                    <!-- Botón de submit -->
+                    <button type="submit"></button>
+                </form>
             </div>
         </div>
 
@@ -107,12 +125,11 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                        <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                        <a href="<?= site_url('/ordenescompra') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más recientes</a>
 
                         </label>
                         <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+                        <a href="<?= site_url('/ordenescompra') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más antiguas</a>
 
                         </label>
                     </div>
@@ -120,28 +137,10 @@
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Pendiente
+                            <a href="<?= site_url('/ordenescompra') . '?' . http_build_query(array_merge($_GET, ['estado' => 'pendiente'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Emitidas pendientes</a>
                         </label>
                         <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> En Progreso
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Completado
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Nuevo Estado 1
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Nuevo Estado 2
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Nuevo Estado 3
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Nuevo Estado 4
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-2"> Nuevo Estado 5
+                            <a href="<?= site_url('/ordenescompra') . '?' . http_build_query(array_merge($_GET, ['estado' => 'lista'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Emitidas y listas</a>
                         </label>
                     </div>
                 </div>
@@ -178,7 +177,7 @@
                         <td class="px-6 py-4 border-r text-center">
                             <?php if ($orden['secretario_visto'] === '0'): ?>
                                 <?php if ($isSecretario): ?>
-                                    <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>
+                                    <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Emitida, pendiente visto bueno</span>
                                 <?php endif; ?>
                                 <?php if (!$isSecretario): ?>
                                     <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>
@@ -243,6 +242,32 @@
         // Posicionar el modal al cargar la página
         window.addEventListener('load', function() {
             positionModal();
+        });
+    </script>
+
+    <script>
+        // Get the search input field
+        const searchInput = document.getElementById('busqueda');
+
+        // Listen for the Enter key press
+        searchInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                // Submit the form when Enter is pressed
+                document.getElementById('searchForm').submit();
+            }
+        });
+        function borrarFiltros() {
+            // Eliminar el valor de búsqueda
+            document.getElementById('busqueda').value = '';
+
+            // Redirigir a la página de órdenes sin filtros
+            window.location.href = '<?= site_url('/ordenescompra') ?>';
+        }
+
+        // Agregar evento de clic al botón de Borrar Filtros
+        const borrarFiltrosButton = document.getElementById('borrarFiltros');
+        borrarFiltrosButton.addEventListener('click', function () {
+            borrarFiltros();
         });
     </script>
 </body>

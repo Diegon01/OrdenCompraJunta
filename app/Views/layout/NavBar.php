@@ -20,7 +20,7 @@
                 <a href="<?= site_url('/ordenes-botones') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Solicitudes y Órdenes</a>
             <?php endif; ?>
             <?php if ($isContador || $isAdmin) : ?>
-                <a href="<?= site_url('/administracion') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Administración</a>
+                <a href="<?= site_url('/administracion') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Panel de administración</a>
             <?php endif; ?> 
         </div>
         

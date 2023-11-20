@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis solicitudes</title>
+    <title>Mis solicitudes de compra</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Estilos para el modal de filtros */
@@ -70,7 +70,31 @@
         .description-cell {
         max-width: 500px; /* Adjust the maximum height as needed */
         overflow: auto;
-    }
+        }
+
+        .box-shadow-hover-dos:hover {
+        filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));
+        }
+
+        .box-shadow-hover-dos {
+        transition: filter 0.3s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
+
+        .box-shadow-hover-tres:hover {
+        filter: drop-shadow(0 0 10px rgba(66, 205, 135, 0.90));
+        }
+
+        .box-shadow-hover-tres {
+        transition: filter 0.3s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
+
+        .box-shadow-hover-cuatro:hover {
+        filter: drop-shadow(0 0 7px rgba(255, 0, 0, 0.50));
+        }
+
+        .box-shadow-hover-cuatro {
+        transition: filter 0.2s ease; /* Ajusta la duración y la función de temporización según tus preferencias */
+        }
     </style>
 </head>
 
@@ -81,21 +105,7 @@
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <!-- Título de la tabla y barra de búsqueda -->
-        <div class="flex justify-between items-start">
-                <!-- Texto a la izquierda -->
-                <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
-                
-                <!-- Botón a la derecha -->
-                <div class="p-2">
-                    <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M2 10a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10z"/>
-                            <path fill-rule="evenodd" d="M10 2a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0v-15A.5.5 0 0 1 10 2z"/>
-                        </svg>
-                        Realizar nueva solicitud de compra
-                    </a>
-                </div>
-            </div>
+        <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
 
         <!-- Contenedor para filtro y búsqueda -->
         <div class="w-full bg-white border border-gray-300 rounded-t-lg p-4 mb-4 flex flex-col lg:flex-row items-center relative">
@@ -109,7 +119,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" maring>Borrar Filtros</button>
+            <div class="flex items-center"> <button id="borrarFiltros" class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded hover:no-underline box-shadow-hover-cuatro" maring>Borrar Filtros</button>
             &nbsp; 
             &nbsp; 
             &nbsp; 
@@ -119,13 +129,19 @@
 
 
                 <label for="busqueda" class="text-gray-700 mr-2">Buscar:</label>
-                <form action="<?= site_url('ordenes') ?>" method="get">
-                
-                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1"
-                    
-                        placeholder="Ingrese búsqueda...">
-                        <button type="submit"></button>
-                        
+                <form action="<?= site_url('misordenes') ?>" method="get">
+                    <!-- Input para el filtro actual -->
+                    <?php foreach ($_GET as $key => $value): ?>
+                        <?php if ($key !== 'search'): ?>
+                            <input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <!-- Campo de búsqueda -->
+                    <input type="text" name="search" id="busqueda" class="border rounded px-2 py-1" placeholder="Ingrese búsqueda...">
+
+                    <!-- Botón de submit -->
+                    <button type="submit"></button>
                 </form>
             </div>
         </div>
@@ -138,11 +154,11 @@
                     <div class="filtro-tipo">
                         <h3>Fecha:</h3>
                         <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más Reciente</a>
+                        <a href="<?= site_url('/misordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'newest'])) ?>" class="btn-filter text-blue-500" id="btnMasReciente">Más recientes</a>
 
                         </label>
                         <label class="flex items-center">
-                        <a href="<?= site_url('/ordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más Antigua</a>
+                        <a href="<?= site_url('/misordenes') . '?' . http_build_query(array_merge($_GET, ['sort' => 'oldest'])) ?>" class="btn-filter text-blue-500" id="btnMasAntiguo">Más antiguas</a>
 
                         </label>
                     </div>
@@ -150,22 +166,16 @@
                     <div class="filtro-tipo">
                         <h3>Estado:</h3>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=pendiente') ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
+                            <a href="<?= site_url('/misordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'pendiente'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Pendientes</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=aceptada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
+                            <a href="<?= site_url('/misordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'aceptada'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Aceptadas</a>
                         </label>
                         <label class="flex items-center">
-                            <a href="<?= site_url('/ordenes?estado=rechazada') ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
+                            <a href="<?= site_url('/misordenes') . '?' . http_build_query(array_merge($_GET, ['estado' => 'rechazada'])) ?>" class="btn-filter text-blue-500" id="btnPendiente">Rechazadas</a>
                         </label>
-                     
-    <!-- ... (otros elementos) ... -->
-    <!-- Botón de Borrar Filtros -->
-    <br>
-   
                     </div>
                 </div>
-                
             </div>
         </div>
 
@@ -195,10 +205,14 @@
                             $recorrido = 0;
                             foreach ($productos as $producto) {
                                 if ($producto['orden_id'] == $orden['id']) {
+                                    if ($recorrido == 3) {
+                                        echo '<br>(...)';
+                                        break;
+                                    }
                                     if ($recorrido != 0) {
                                         echo '<br>';
                                     }
-                                    echo '-', $producto['nombre'], ' (', $producto['cantidad'], ')';
+                                    echo '⋄ ', $producto['nombre'], ' (', $producto['cantidad'], ')';
                                     $recorrido += 1;
                                 }
                             }
@@ -226,7 +240,7 @@
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de intervención</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de intervención</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
@@ -235,7 +249,7 @@
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
                                             <?php if ($isPresidente) : ?>
-                                                <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de aprobación</span>
+                                                <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de aprobación</span>
                                             <?php endif; ?>
                                             <?php if (!$isPresidente) : ?>
                                                 <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
@@ -244,7 +258,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de recibir ofertas</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
@@ -252,7 +266,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($currentUserId == $orden['solicitante_id']) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de pedir cotizaciones</span>
                                         <?php endif; ?>
                                         <?php if ($currentUserId != $orden['solicitante_id']) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
@@ -260,7 +274,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Ofertas_Ingresadas'] === '1') : ?>
                                         <?php if ($isPresidente) : ?>
-                                            <span class="bg-blue-800 text-blue-200 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
+                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de elegir oferta</span>
                                         <?php endif; ?>
                                         <?php if (!$isPresidente) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>
@@ -278,6 +292,10 @@
                             <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
+                            <?php endif; ?>
+                            <?php if ($isPresidente && $orden['Ofertas_Ingresadas'] === '1' && $orden['estado'] != 'Aceptada') : ?>
+                                <br>
+                                <a href="<?= site_url('/elegir-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Elegir ofertas</a>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -333,31 +351,31 @@
         });
     </script>
 
-<script>
-    // Get the search input field
-    const searchInput = document.getElementById('busqueda');
+    <script>
+        // Get the search input field
+        const searchInput = document.getElementById('busqueda');
 
-    // Listen for the Enter key press
-    searchInput.addEventListener('keyup', function (event) {
-        if (event.key === 'Enter') {
-            // Submit the form when Enter is pressed
-            document.getElementById('searchForm').submit();
+        // Listen for the Enter key press
+        searchInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                // Submit the form when Enter is pressed
+                document.getElementById('searchForm').submit();
+            }
+        });
+        function borrarFiltros() {
+            // Eliminar el valor de búsqueda
+            document.getElementById('busqueda').value = '';
+
+            // Redirigir a la página de órdenes sin filtros
+            window.location.href = '<?= site_url('/misordenes') ?>';
         }
-    });
-    function borrarFiltros() {
-        // Eliminar el valor de búsqueda
-        document.getElementById('busqueda').value = '';
 
-        // Redirigir a la página de órdenes sin filtros
-        window.location.href = '<?= site_url('/ordenes') ?>';
-    }
-
-    // Agregar evento de clic al botón de Borrar Filtros
-    const borrarFiltrosButton = document.getElementById('borrarFiltros');
-    borrarFiltrosButton.addEventListener('click', function () {
-        borrarFiltros();
-    });
-</script>
+        // Agregar evento de clic al botón de Borrar Filtros
+        const borrarFiltrosButton = document.getElementById('borrarFiltros');
+        borrarFiltrosButton.addEventListener('click', function () {
+            borrarFiltros();
+        });
+    </script>
     
 </body>
 
