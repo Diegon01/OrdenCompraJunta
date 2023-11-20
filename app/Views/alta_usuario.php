@@ -96,7 +96,7 @@
                         </label>
                         <label for="Admin" class="inline-flex items-center">
                             <input type="checkbox" id="Admin" name="Admin" value="Admin" class="form-checkbox text-blue-500" />
-                            <span class="ml-2">Admin</span>
+                            <span class="ml-2">Administrador</span>
                         </label>
                     </div>
                 </div>

@@ -178,6 +178,55 @@ class ProyectoUsersController extends BaseController
         }
     }
 
+    public function editUserAdmin()
+    {
+        // Si se ha enviado un formulario (POST)
+        if ($this->request->getMethod() === 'post') {
+            // Obtener los datos del formulario
+
+            $id = $this->request->getPost('idUs');
+            $correo = $this->request->getPost('email');
+            $nombres = $this->request->getPost('nombres');
+            $apellidos = $this->request->getPost('apellidos');
+            $cedula = $this->request->getPost('cedula');
+            $funcionario = $this->request->getPost('Funcionario') ? 1 : 0;
+            $contador = $this->request->getPost('Contador') ? 1 : 0;
+            $presidente = $this->request->getPost('Presidente') ? 1 : 0;
+            $secretario = $this->request->getPost('Secretario') ? 1 : 0;
+            $admin = $this->request->getPost('Admin') ? 1 : 0;
+
+            // Insertar en la base de datos
+            $newUserModelo = new \App\Models\UserModelo();
+            $usuario = $newUserModelo->find($id);
+            $newUserModelo->update($id, ['nombres' => $nombres]);
+            $newUserModelo->update($id, ['apellidos' => $apellidos]);
+            $newUserModelo->update($id, ['cedula' => $cedula]);
+
+            $userRolesModel = new \App\Models\UserRolesModel(); // Adjust the namespace as per your project structure
+            $userRolesData = $userRolesModel->find($id);
+            $userRolesModel->update($id, ['Funcionario' => $funcionario]);
+            $userRolesModel->update($id, ['Contador' => $contador]);
+            $userRolesModel->update($id, ['Presidente' => $presidente]);
+            $userRolesModel->update($id, ['Secretario' => $secretario]);
+            $userRolesModel->update($id, ['Admin' => $admin]);
+
+            $users_auth = auth()->getProvider();
+            $user_auth = $users_auth->findById($id);
+            $user_auth->fill([
+                'email' => $correo
+            ]);
+            $users_auth->save($user_auth);
+
+            // Redirigir a una página de éxito o a la misma página
+            // Puedes personalizar esta parte según tus necesidades
+
+            return redirect()->to('/alta-proveedor/exito');
+        }
+
+        // Si no se ha enviado el formulario, cargar la vista
+        return view('alta_rubro');
+    }
+
     protected function getUserProvider(): UserModel
     {
         $provider = model(setting('Auth.userProvider'));

@@ -50,3 +50,6 @@ $routes->post('/editar-rubro/aceptar', 'RubroController::editRubro');
 $routes->get('/ver-proveedores', 'Home::ver_proveedores');
 $routes->get('/editar-proveedor/(:num)', 'Home::edicion_proveedor/$1');
 $routes->post('/editar-proveedor/aceptar', 'ProveedorController::editProv');
+$routes->get('/ver-usuarios', 'Home::ver_usuarios');
+$routes->get('/editar-usuario/(:num)', 'Home::edicion_usuario/$1');
+$routes->post('/editar-usuario/aceptar', 'ProyectoUsersController::editUserAdmin');

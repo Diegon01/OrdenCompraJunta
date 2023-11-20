@@ -944,6 +944,33 @@ class Home extends BaseController
         return view('ABM_Proveedores', $data);
     }
 
+    public function ver_usuarios(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $userModel = new \App\Models\UserModelo();
+        $usuarios = $userModel
+            ->select('users.*, auth_identities.secret, user_roles.*')
+            ->join('auth_identities', 'auth_identities.user_id = users.id')
+            ->join('user_roles', 'user_roles.user_id = users.id')
+            ->findAll();
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuarios' => $usuarios,
+        ];
+        return view('ABM_Usuarios', $data);
+    }
+
     public function edicion_rubro($rubro_codigo): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
@@ -991,5 +1018,33 @@ class Home extends BaseController
             'proveedor' => $proveedor,
         ];
         return view('editar_proveedor', $data);
+    }
+
+    public function edicion_usuario($user_id): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $newUserModelo = new \App\Models\UserModelo();
+        $usuario = $newUserModelo
+            ->select('users.*, auth_identities.secret, user_roles.*')
+            ->join('auth_identities', 'auth_identities.user_id = users.id')
+            ->join('user_roles', 'user_roles.user_id = users.id')
+            ->where('users.id', $user_id)
+            ->first();
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $usuario,
+        ];
+        return view('editar_usuario_admin', $data);
     }
 }
