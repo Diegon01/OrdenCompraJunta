@@ -105,7 +105,21 @@
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <!-- Título de la tabla y barra de búsqueda -->
-        <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
+        <div class="flex justify-between items-start">
+            <!-- Texto a la izquierda -->
+            <h1 class="text-3xl font-bold mb-6">Mis solicitudes de compra</h1>
+            
+            <!-- Botón a la derecha -->
+            <div class="p-2">
+                <a href="<?= site_url('/alta-solicitud-orden-compra/crear') ?>" class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M2 10a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10z"/>
+                        <path fill-rule="evenodd" d="M10 2a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0v-15A.5.5 0 0 1 10 2z"/>
+                    </svg>
+                    Realizar nueva solicitud de compra
+                </a>
+            </div>
+        </div>
 
         <!-- Contenedor para filtro y búsqueda -->
         <div class="w-full bg-white border border-gray-300 rounded-t-lg p-4 mb-4 flex flex-col lg:flex-row items-center relative">

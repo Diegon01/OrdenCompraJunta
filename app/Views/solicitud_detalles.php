@@ -492,8 +492,12 @@
                     <?php }} ?>
                     </table>
                 <?php endif; ?>
-                
-                <div id="selectedIDsList"></div>
+
+                <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                    <div id="NOTselectedIDsList" class="flex justify-center"><a class="font-semibold mb-4 text-center text-blue-500">Proveedores seleccionados</a></div>
+                <?php endif; ?>
+                <div id="selectedIDsList" class="flex justify-center"></div>
+                <br>
                 
                 <input type="hidden" name="selectedIDs[]" value="">
                 <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
@@ -739,12 +743,12 @@
                 // Muestra la lista de IDs seleccionados
                 var selectedIDsList = document.getElementById('selectedIDsList');
                 if (selectedIDsList) {
-                    selectedIDsList.textContent = selectedIDs.map(function (id) {
+                    selectedIDsList.innerHTML = selectedIDs.map(function (id) {
                         var p = proveedores.find(function (p) {
                             return p.id == id;
                         });
-                        return p ? p.nombre : '';
-                    }).join(', '); // Puedes personalizar el formato de la lista
+                        return p ? `<button type="button" id="eliminarProveedorBtn-${p.id}" class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold ml-2 mr-2 py-1 px-1 mb-4 rounded" data-id="${p.id}">⛌ ${p.nombre}</button>` : '';
+                    }).join('   '); // Puedes personalizar el formato de la lista
                 }
             }
         }
@@ -752,6 +756,26 @@
         var modal = document.getElementById('myModal');
         modal.style.display = 'none'; // Otra opción es usar clases CSS para
     });
+
+    document.getElementById('selectedIDsList').addEventListener('click', function (event) {
+    // Verifica si el clic se hizo en un botón con id que empiece por "eliminarProveedorBtn-"
+    if (event.target && event.target.id && event.target.id.startsWith('eliminarProveedorBtn-')) {
+        // Extrae el id del proveedor del id del botón
+        var idProveedor = event.target.dataset.id;
+
+        // Elimina el id del proveedor del arreglo selectedIDs
+        selectedIDs = selectedIDs.filter(function (id) {
+            return id !== idProveedor;
+        });
+
+        // Actualiza el valor del campo oculto con los IDs seleccionados
+        var idProveedorHiddenInput = document.querySelector('input[name="selectedIDs[]"]');
+        idProveedorHiddenInput.value = selectedIDs.join(',');
+
+        // Elimina el botón del DOM
+        event.target.remove();
+    }
+});
 
     function realizarBusqueda() {
         var searchTerm = document.getElementById("searchInput").value.toLowerCase();
