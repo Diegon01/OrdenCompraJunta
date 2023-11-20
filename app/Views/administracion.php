@@ -34,6 +34,11 @@
             <a href="<?= site_url('/alta-proveedor/crear') ?>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-8 px-4 rounded hover:no-underline box-shadow-hover-dos">
                 Dar de alta un Proveedor</a>
             <br><br><br><br>
+        <?php endif; ?>
+        <?php if ($isContador || $isAdmin) : ?>
+            <a href="<?= site_url('/ver-proveedores') ?>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-8 px-4 rounded hover:no-underline box-shadow-hover-dos">
+                Ver Proveedores</a>
+            <br><br><br><br>
         <?php endif; ?>     
         <?php if ($isContador || $isAdmin) : ?>
             <a href="<?= site_url('/alta-rubro') ?>" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-8 px-4 rounded hover:no-underline box-shadow-hover-dos">

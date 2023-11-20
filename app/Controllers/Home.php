@@ -921,6 +921,29 @@ class Home extends BaseController
         return view('ABM_Rubros', $data);
     }
 
+    public function ver_proveedores(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $proveedorModel = new \App\Models\ProveedorModel();
+        $proveedores = $proveedorModel->findAll();
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'proveedores' => $proveedores,
+        ];
+        return view('ABM_Proveedores', $data);
+    }
+
     public function edicion_rubro($rubro_codigo): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
