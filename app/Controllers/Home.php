@@ -920,4 +920,30 @@ class Home extends BaseController
         ];
         return view('ABM_Rubros', $data);
     }
+
+    public function edicion_rubro($rubro_codigo): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $rubrosModel = new \App\Models\RubroModel();
+        $rubro = $rubrosModel->find($rubro_codigo);
+        $rubroconModel = new \App\Models\RubroSaldoCongeladoModel();
+        $rubro_con = $rubroconModel->find($rubro_codigo);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'rubro' => $rubro,
+            'rubro_con' => $rubro_con,
+        ];
+        return view('editar_rubro', $data);
+    }
 }

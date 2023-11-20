@@ -32,6 +32,7 @@
                     <th class="border border-blue-500 px-4 py-2">Nombre</th>
                     <th class="border border-blue-500 px-4 py-2">Saldo disponible</th>
                     <th class="border border-blue-500 px-4 py-2">Saldo congelado</th>
+                    <th class="border border-blue-500 px-4 py-2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,10 @@
                                 <td class="border border-blue-500 px-4 py-2"><?= $rubro['nombre'] ?></td>
                                 <td class="border border-blue-500 px-4 py-2"><?= $rubro['saldo'] ?></td>
                                 <td class="border border-blue-500 px-4 py-2"><?= $rubro_con['saldo_congelado'] ?></td>
+                                <td class="border border-blue-500 px-4 py-2">
+                                    <!-- Botones de acciones -->
+                                    <a href="<?= site_url('/editar-rubro/' . $rubro['codigo']) ?>" class="text-blue-500 hover:underline text-lg font-semibold">Editar</a>
+                                </td>
                             </tr>
                         <?php endif; ?>
                     <?php endforeach; ?>

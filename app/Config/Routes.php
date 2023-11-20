@@ -45,4 +45,5 @@ $routes->get('/ingresar-ofertas/(:num)', 'Home::ingresar_ofertas/$1');
 $routes->get('/elegir-ofertas/(:num)', 'Home::elegir_ofertas/$1');
 $routes->get('/ordenescompra', 'Home::verABMordenes');
 $routes->get('/orden-detalles/(:num)', 'Home::ver_orden_detalles/$1');
-$routes->get('/prueba-dgi', 'Home::prueba_dgi');
+$routes->get('/editar-rubro/(:num)', 'Home::edicion_rubro/$1');
+$routes->post('/editar-rubro/aceptar', 'RubroController::editRubro');

@@ -122,4 +122,15 @@ class NotificacionController extends BaseController
         $email->setMessage('Se ha registrado el usuario y asignado automáticamente la siguiente contraseña: "' . $pass . '" (sin comillas). Se puede cambiar la contraseña dentro del sistema, en la pestaña de "Cambiar contraseña".');
         $email->send();
     }
+
+    public function rubroEditado($destino, $nombres_logged, $apellidos_logged, $correo_logged, $codigo, $nombre, $saldo, $saldo_congelado, $nombre_old, $saldo_old, $saldo_con_old) {
+        // Lógica para enviar el correo electrónico aquí
+        $email = \Config\Services::email();
+
+        $email->setTo($destino);
+        $email->setFrom('proyectojuntadepartamental@gmail.com', 'Junta departamental - Asuntos internos');
+        $email->setSubject('Se ha MODIFICADO la información de un RUBRO (Código ' . $codigo . ')');
+        $email->setMessage('El Contador o Administrador ' . $nombres_logged . ' ' . $apellidos_logged . ' (' . $correo_logged . ') ha modificado el Rubro de código ' . $codigo . ' con los siguientes datos: Nombre(' . $nombre_old . ' ⇒ ' . $nombre . '), Saldo disponible(' . $saldo_old . ' ⇒ ' . $saldo . '), Saldo congelado(' . $saldo_con_old . ' ⇒ ' . $saldo_congelado . ')');
+        $email->send();
+    }
 }
