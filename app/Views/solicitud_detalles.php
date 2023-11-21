@@ -214,9 +214,16 @@
                                 <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
                             <?php endif; ?>
                             <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                                <?php if ($isPresidente || $isSecretario || $isContador) : ?>
+                                <?php if (($isSecretario || $isContador) && !$isPresidente) : ?>
                                     <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
                                     <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                                <?php endif; ?>
+                                <?php if ($isPresidente) : ?>
+                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                                    <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Saldo Rubro</th>
+                                    <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
+                                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Aprobación</th>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if (!$isPresidente && !$isSecretario && !$isContador) : ?>
                                     <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
@@ -299,7 +306,7 @@
                                     </td>
                                 <?php endif; ?>
                                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                                    <?php if ($isPresidente || $isSecretario || $isContador) : 
+                                    <?php if (($isSecretario || $isContador) && !$isPresidente) : 
                                         $saldo = '';
                                         $nombre = '';
                                         foreach ($rubros as $rubro) {
@@ -309,7 +316,7 @@
                                                 break; // Romper el bucle una vez que se haya encontrado el rubro
                                             }
                                         }
-                                    ?>
+                                        ?>
                                         <td class="text-center">
                                             <div class="input-wrapper">
                                                 <input type="text" name="rubro[]"
@@ -329,6 +336,48 @@
                                                     placeholder="<?= $saldo ?>">
                                             </div>
                                         </td>
+                                    <?php endif; ?>
+                                    <?php if ($isPresidente) : 
+                                        $saldo = '';
+                                        $nombre = '';
+                                        foreach ($rubros as $rubro) {
+                                            if ($rubro['codigo'] == $producto['rubro_id']) {
+                                                $saldo = $rubro['saldo'];
+                                                $nombre = $rubro['nombre'];
+                                                break; // Romper el bucle una vez que se haya encontrado el rubro
+                                            }
+                                        }
+                                        ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="rubro[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder="<?= $nombre ?>"
+                                                    value="<?= $nombre ?>">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="saldo_rubro[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder="<?= $saldo ?>">
+                                            </div>
+                                        </td>
+                                        <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
+                                            <td class="text-center">
+                                                <div class="input-wrapper">
+                                                    <input type="checkbox" name="presi_parcial_<?= $producto['id'] ?>" id="presi_parcial_<?= $producto['id'] ?>"
+                                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                        style="background: transparent;"
+                                                        checked
+                                                    >
+                                                </div>
+                                            </td>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if (!$isPresidente && !$isSecretario && !$isContador) : 
                                         $saldo = '';
@@ -517,7 +566,7 @@
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
                 <?php endif; ?>
-                <?php if ($isContador && $orden['Contador_Aprobado'] === '1') : ?>
+                <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                     <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Ver observaciones</button>
                 <?php endif; ?>
             </div>
@@ -894,6 +943,8 @@
             observacionesModal.style.display = 'block';
         });
     }
+
+
 </script>
 
 <script>

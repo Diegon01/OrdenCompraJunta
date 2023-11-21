@@ -189,6 +189,22 @@ class OrdenDeCompraController extends BaseController
             $orderContador = $this->request->getPost('order_Contador_Aprobado');
             $esLicitacion = $this->request->getPost('esLicitacion');
 
+            $productos = json_decode($this->request->getPost('lista_productos'), true);
+            $productos = $this->request->getPost();
+
+            foreach ($productos['id_producto'] as $key => $id) {
+  
+                $productoModel = new \App\Models\ProductoDeOrdenDeCompraModel();
+                $producto = $productoModel->find($id);
+                $presi_aprueba = $this->request->getPost('presi_parcial_' . $id);
+
+                if ($presi_aprueba === 'on') {
+                }
+                else {
+                    $productoModel->update($id, ['orden_id' => null]);
+                }
+                
+            }
     
             // Load the OrdenDeCompraModel
             $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
@@ -238,7 +254,7 @@ class OrdenDeCompraController extends BaseController
         }
     
         // If the request is not POST, redirect to the "ordenes" route
-        return redirect()->to('/ordenes');
+        //return redirect()->to('/ordenes');
     }
 
     public function secretario_aprueba() {
