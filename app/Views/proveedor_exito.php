@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proveedor creado</title>
-    <!-- Agrega los estilos de Tailwind CSS -->
+    <title>¡Éxito!'</title>
+    <!-- Enlaza el archivo CSS compilado de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-
 <header> 
     <?= view('layout/navbar') ?>
 </header>
-
-<body>
- <p> ¡Proveedor creado! </p>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-16">
+        <h1 class="text-4xl font-bold text-center text-green-500">¡ÉXITO!</h1>
+        <p class="mt-4 text-lg text-gray-700 text-center">La acción se ha realizado correctamente</p>
+    </div>
 </body>
+</html>
