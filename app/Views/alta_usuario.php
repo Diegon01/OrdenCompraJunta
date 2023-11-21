@@ -77,10 +77,9 @@
                 <!-- Checkboxes -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600">Selecciona los roles:</label>
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 flex justify-center items-center">
                         <label for="Funcionario" class="inline-flex items-center">
-                            <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" />
-                            <span class="ml-2">Funcionario</span>
+                            <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" checked hidden />
                         </label>
                         <label for="Contador" class="inline-flex items-center">
                             <input type="checkbox" id="Contador" name="Contador" value="Contador" class="form-checkbox text-blue-500" />
