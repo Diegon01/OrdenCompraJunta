@@ -709,6 +709,21 @@
     const searchResults = document.getElementById('searchResults');
     var selectedIDs = [];
 
+    function validarFormularioPresi() {
+        // Verifica al menos una checkbox está marcada
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name^="presi_parcial_"]');
+        var alMenosUnaActivada = Array.from(checkboxes).some(function(checkbox) {
+            return checkbox.checked;
+        });
+
+        if (!alMenosUnaActivada) {
+            alert('Debe haber al menos un producto aprobado para poder aprobar la Solicitud de compra.');
+            return false;
+        }
+
+        return true;
+    }
+
     function validarFormulario() {
         // Obtén el valor del campo hidden
         var selectedIDs = document.querySelector('input[name="selectedIDs[]"]').value;
@@ -725,6 +740,8 @@
             alert('Al menos uno de los rubros ingresados no es válido.');
             return false;
         }
+
+        
 
         // Verifica si el arreglo está vacío
         if (selectedIDs.trim() === '') {
@@ -762,8 +779,13 @@
         var formulario = document.querySelector('form');
         // Cambiar la acción del formulario para que envíe a "/solicitud-rechaza"
         formulario.action = "<?= base_url('presidente-aprueba') ?>";
+
+        
+
         // Realizar el envío del formulario
-        formulario.submit();
+        if (validarFormularioPresi()) {
+            formulario.submit();
+        }
     }
 
     function enviarFormularioSecretario() {
@@ -948,7 +970,7 @@
 </script>
 
 <script>
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][id="esLicitacionSi"], input[type="checkbox"][id="esLicitacionNo"]');
     checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
             if (this.checked) {
