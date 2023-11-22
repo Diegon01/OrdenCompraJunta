@@ -14,6 +14,12 @@ class ProveedorController extends BaseController
     }
     public function altaProveedor()
     {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
         // Si se ha enviado un formulario (POST)
         if ($isContador || $isAdmin) {
             if ($this->request->getMethod() === 'post') {
@@ -35,6 +41,15 @@ class ProveedorController extends BaseController
 
                 // Insertar en la base de datos
                 $proveedorModel = new ProveedorModel();
+
+                $existeProveedor = $proveedorModel->where('RUT', $this->request->getPost('rut'))->countAllResults() > 0;
+
+                if ($existeProveedor) {
+                    // Puedes manejar la lógica para el caso de que el proveedor ya exista
+                    return redirect()->to('/permission-denied');
+                }
+
+
                 $proveedorModel->insert($data);
 
                 // Redirigir a una página de éxito o a la misma página

@@ -32,6 +32,7 @@
                     <th class="border border-blue-500 px-4 py-2">Nombre</th>
                     <th class="border border-blue-500 px-4 py-2">Número de contacto</th>
                     <th class="border border-blue-500 px-4 py-2">Número de cuenta</th>
+                    <th class="border border-blue-500 px-4 py-2">Estado de actividad del DGI</th>
                     <th class="border border-blue-500 px-4 py-2">Vencimiento de DGI</th>
                     <th class="border border-blue-500 px-4 py-2">Vencimiento de BPS</th>
                     <th class="border border-blue-500 px-4 py-2">RUPE</th>
@@ -46,6 +47,29 @@
                         <td class="border border-blue-500 px-4 py-2"><?= $proveedor['nombre'] ?></td>
                         <td class="border border-blue-500 px-4 py-2"><?= $proveedor['numero_de_contacto'] ?></td>
                         <td class="border border-blue-500 px-4 py-2"><?= $proveedor['numero_de_cuenta'] ?></td>
+                        <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                            <?php if($estadoActividades[$proveedor['id']] === 'AA') { ?>
+                            <td class="border border-blue-500 px-4 py-2">Activo</td>
+                        <?php }} ?>
+                        <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                            <?php if($estadoActividades[$proveedor['id']] === 'AF') { ?>
+                            <td class="border border-blue-500 px-4 py-2">Activo futuro</td>
+                        <?php }} ?>
+                        <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                            <?php if($estadoActividades[$proveedor['id']] === 'CC') { ?>
+                            <td class="border border-blue-500 px-4 py-2">Cancelado</td>
+                        <?php }} ?>
+                        <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                            <?php if($estadoActividades[$proveedor['id']] === 'CH') { ?>
+                            <td class="border border-blue-500 px-4 py-2">Cancelado hoy</td>
+                        <?php }} ?>
+                        <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                            <?php if($estadoActividades[$proveedor['id']] === 'NT') { ?>
+                            <td class="border border-blue-500 px-4 py-2">Nunca tuvo</td>
+                        <?php }} ?>
+                        <?php if(!isset($estadoActividades[$proveedor['id']])) { ?>
+                            <td class="border border-blue-500 px-4 py-2">Error 404</td>
+                        <?php } ?>
                         <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_dgi'] ?></td>
                         <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_bps'] ?></td>
                         <td class="border border-blue-500 px-4 py-2">

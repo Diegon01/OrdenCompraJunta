@@ -94,19 +94,18 @@
                 <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
                 <table class="w-auto mx-auto">
                     <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cedula</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10"></th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white ">Cedula</th>
                     </tr>
 
-                    <tr class="producto-clone">
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $solicitante->cedula ?>">
-                            </div>
+                    <tr class="text-center">
+                        <td class="justify-right">
+                            <?php if ($solicitante->profile_pic === null) { ?>
+                                <img src="<?= base_url('assets/images/new_user.png') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                            <?php } else { ?>
+                                <img src="<?= base_url($solicitante->profile_pic) ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                            <?php } ?>
                         </td>
                         <td class="text-center">
                             <div class="input-wrapper">
@@ -115,6 +114,15 @@
                                     style="background: transparent;"
                                     readonly
                                     placeholder="<?= $solicitante->nombres ?> <?= $solicitante->apellidos ?>">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="nombre[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="<?= $solicitante->cedula ?>">
                             </div>
                         </td>
                     </tr>
@@ -432,6 +440,7 @@
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Estado de actividad del DGI</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
                             <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
@@ -472,6 +481,83 @@
                                                 value="<?= $proveedor['numero_de_contacto'] ?>">
                                         </div>
                                     </td>
+                                    <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                                    <?php if($estadoActividades[$proveedor['id']] === 'AA') { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Activo">
+                                            </div>
+                                        </td>
+                                    <?php }} ?>
+                                    <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                                    <?php if($estadoActividades[$proveedor['id']] === 'AF') { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Activo futuro">
+                                            </div>
+                                        </td>
+                                    <?php }} ?>
+                                    <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                                    <?php if($estadoActividades[$proveedor['id']] === 'CC') { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Cancelado">
+                                            </div>
+                                        </td>
+                                    <?php }} ?>
+                                    <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                                    <?php if($estadoActividades[$proveedor['id']] === 'CH') { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Cancelado hoy">
+                                            </div>
+                                        </td>
+                                    <?php }} ?>
+                                    <?php if(isset($estadoActividades[$proveedor['id']])) { ?>
+                                    <?php if($estadoActividades[$proveedor['id']] === 'NT') { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="No tiene">
+                                            </div>
+                                        </td>
+                                    <?php }} ?>
+                                    <?php if(!isset($estadoActividades[$proveedor['id']])) { ?>
+                                        <td class="text-center">
+                                            <div class="input-wrapper">
+                                                <input type="text" name="nombre_producto[]"
+                                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                                    style="background: transparent;"
+                                                    readonly
+                                                    placeholder=""
+                                                    value="Error 404">
+                                            </div>
+                                        </td>
+                                    <?php } ?>
                                     <td class="text-center">
                                         <div class="input-wrapper">
                                             <input type="text" name="nombre_producto[]"
@@ -665,6 +751,11 @@
                 <label for="numeroCuenta" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Número de Cuenta</label>
                 <input type="text" id="numeroCuenta" name="numeroCuenta" class="mt-1 p-2 w-full border rounded" readonly>
             </div> 
+
+            <div class="mb-4 flex items-center">
+                <label for="Dgi" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Estado de actividad del DGI</label>
+                <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" readonly>
+            </div>
 
             <div class="mb-4 flex items-center">
                 <label for="fechaVencimientoDgi" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Fecha de Vencimiento DGI</label>
@@ -888,6 +979,8 @@
 
         matchingProveedores.forEach(function(proveedor) {
             var resultItem = document.createElement("div");
+            var estadoActividades = <?php echo json_encode($estadoActividades); ?>;
+
             resultItem.textContent = proveedor.nombre;
             resultItem.addEventListener("click", function() {
                 document.getElementById("searchInput").value = proveedor.nombre;
@@ -897,6 +990,20 @@
                 document.getElementById("numeroContacto").value = proveedor.numero_de_contacto;
                 document.getElementById("rut").value = proveedor.RUT;
                 document.getElementById("numeroCuenta").value = proveedor.numero_de_cuenta;
+                if ( estadoActividades[proveedor.id] === "AA") {
+                    document.getElementById("Dgi").value = "Activo";
+                } else if ( estadoActividades[proveedor.id] === "AF") {
+                    document.getElementById("Dgi").value = "Activo futuro";
+                } else if ( estadoActividades[proveedor.id] === "CC") {
+                    document.getElementById("Dgi").value = "Cancelado";
+                } else if ( estadoActividades[proveedor.id] === "CH") {
+                    document.getElementById("Dgi").value = "Cancelado hoy";
+                } else if ( estadoActividades[proveedor.id] === "NT") {
+                    document.getElementById("Dgi").value = "Nunca tuvo";
+                } else {
+                    // Si no es "AA" ni "AF", asigna el valor original
+                    document.getElementById("Dgi").value = "Error 404";
+                }
                 document.getElementById("fechaVencimientoDgi").value = proveedor.fecha_de_vencimiento_dgi;
                 document.getElementById("fechaVencimientoBps").value = proveedor.fecha_de_vencimiento_bps;
                 document.getElementById("rupe").checked = (proveedor.rupe === '1');

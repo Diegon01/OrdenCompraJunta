@@ -21,6 +21,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isFuncionario) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -28,6 +31,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return $this->ordenes_botones();
         }
@@ -38,6 +42,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('permission_denied', $data);
         }
@@ -50,6 +55,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isFuncionario) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -57,6 +65,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('proveedor_exito', $data);
         }
@@ -67,6 +76,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('permission_denied', $data);
         }
@@ -79,6 +89,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isContador || $isAdmin) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -86,6 +99,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('alta_proveedor', $data);
         }
@@ -96,6 +110,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('permission_denied', $data);
         }
@@ -108,7 +123,27 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         $rut = $this->request->getPost('rut');
+
+        $proveedorModel = new ProveedorModel();
+
+        $existeProveedor = $proveedorModel->where('RUT', $this->request->getPost('rut'))->countAllResults() > 0;
+
+        if ($existeProveedor) {
+            // Puedes manejar la lógica para el caso de que el proveedor ya exista
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+                'usuario' => $logged,
+            ];
+            return view('rut_existe', $data);
+        }
 
         $accessToken = $this->obtenerToken();
         $rutEmisor = '214198620015';
@@ -137,7 +172,15 @@ class Home extends BaseController
 
         }
         else {
-            return 'El RUT ingresado no existe';
+            $data = [
+                'isAdmin' => $isAdmin,
+                'isFuncionario' => $isFuncionario,
+                'isContador' => $isContador,
+                'isPresidente' => $isPresidente,
+                'isSecretario' => $isSecretario,
+                'usuario' => $logged,
+            ];
+            return view('rut_no_existe', $data);
         }
 
         if (is_array($contactos)) {
@@ -173,6 +216,7 @@ class Home extends BaseController
                 'nombre' => $nombre,
                 'numero' => $numero,
                 'estadoActividad' => $estadoActividad,
+                'usuario' => $logged,
             ];
             return view('alta_proveedor_pasodos', $data);
         }
@@ -183,6 +227,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('permission_denied', $data);
         }
@@ -195,6 +240,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isFuncionario) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -202,6 +250,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('alta_solicitudOrdenCompra', $data);
         }
@@ -217,12 +266,16 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
+            'usuario' => $logged,
         ];
         return view('permission_denied', $data);
     }
@@ -234,6 +287,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isAdmin) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -241,6 +297,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('alta_usuario', $data);
         }
@@ -251,6 +308,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('permission_denied', $data);
         }
@@ -264,12 +322,16 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
+            'usuario' => $logged,
         ];
         return view('registro_exito', $data);
     }
@@ -282,6 +344,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isFuncionario) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -289,6 +354,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('solicitudes_botones', $data);
         }
@@ -305,6 +371,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         if ($isAdmin || $isContador) {
             $data = [
                 'isAdmin' => $isAdmin,
@@ -312,6 +381,7 @@ class Home extends BaseController
                 'isContador' => $isContador,
                 'isPresidente' => $isPresidente,
                 'isSecretario' => $isSecretario,
+                'usuario' => $logged,
             ];
             return view('administracion', $data);
         }
@@ -329,6 +399,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
         $currentUserId = auth()->user()->id;
 
         if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
@@ -426,6 +499,7 @@ class Home extends BaseController
              'isPresidente' => $isPresidente,
              'isSecretario' => $isSecretario,
              'currentUserId' => $currentUserId,
+             'usuario' => $logged,
          ];
  
          return view('ABM_SolicitudesCompra', $data);
@@ -440,6 +514,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         $currentUserId = auth()->user()->id;
 
@@ -543,6 +620,7 @@ class Home extends BaseController
              'isPresidente' => $isPresidente,
              'isSecretario' => $isSecretario,
              'currentUserId' => $currentUserId,
+             'usuario' => $logged,
          ];
  
          return view('ABM_SolicitudesPropias', $data);
@@ -555,6 +633,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador) {
             return $this->permission_redirect();
@@ -566,6 +647,7 @@ class Home extends BaseController
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
+            'usuario' => $logged,
         ];
         return view('alta_rubro', $data);
     } 
@@ -588,6 +670,7 @@ class Home extends BaseController
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
+            'usuario' => $logged,
         ];
         return view('ver_DetalleSolicitudOrden', $data);
     }       
@@ -602,6 +685,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
         $orden = $ordenCompraModel->find($orden_id);
@@ -622,6 +708,19 @@ class Home extends BaseController
         $proveedoresModel = new \App\Models\ProveedorModel();
         $proveedores = $proveedoresModel->findAll();
 
+        $estadoActividades= [];
+
+        foreach ($proveedores as $proveedore) {
+            $accessToken = $this->obtenerToken();
+            $rutEmisor = '214198620015';
+            $datosRUT = $this->obtenerDatosRUT($proveedore['RUT'], $accessToken, $rutEmisor);
+
+            // Verificar si el nivel WS_PersonaActEmpresarial existe
+            if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
+                $estadoActividades[$proveedore['id']] = $datosRUT['WS_PersonaActEmpresarial']['EstadoActividad'];
+            }
+        }
+
         $solicitante_id = $orden['solicitante_id'];
         $userModel_orden = new \App\Models\UserModelo();
         $solicitante = $userModel_orden->find($solicitante_id);
@@ -638,6 +737,8 @@ class Home extends BaseController
             'rubros' => $rubros,
             'proveedores' => $proveedores,
             'enlaces' => $enlaces,
+            'estadoActividades' => $estadoActividades,
+            'usuario' => $logged,
         ];
         return view('solicitud_detalles', $data);
     }
@@ -650,6 +751,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
         $orden = $ordenCompraModel->find($orden_id);
@@ -693,6 +797,7 @@ class Home extends BaseController
             'proveedores' => $proveedores,
             'enlaces' => $enlaces,
             'rubros' => $rubros,
+            'usuario' => $logged,
         ];
         return view('ingresar_ofertas', $data);
     } 
@@ -705,6 +810,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isPresidente) {
             return $this->permission_redirect();
@@ -749,6 +857,7 @@ class Home extends BaseController
             'enlaces' => $enlaces,
             'rubros' => $rubros,
             'ofertas' => $ofertas,
+            'usuario' => $logged,
         ];
         return view('elegir_ofertas', $data);
     } 
@@ -761,6 +870,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
             return $this->permission_redirect();
@@ -849,6 +961,7 @@ class Home extends BaseController
             'ordenes' => $ordenes,
             'productos' => $productos,
             'pager' => $ordenfinalModel->pager,
+            'usuario' => $logged,
         ];
         return view('ABM_OrdenesCompra', $data);
     }  
@@ -861,6 +974,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador && !$isPresidente && !$isSecretario) {
             return $this->permission_redirect();
@@ -882,6 +998,16 @@ class Home extends BaseController
         $userModel_orden = new \App\Models\UserModelo();
         $solicitante = $userModel_orden->find($solicitante_id);
 
+        $accessToken = $this->obtenerToken();
+        $rutEmisor = '214198620015';
+        $datosRUT = $this->obtenerDatosRUT($proveedor['RUT'], $accessToken, $rutEmisor);
+
+        $estadoActividad = null;
+        // Verificar si el nivel WS_PersonaActEmpresarial existe
+        if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
+            $estadoActividad = $datosRUT['WS_PersonaActEmpresarial']['EstadoActividad'];
+        }
+
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
@@ -893,22 +1019,24 @@ class Home extends BaseController
             'solicitante' => $solicitante,
             'rubros' => $rubros,
             'proveedor' => $proveedor,
+            'estadoActividad' => $estadoActividad,
+            'usuario' => $logged,
         ];
         return view('orden_detalles', $data);
     }
 
     function prueba_dgi() {
         $accessToken = $this->obtenerToken();
-        $rut = '213149970018';
+        $rut = '170037740013';
         $rutEmisor = '214198620015';
 
         $datosRUT = $this->obtenerDatosRUT($rut, $accessToken, $rutEmisor);
 
         $this->imprimirRecursivo($datosRUT);
 
-        $notificacionController = new \App\Controllers\NotificacionController();
-        $destino = 'santiago.sosa.m@estudiantes.utec.edu.uy';
-        $notificacionController->correoPrueba($destino);
+        //$notificacionController = new \App\Controllers\NotificacionController();
+        //$destino = 'santiago.sosa.m@estudiantes.utec.edu.uy';
+        //$notificacionController->correoPrueba($destino);
 
         return ' ';
 
@@ -1018,6 +1146,30 @@ class Home extends BaseController
         return view('editar_usuario', $data);
     }
 
+    public function usuario_editar_foto(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
+
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $logged,
+        ];
+        return view('editar_usuario_foto', $data);
+    }
+
     public function usuario_editar_mail(): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
@@ -1050,6 +1202,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador) {
             return $this->permission_redirect();
@@ -1068,6 +1223,7 @@ class Home extends BaseController
             'isSecretario' => $isSecretario,
             'rubros' => $rubros,
             'rubros_con' => $rubros_con,
+            'usuario' => $logged,
         ];
         return view('ABM_Rubros', $data);
     }
@@ -1080,6 +1236,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador) {
             return $this->permission_redirect();
@@ -1088,6 +1247,19 @@ class Home extends BaseController
         $proveedorModel = new \App\Models\ProveedorModel();
         $proveedores = $proveedorModel->findAll();
 
+        $estadoActividades= [];
+
+        foreach ($proveedores as $proveedore) {
+            $accessToken = $this->obtenerToken();
+            $rutEmisor = '214198620015';
+            $datosRUT = $this->obtenerDatosRUT($proveedore['RUT'], $accessToken, $rutEmisor);
+
+            // Verificar si el nivel WS_PersonaActEmpresarial existe
+            if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
+                $estadoActividades[$proveedore['id']] = $datosRUT['WS_PersonaActEmpresarial']['EstadoActividad'];
+            }
+        }
+
         $data = [
             'isAdmin' => $isAdmin,
             'isFuncionario' => $isFuncionario,
@@ -1095,6 +1267,8 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
             'proveedores' => $proveedores,
+            'estadoActividades' => $estadoActividades,
+            'usuario' => $logged,
         ];
         return view('ABM_Proveedores', $data);
     }
@@ -1107,6 +1281,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin) {
             return $this->permission_redirect();
@@ -1126,6 +1303,7 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
             'usuarios' => $usuarios,
+            'usuario' => $logged,
         ];
         return view('ABM_Usuarios', $data);
     }
@@ -1138,6 +1316,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador) {
             return $this->permission_redirect();
@@ -1156,6 +1337,7 @@ class Home extends BaseController
             'isSecretario' => $isSecretario,
             'rubro' => $rubro,
             'rubro_con' => $rubro_con,
+            'usuario' => $logged,
         ];
         return view('editar_rubro', $data);
     }
@@ -1168,6 +1350,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin && !$isContador) {
             return $this->permission_redirect();
@@ -1183,6 +1368,7 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
             'proveedor' => $proveedor,
+            'usuario' => $logged,
         ];
         return view('editar_proveedor', $data);
     }
@@ -1195,6 +1381,9 @@ class Home extends BaseController
         $isContador = $userModelo->isContador();
         $isPresidente = $userModelo->isPresidente();
         $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
 
         if (!$isAdmin) {
             return $this->permission_redirect();
@@ -1215,6 +1404,7 @@ class Home extends BaseController
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
             'usuario' => $usuario,
+            'usuario' => $logged,
         ];
         return view('editar_usuario_admin', $data);
     }

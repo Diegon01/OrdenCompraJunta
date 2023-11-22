@@ -34,7 +34,7 @@
                 </div>
             <?php endif ?>
 
-            <form action="<?= url_to('alta-usuario') ?>" method="post">
+            <form action="<?= url_to('alta-usuario') ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field() ?>
 
                 <!-- Email -->
@@ -72,6 +72,11 @@
                 <!-- Password (Again) -->
                 <div class="mb-4">
                     <input type="password" id="password_confirm" name="password_confirm" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="Contrasenia123" hidden />
+                </div>
+
+                <div class="bg-white p-8 rounded w-3/5 mx-auto text-center items-center justify-center">
+                    <label for="profile_pic" class="block text-sm font-medium text-gray-600">Selecciona una foto de perfil:</label>
+                    <input type="file" id="profile_pic" name="profile_pic" accept="image/*" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
                 </div>
 
                 <!-- Checkboxes -->

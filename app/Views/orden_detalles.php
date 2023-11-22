@@ -95,19 +95,18 @@
                 <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
                 <table class="w-auto mx-auto">
                     <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cedula</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10"></th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white ">Cedula</th>
                     </tr>
 
-                    <tr class="producto-clone">
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $solicitante->cedula ?>">
-                            </div>
+                    <tr class="text-center">
+                        <td class="justify-right">
+                            <?php if ($solicitante->profile_pic === null) { ?>
+                                <img src="<?= base_url('assets/images/new_user.png') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                            <?php } else { ?>
+                                <img src="<?= base_url($solicitante->profile_pic) ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                            <?php } ?>
                         </td>
                         <td class="text-center">
                             <div class="input-wrapper">
@@ -116,6 +115,15 @@
                                     style="background: transparent;"
                                     readonly
                                     placeholder="<?= $solicitante->nombres ?> <?= $solicitante->apellidos ?>">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-wrapper">
+                                <input type="text" name="nombre[]"
+                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                    style="background: transparent;"
+                                    readonly
+                                    placeholder="<?= $solicitante->cedula ?>">
                             </div>
                         </td>
                     </tr>
@@ -129,6 +137,7 @@
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
+                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Estado de actividad del DGI</th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
                         <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
@@ -166,6 +175,78 @@
                                     value="<?= $proveedor['numero_de_contacto'] ?>">
                             </div>
                         </td>
+                        <?php if($estadoActividad === 'AA') { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="Activo">
+                                </div>
+                            </td>
+                        <?php } ?>
+                        <?php if($estadoActividad === 'AF') { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="Activo futuro">
+                                </div>
+                            </td>
+                        <?php } ?>
+                        <?php if($estadoActividad === 'CC') { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="Cancelado">
+                                </div>
+                            </td>
+                        <?php } ?>
+                        <?php if($estadoActividad === 'CH') { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="Cancelado hoy">
+                                </div>
+                            </td>
+                        <?php } ?>
+                        <?php if($estadoActividad === 'NT') { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="No tiene">
+                                </div>
+                            </td>
+                        <?php } ?>
+                        <?php if($estadoActividad === null) { ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="Error 404">
+                                </div>
+                            </td>
+                        <?php } ?>
                         <td class="text-center">
                             <div class="input-wrapper">
                                 <input type="text" name="nombre_producto"

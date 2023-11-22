@@ -16,6 +16,8 @@ use CodeIgniter\Shield\Models\UserModel;
 use CodeIgniter\Shield\Traits\Viewable;
 use CodeIgniter\Shield\Validation\ValidationRules;
 use Psr\Log\LoggerInterface;
+use CodeIgniter\Files\File;
+
 
 class ProyectoUsersController extends BaseController
 {
@@ -64,6 +66,35 @@ class ProyectoUsersController extends BaseController
         // Workaround for email only registration/login
         if ($user->username === null) {
             $user->username = null;
+        }
+
+        $config = [
+            'upload_path'      => 'pfp/', // Ruta donde guardarás los archivos (asegúrate de que esta carpeta exista y sea escribible)
+            'allowed_types'    => 'jpg|png',
+            'max_size'         => 2048, // Tamaño máximo en kilobytes (2MB en este caso)
+            'max_width'        => 1024,
+            'max_height'       => 1024,
+            'overwrite'        => true, // Sobrescribir el archivo si ya existe
+            'file_name'        => 'pfp_' . uniqid() . '.png' // Nombre del archivo, puedes personalizarlo según tus necesidades
+        ];
+
+        // Cargar la biblioteca de carga de archivos con la configuración
+        $archivo = $this->request->getFile('profile_pic');
+
+        // Verificar si se cargó correctamente el archivo
+        $rutaArchivo = null;
+        if ($archivo->isValid() && !$archivo->hasMoved()) {
+            // Si la carga fue exitosa, puedes obtener información sobre el archivo
+            $archivo->move($config['upload_path'], $config['file_name']);
+
+            // Aquí puedes procesar la información del archivo como almacenar la ruta en la base de datos, etc.
+            // Por ejemplo, puedes guardar la ruta en la base de datos
+            $rutaArchivo = 'pfp/' . $config['file_name'];
+            $user->profile_pic = $rutaArchivo;
+            // Guardar $rutaArchivo en la base de datos o realizar otras operaciones según tus necesidades
+        } else {
+            // Si la carga falló, puedes obtener los errores
+            $error = $this->upload->display_errors();
         }
 
         // Set the additional fields (Nombres, Apellidos, Cédula) here
@@ -152,6 +183,44 @@ class ProyectoUsersController extends BaseController
             // Muestra los mensajes de error de validación
             echo 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número';
         }
+    }
+
+    public function changePFPAction() {
+        $users = auth()->getProvider();
+        $currentUserId = auth()->user()->id;
+        $user = $users->findById($currentUserId);
+
+        $config = [
+            'upload_path'      => 'pfp/', // Ruta donde guardarás los archivos (asegúrate de que esta carpeta exista y sea escribible)
+            'allowed_types'    => 'jpg|png',
+            'max_size'         => 2048, // Tamaño máximo en kilobytes (2MB en este caso)
+            'max_width'        => 1024,
+            'max_height'       => 1024,
+            'overwrite'        => true, // Sobrescribir el archivo si ya existe
+            'file_name'        => 'pfp_' . uniqid() . '.png' // Nombre del archivo, puedes personalizarlo según tus necesidades
+        ];
+
+        // Cargar la biblioteca de carga de archivos con la configuración
+        $archivo = $this->request->getFile('profile_pic');
+
+        // Verificar si se cargó correctamente el archivo
+        $rutaArchivo = null;
+        if ($archivo->isValid() && !$archivo->hasMoved()) {
+            // Si la carga fue exitosa, puedes obtener información sobre el archivo
+            $archivo->move($config['upload_path'], $config['file_name']);
+
+            // Aquí puedes procesar la información del archivo como almacenar la ruta en la base de datos, etc.
+            // Por ejemplo, puedes guardar la ruta en la base de datos
+            $rutaArchivo = 'pfp/' . $config['file_name'];
+            $user->profile_pic = $rutaArchivo;
+            $users->save($user);
+            echo 'Éxito';
+            // Guardar $rutaArchivo en la base de datos o realizar otras operaciones según tus necesidades
+        } else {
+            // Si la carga falló, puedes obtener los errores
+            $error = $this->upload->display_errors();
+        }
+        
     }
 
     public function changeMailAction() {

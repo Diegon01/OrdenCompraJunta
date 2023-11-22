@@ -53,6 +53,26 @@
 
             <!-- Fecha de Vencimiento DGI -->
             <div class="mb-4 flex items-center">
+                <label for="Dgi" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Estado de actividad del DGI</label>
+                <?php if($estadoActividad === 'AA') { ?>
+                    <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" value="Activo" readonly>
+                <?php } ?>
+                <?php if($estadoActividad === 'AF') { ?>
+                    <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" value="Activo Futuro" readonly>
+                <?php } ?>
+                <?php if($estadoActividad === 'CC') { ?>
+                    <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" value="Cancelado" readonly>
+                <?php } ?>
+                <?php if($estadoActividad === 'CH') { ?>
+                    <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" value="Cancelado hoy" readonly>
+                <?php } ?>
+                <?php if($estadoActividad === 'NT') { ?>
+                    <input type="text" id="Dgi" name="Dgi" class="mt-1 p-2 w-full border rounded" value="Nunca tuvo" readonly>
+                <?php } ?>
+            </div>
+
+            <!-- Fecha de Vencimiento DGI -->
+            <div class="mb-4 flex items-center">
                 <label for="fechaVencimientoDgi" class="block text-sm font-medium text-gray-600 w-[150px] text-left">Fecha de Vencimiento DGI</label>
                 <input type="date" id="fechaVencimientoDgi" name="fechaVencimientoDgi" class="mt-1 p-2 w-full border rounded">
             </div>
