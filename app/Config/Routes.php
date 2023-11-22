@@ -54,3 +54,4 @@ $routes->post('/editar-proveedor/aceptar', 'ProveedorController::editProv');
 $routes->get('/ver-usuarios', 'Home::ver_usuarios');
 $routes->get('/editar-usuario/(:num)', 'Home::edicion_usuario/$1');
 $routes->post('/editar-usuario/aceptar', 'ProyectoUsersController::editUserAdmin');
+$routes->get('/prueba-dgi', 'Home::prueba_dgi');

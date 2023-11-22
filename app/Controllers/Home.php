@@ -123,6 +123,7 @@ class Home extends BaseController
         if (isset($datosRUT['WS_PersonaActEmpresarial'])) {
             $domFiscalLocPrincipal = $datosRUT['WS_PersonaActEmpresarial']['WS_DomFiscalLocPrincipal'];
             $nombre = $datosRUT['WS_PersonaActEmpresarial']['Denominacion'];
+            $estadoActividad = $datosRUT['WS_PersonaActEmpresarial']['EstadoActividad'];
 
             // Verificar si el nivel WS_DomFiscalLocPrincipal existe
             if (isset($domFiscalLocPrincipal['WS_PersonaActEmpresarial.WS_DomFiscalLocPrincipalItem'])) {
@@ -171,6 +172,7 @@ class Home extends BaseController
                 'rut' => $rut,
                 'nombre' => $nombre,
                 'numero' => $numero,
+                'estadoActividad' => $estadoActividad,
             ];
             return view('alta_proveedor_pasodos', $data);
         }
