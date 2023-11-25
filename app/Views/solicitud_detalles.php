@@ -71,7 +71,6 @@
     <div class="bg-gray-100 p-2">
     <form action="<?= base_url('contador-aprueba') ?>" method="POST" onsubmit="return validarFormulario()">
         <?= csrf_field() ?>
-        <div class="page-container bg-gray-200 p-4 pt-8">
             <h1 class="text-3xl font-semibold mb-4 text-center text-blue-500">Solicitud de Orden de Compra Nº <?= $orden['id'] ?></h1>
 
             <?php if ($orden['Contador_Aprobado'] === '1') : ?>
@@ -90,13 +89,15 @@
                 <br>
             <?php endif; ?>
 
-            <div class="solicitante-container p-4">
+        <div class="bg-gray-200 p-4 flex justify-between items-start w-4/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+
+            <div class="w-full solicitante-container p-8">
                 <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
                 <table class="w-auto mx-auto">
                     <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10"></th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white ">Cedula</th>
+                        <th class="pr-4 font-semibold text-center top-0 bg-white z-10"></th>
+                        <th class="pr-4 font-semibold text-center top-0 bg-white z-10">Nombres y apellidos</th>
+                        <th class="pr-4 font-semibold text-center top-0 bg-white ">Cedula</th>
                     </tr>
 
                     <tr class="text-center">
@@ -129,15 +130,19 @@
                 </table>
             </div>
 
-            <div class="descripcion-container p-1">
+            <div class="w-full descripcion-container p-0">
                 <label class="font-semibold text-2xl mb-2 text-center block">Descripción:</label>
                 <div class="flex justify-center items-center"> <!-- El div que centra el contenido verticalmente -->
-                    <div class="w-1/2"> <!-- Este div tiene un ancho definido del 50% del ancho del contenedor padre -->
-                        <textarea id="descripcion" name="descripcion" class="border-2 p-4 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center"
+                    <div class="w-full"> <!-- Este div tiene un ancho definido del 50% del ancho del contenedor padre -->
+                        <textarea id="descripcion" name="descripcion" class="border-2 p-0 h-28 rounded w-full resize-none text-base readonly-input bg-gray-200 text-center"
                             style="background: transparent;" placeholder="No se ha proporcionado una descripción" spellcheck="false" readonly><?= $orden['descripcion'] ?></textarea>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <br>
+        <div class="bg-gray-200 w-4/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
             <?php if ($orden['estado'] === 'Rechazada') : ?>
                 <br><br><br><br>
@@ -207,8 +212,7 @@
             <?php endif; ?>
 
             <?php if ($orden['estado'] === 'Pendiente' || $orden['estado'] === 'Aceptada') : ?>
-
-                <div class="productos-container p-20">
+                    <br>
                     <label class="font-semibold text-2xl pb-2 block text-center">Productos:</label>
                     <table class="w-full">
                         <tr>
@@ -413,7 +417,7 @@
                             </tr>
                         <?php } ?>
                     </table>
-                </div>
+                
 
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                     <div class="text-center">
@@ -428,9 +432,11 @@
                     <br>
                 <?php endif; ?>
 
-
-               
-
+                <br>
+        </div>
+        <br>
+        <div class="bg-gray-200 w-4/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+        <br>
 
                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                     <div class="productos-container p-0">
@@ -642,34 +648,40 @@
                 <input type="hidden" name="order_Presidente_Aprobado" value="<?= $orden['Presidente_Aprobado'] ?>">
             
 
+        </div>
+        </div>
+        <br>
+        <div class="bg-gray-200 w-2/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+
             <div class="mt-0 text-center">
                 <?php if ($orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="openPosiblesProveedoresModalBtn" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
+                    <button id="openPosiblesProveedoresModalBtn" type="button" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Proveedores sugeridos</button>
                 <?php endif; ?>
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="openModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Asignar proveedor</button>
+                    <button id="openModalBtn" type="button" class="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Asignar proveedor</button>
                 <?php endif; ?>
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
+                    <button id="openObservacionesModalBtn" type="button" class="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Agregar observaciones</button>
                 <?php endif; ?>
                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                    <button id="openObservacionesModalBtn" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Ver observaciones</button>
+                    <button id="openObservacionesModalBtn" type="button" class="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded">Ver observaciones</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
+                    <button id="aprobarBtn" type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn_p" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
+                    <button id="aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
                 <?php endif; ?>
                 <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="rechazarBtn_p" type="button" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                    <button id="rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
                 <?php endif; ?>
             </div>
         </div>
+        <br>
     <?php endif; ?>
 </div>
 

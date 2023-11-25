@@ -279,6 +279,48 @@ class Home extends BaseController
         ];
         return view('permission_denied', $data);
     }
+    public function pass_wrong(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $logged,
+        ];
+        return view('pass_same_error', $data);
+    }
+    public function pass_val(): string 
+    {
+        $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
+        $isAdmin = $userModelo->isAdmin();
+        $isFuncionario = $userModelo->isFuncionario();
+        $isContador = $userModelo->isContador();
+        $isPresidente = $userModelo->isPresidente();
+        $isSecretario = $userModelo->isSecretario();
+        $currentUserId = auth()->user()->id;
+        $userModel_own = new \App\Models\UserModelo();
+        $logged = $userModel_own->find($currentUserId);
+        $data = [
+            'isAdmin' => $isAdmin,
+            'isFuncionario' => $isFuncionario,
+            'isContador' => $isContador,
+            'isPresidente' => $isPresidente,
+            'isSecretario' => $isSecretario,
+            'usuario' => $logged,
+        ];
+        return view('pass_validation_error', $data);
+    }
     public function usuario_crear(): string 
     {
         $userModelo = new \App\Models\UserModelo(); // Necesario en todas las vistas
@@ -709,9 +751,8 @@ class Home extends BaseController
         $proveedores = $proveedoresModel->findAll();
 
         $estadoActividades= [];
-
+        $accessToken = $this->obtenerToken();
         foreach ($proveedores as $proveedore) {
-            $accessToken = $this->obtenerToken();
             $rutEmisor = '214198620015';
             $datosRUT = $this->obtenerDatosRUT($proveedore['RUT'], $accessToken, $rutEmisor);
 
@@ -1248,9 +1289,8 @@ class Home extends BaseController
         $proveedores = $proveedorModel->findAll();
 
         $estadoActividades= [];
-
+        $accessToken = $this->obtenerToken();
         foreach ($proveedores as $proveedore) {
-            $accessToken = $this->obtenerToken();
             $rutEmisor = '214198620015';
             $datosRUT = $this->obtenerDatosRUT($proveedore['RUT'], $accessToken, $rutEmisor);
 
@@ -1403,7 +1443,7 @@ class Home extends BaseController
             'isContador' => $isContador,
             'isPresidente' => $isPresidente,
             'isSecretario' => $isSecretario,
-            'usuario' => $usuario,
+            'usuario_a' => $usuario,
             'usuario' => $logged,
         ];
         return view('editar_usuario_admin', $data);

@@ -69,9 +69,17 @@
                         <?php }} ?>
                         <?php if(!isset($estadoActividades[$proveedor['id']])) { ?>
                             <td class="border border-blue-500 px-4 py-2">Error 404</td>
-                        <?php } ?>
-                        <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_dgi'] ?></td>
-                        <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_bps'] ?></td>
+                        <?php } ?>	
+                        <?php if($proveedor['fecha_de_vencimiento_dgi'] === '0000-00-00') { ?>
+                            <td class="border border-blue-500 px-4 py-2">No se ha especificado</td>
+                        <?php } else { ?>	
+                            <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_dgi'] ?></td>
+                        <?php } ?>	
+                        <?php if($proveedor['fecha_de_vencimiento_bps'] === '0000-00-00') { ?>
+                            <td class="border border-blue-500 px-4 py-2">No se ha especificado</td>
+                        <?php } else { ?>	
+                            <td class="border border-blue-500 px-4 py-2"><?= $proveedor['fecha_de_vencimiento_bps'] ?></td>
+                        <?php } ?>	
                         <td class="border border-blue-500 px-4 py-2">
                             <?php if ($proveedor['rupe']) : ?>
                                 <div class="input-wrapper">

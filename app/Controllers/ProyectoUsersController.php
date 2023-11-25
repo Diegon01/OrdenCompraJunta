@@ -165,23 +165,23 @@ class ProyectoUsersController extends BaseController
         if ($this->validate($validationRules, $validationMessages)) {
             if ($this->check_password($oldPass)) {
                 if ($this->check_password($newPass)) {
-                    echo 'La nueva contraseña no puede ser igual a la actual';
+                    return redirect()->to('/pass-validation');
                 } else {
                     $user = $users->findById($currentUserId);
                     $user->fill([
                         'password' => $newPass
                     ]);
                     $users->save($user);
-                    echo 'Éxito';
+                    return redirect()->to('/registrar/exito');
                 }
             }
             else {
-                echo 'La contraseña ingresada no es correcta';
+                return redirect()->to('/pass-wrong');
             }
         } 
         else {
             // Muestra los mensajes de error de validación
-            echo 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número';
+            return redirect()->to('/pass-validation');
         }
     }
 
@@ -214,7 +214,7 @@ class ProyectoUsersController extends BaseController
             $rutaArchivo = 'pfp/' . $config['file_name'];
             $user->profile_pic = $rutaArchivo;
             $users->save($user);
-            echo 'Éxito';
+            return redirect()->to('/registrar/exito');
             // Guardar $rutaArchivo en la base de datos o realizar otras operaciones según tus necesidades
         } else {
             // Si la carga falló, puedes obtener los errores
@@ -240,7 +240,7 @@ class ProyectoUsersController extends BaseController
                 'email' => $newMail
             ]);
             $users->save($user);
-            echo 'Éxito';
+            return redirect()->to('/registrar/exito');
         }
         else {
             echo 'Nuh huh';

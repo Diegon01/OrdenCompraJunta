@@ -19,7 +19,7 @@ class App extends BaseConfig
     //public string $baseURL;
     public string $baseURL = 'http://localhost/OrdenCompraJunta/public/';
 
-    /*public function __construct() /* DESCOMENTAR PARA QUE FUNCIONE EN IP LOCAL
+    /*public function __construct() // DESCOMENTAR PARA QUE FUNCIONE EN IP LOCAL
     {
         if ($_SERVER['SERVER_NAME']== 'localhost') {
 
