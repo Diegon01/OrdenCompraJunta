@@ -28,16 +28,16 @@
         <table class="mx-auto border-collapse border border-blue-500 mt-2">
             <thead>
                 <tr>
-                    <th class="border border-blue-500 px-4 py-2">RUT</th>
-                    <th class="border border-blue-500 px-4 py-2">Nombre</th>
-                    <th class="border border-blue-500 px-4 py-2">Número de contacto</th>
-                    <th class="border border-blue-500 px-4 py-2">Número de cuenta</th>
-                    <th class="border border-blue-500 px-4 py-2">Estado de actividad del DGI</th>
-                    <th class="border border-blue-500 px-4 py-2">Vencimiento de DGI</th>
-                    <th class="border border-blue-500 px-4 py-2">Vencimiento de BPS</th>
-                    <th class="border border-blue-500 px-4 py-2">RUPE</th>
-                    <th class="border border-blue-500 px-4 py-2">Empresa del estado</th>
-                    <th class="border border-blue-500 px-4 py-2">Acciones</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">RUT</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Nombre</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Número de contacto</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Número de cuenta</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Estado de actividad del DGI</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Vencimiento de DGI</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Vencimiento de BPS</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">RUPE</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Empresa del estado</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Acciones</th>
                 </tr>
             </thead>
             <tbody>

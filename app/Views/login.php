@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
         <!-- Reducir el tamaño de la imagen al 80% y centrarla -->
         <img src="<?= base_url('assets/images/LogoJunta.png') ?>" alt="Imagen de inicio de sesión" class="mx-auto mb-6 w-80">
         

@@ -28,12 +28,12 @@
         <table class="mx-auto border-collapse border border-blue-500 mt-2">
             <thead>
                 <tr>
-                    <th class="border border-blue-500 px-4 py-2">Nombre</th>
-                    <th class="border border-blue-500 px-4 py-2">DNI</th>
-                    <th class="border border-blue-500 px-4 py-2">Correo electrónico</th>
-                    <th class="border border-blue-500 px-4 py-2">Roles</th>
-                    <th class="border border-blue-500 px-4 py-2">Última vez activo</th>
-                    <th class="border border-blue-500 px-4 py-2">Acciones</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Nombre</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">DNI</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Correo electrónico</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Roles</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Última vez activo</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Acciones</th>
                 </tr>
             </thead>
             <tbody>

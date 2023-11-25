@@ -201,7 +201,6 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Nº</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Fecha</th>
-                    <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Solicitante</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r description-cell">Productos solicitados</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Total estimado</th>
                     <th class="px-6 py-3 bg-gray-200 text-gray-700 font-bold uppercase border-r">Estado</th>
@@ -213,7 +212,6 @@
                     <tr>
                         <td class="px-6 py-4 border-r text-center"><?= $orden['id'] ?></td>
                         <td class="px-6 py-4 border-r text-center"><?= date('Y-m-d', strtotime($orden['created_at'])) ?></td>
-                        <td class="px-6 py-4 border-r text-center"><?= $orden['nombres'] ?> <?= $orden['apellidos'] ?></td>
                         <td class="px-6 py-4 border-r text-center">
                             <?php
                             $recorrido = 0;
@@ -254,7 +252,7 @@
                                 <?php else: ?>
                                     <?php if ($orden['Contador_Aprobado'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de intervención</span>
+                                            <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de intervención</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de intervención</span>
@@ -263,7 +261,7 @@
                                     <?php if ($orden['Contador_Aprobado'] === '1') : ?>
                                         <?php if ($orden['Presidente_Aprobado'] === '0') : ?>
                                             <?php if ($isPresidente) : ?>
-                                                <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de aprobación</span>
+                                                <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de aprobación</span>
                                             <?php endif; ?>
                                             <?php if (!$isPresidente) : ?>
                                                 <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de aprobación</span>
@@ -272,7 +270,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '1' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($isContador) : ?>
-                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de recibir ofertas</span>
+                                            <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de recibir ofertas</span>
                                         <?php endif; ?>
                                         <?php if (!$isContador) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de recibir ofertas</span>
@@ -280,7 +278,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                         <?php if ($currentUserId == $orden['solicitante_id']) : ?>
-                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de pedir cotizaciones</span>
+                                            <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de pedir cotizaciones</span>
                                         <?php endif; ?>
                                         <?php if ($currentUserId != $orden['solicitante_id']) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
@@ -288,7 +286,7 @@
                                     <?php endif; ?>
                                     <?php if ($orden['Ofertas_Ingresadas'] === '1') : ?>
                                         <?php if ($isPresidente) : ?>
-                                            <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de elegir oferta</span>
+                                            <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de elegir oferta</span>
                                         <?php endif; ?>
                                         <?php if (!$isPresidente) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de elegir oferta</span>

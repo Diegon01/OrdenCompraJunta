@@ -177,7 +177,7 @@
                         <td class="px-6 py-4 border-r text-center">
                             <?php if ($orden['secretario_visto'] === '0'): ?>
                                 <?php if ($isSecretario): ?>
-                                    <span class="bg-blue-400 text-blue-800 px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Emitida, pendiente visto bueno</span>
+                                    <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Emitida, pendiente visto bueno</span>
                                 <?php endif; ?>
                                 <?php if (!$isSecretario): ?>
                                     <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Emitida, pendiente visto bueno</span>

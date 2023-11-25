@@ -14,8 +14,8 @@
 </header>
 
 <body class="bg-gray-100">
-<div class="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-16">
-        <h2 class="text-2xl font-semibold mb-4">Alta de Rubros</h2>
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-16 border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+        <h2 class="text-2xl font-semibold mb-4">Dar de alta un rubro</h2>
         <!-- Formulario de alta de rubros -->
         <form action="<?= base_url('alta-rubro/crear') ?>" method="POST">
             <!-- Campo Código -->

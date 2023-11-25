@@ -14,9 +14,9 @@
 </header>
 
 <body class="bg-gray-100">
-    <div class="h-screen flex justify-center items-center">
-        <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
-            <h1 class="text-2xl font-semibold mb-6 text-center">Alta de Proveedor</h1>
+    <div class="flex justify-center items-center pt-40">
+        <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+            <h1 class="text-2xl font-semibold mb-6 text-center">Dar de alta un proveedor</h1>
 
         <!-- Formulario para el alta de proveedor -->
         <form action="<?= base_url('alta-proveedor/pasouno') ?>" method="POST">

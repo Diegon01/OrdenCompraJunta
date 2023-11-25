@@ -14,7 +14,7 @@
 </header>
 
 <body class="bg-gray-100">
-    <div class="h-screen flex justify-center items-center">
+    <div class="h-screen flex justify-center items-center border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
         <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-center">
             <h1 class="text-2xl font-semibold mb-6 text-center">Editar proveedor</h1>
 

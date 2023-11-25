@@ -14,8 +14,8 @@
 </header>
 
 <body class="bg-gray-100">
-<div class="bg-gray-100 h-screen flex justify-center items-center">
-<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center">
+<div class="bg-gray-100 flex justify-center items-center pt-40">
+<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
             <h2 class="text-2xl font-bold mb-6">Editar usuario</h2>
 
@@ -63,15 +63,14 @@
                 <!-- Checkboxes -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600">Selecciona los roles:</label>
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 justify-center items-center">
                         <label for="Funcionario" class="inline-flex items-center">
                             <?php if ($usuario_a->Funcionario === '1') { ?>
-                                <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" checked />
+                                <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" checked hidden />
                             <?php } ?>
                             <?php if ($usuario_a->Funcionario === '0') { ?>
-                                <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" />
+                                <input type="checkbox" id="Funcionario" name="Funcionario" value="Funcionario" class="form-checkbox text-blue-500" hidden />
                             <?php } ?>
-                            <span class="ml-2">Funcionario</span>
                         </label>
                         <label for="Contador" class="inline-flex items-center">
                             <?php if ($usuario_a->Contador === '1') { ?>

@@ -10,6 +10,8 @@ use App\Models\RubroModel;
 use App\Models\RubroSaldoCongeladoModel;
 use App\Models\OrdenProveedorModel;
 use App\Models\OfertaModel;
+use CodeIgniter\Language\Language;
+
 
 class Home extends BaseController
 {
@@ -452,10 +454,17 @@ class Home extends BaseController
          // Cargar el modelo
          $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
 
+
+        // ...
+
+        // Establece el idioma a español
+        $language = new Language('es');
+        $language->setLocale('es');
+
          // Configurar la paginación
          $pager = \Config\Services::pager();
          $page = $this->request->getVar('page') ?? 1; // Obtener el número de página de la URL
-         $perPage = 8; // Número de resultados por página
+         $perPage = 12; // Número de resultados por página
          $totalResults = $ordenCompraModel->countAll(); // Obtener el total de resultados
 
          // Get the "sort" query parameter from the URL

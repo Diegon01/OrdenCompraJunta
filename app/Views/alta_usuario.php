@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100">
 <div class="bg-gray-100 h-screen flex justify-center items-center">
-<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center">
+<div class="bg-white p-8 rounded shadow-md w-2/5 mx-auto text-center border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
             <h2 class="text-2xl font-bold mb-6">Dar de alta nuevo usuario</h2>
 

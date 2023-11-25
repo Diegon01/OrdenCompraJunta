@@ -40,7 +40,7 @@ textarea {
     <div class="bg-gray-100 p-4 pt-8">
         <form action="<?= base_url('alta-orden') ?>" method="POST">
         <?= csrf_field() ?>
-            <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md">
+            <div class="max-w-6xl mx-auto bg-white p-4 rounded-md shadow-md border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
                 <div class="max-w-4xl mx-auto bg-gray-200 p-4 rounded-md shadow-md">
                     <h1 class="text-2xl font-semibold mb-4 text-center">Nueva Solicitud de Orden de Compra</h1>
                     <!-- Formulario para ingresar datos de productos en forma de tabla -->
