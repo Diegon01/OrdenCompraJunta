@@ -91,322 +91,367 @@
             </div>
             <br>
 
-            <div class="solicitante-container p-4">
-                <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
-                <table class="w-auto mx-auto">
-                    <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10"></th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white ">Cedula</th>
-                    </tr>
+            <div class="bg-gray-200 p-4 flex justify-between items-start w-2/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
-                    <tr class="text-center">
-                        <td class="justify-right">
-                            <?php if ($solicitante->profile_pic === null) { ?>
-                                <img src="<?= base_url('assets/images/new_user.png') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
-                            <?php } else { ?>
-                                <img src="<?= base_url($solicitante->profile_pic) ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                <div class="w-full solicitante-container p-4">
+                    <label class="font-semibold text-2xl text-center pb-2 block">Solicitante:</label>
+                    <table class="w-auto mx-auto">
+                        <tr>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10"></th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombres y apellidos</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white ">Cedula</th>
+                        </tr>
+
+                        <tr class="text-center">
+                            <td class="justify-right">
+                                <?php if ($solicitante->profile_pic === null) { ?>
+                                    <img src="<?= base_url('assets/images/new_user.png') ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                                <?php } else { ?>
+                                    <img src="<?= base_url($solicitante->profile_pic) ?>" alt="Imagen de perfil" class="profile-image rounded-full hover:no-underline box-shadow-hover" style="max-width: 50px; max-height: 50px; margin-right: 5px;">
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="precio_estimado[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="<?= $solicitante->nombres ?> <?= $solicitante->apellidos ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="<?= $solicitante->cedula ?>">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+                            <br>
+            <div class="bg-gray-200 p-4 flex justify-between items-start w-4/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
+
+                <div class="proveedor-container p-4">
+                    <label class="font-semibold text-2xl text-center pb-2 block">Proveedor:</label>
+                    <table class="w-auto mx-auto">
+                        <tr>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Estado de actividad del DGI</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Empresa estatal</th>
+                        </tr>
+
+                        <tr class="producto-clone">
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="<?= $proveedor['RUT'] ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="<?= $proveedor['nombre'] ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="<?= $proveedor['numero_de_contacto'] ?>">
+                                </div>
+                            </td>
+                            <?php if($estadoActividad === 'AA') { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Activo">
+                                    </div>
+                                </td>
                             <?php } ?>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="precio_estimado[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $solicitante->nombres ?> <?= $solicitante->apellidos ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $solicitante->cedula ?>">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                            <?php if($estadoActividad === 'AF') { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Activo futuro">
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            <?php if($estadoActividad === 'CC') { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Cancelado">
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            <?php if($estadoActividad === 'CH') { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Cancelado hoy">
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            <?php if($estadoActividad === 'NT') { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="No tiene">
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            <?php if($estadoActividad === null) { ?>
+                                <td class="text-center">
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto[]"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Error 404">
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_dgi'])) ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="nombre_producto"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder=""
+                                        value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_bps'])) ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <?php if ($proveedor['rupe']) : ?>
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Sí">
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (!$proveedor['rupe']) : ?>
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="No">
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if ($proveedor['empresa_del_estado']) : ?>
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="Sí">
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (!$proveedor['empresa_del_estado']) : ?>
+                                    <div class="input-wrapper">
+                                        <input type="text" name="nombre_producto"
+                                            class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                            style="background: transparent;"
+                                            readonly
+                                            placeholder=""
+                                            value="No">
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
+<br>
+            <div class="bg-gray-200 p-4 flex justify-between items-start w-4/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
-            <div class="proveedor-container p-4">
-                <label class="font-semibold text-2xl text-center pb-2 block">Proveedor:</label>
-                <table class="w-auto mx-auto">
-                    <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUT</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Proveedor</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Número de contacto</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Estado de actividad del DGI</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del DGI</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Vencimiento del BPS</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">RUPE</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Empresa estatal</th>
-                    </tr>
-
-                    <tr class="producto-clone">
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= $proveedor['RUT'] ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= $proveedor['nombre'] ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= $proveedor['numero_de_contacto'] ?>">
-                            </div>
-                        </td>
-                        <?php if($estadoActividad === 'AA') { ?>
+                <div class="w-full productos-container p-4">
+                    <label class="font-semibold text-2xl text-center pb-2 block">Ítems:</label>
+                    <table class="w-auto mx-auto">
+                        <tr>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Costo unitario</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Costo total</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
+                            <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Notas</th>
+                        </tr>
+                        <?php foreach ($productos as $producto) { ?>
+                        <tr class="producto-clone">
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
+                                    <input type="text" name="nombre[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder=""
-                                        value="Activo">
+                                        placeholder="<?= $producto['nombre'] ?>">
                                 </div>
                             </td>
-                        <?php } ?>
-                        <?php if($estadoActividad === 'AF') { ?>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
+                                    <input type="text" name="cantidad[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder=""
-                                        value="Activo futuro">
+                                        placeholder="<?= $producto['cantidad'] ?>">
                                 </div>
                             </td>
-                        <?php } ?>
-                        <?php if($estadoActividad === 'CC') { ?>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
+                                    <input type="text" name="costo[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder=""
-                                        value="Cancelado">
+                                        placeholder="<?= $producto['costo'] ?>">
                                 </div>
                             </td>
-                        <?php } ?>
-                        <?php if($estadoActividad === 'CH') { ?>
+                            <?php $total = ($producto['costo'] * $producto['cantidad']); ?>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
+                                    <input type="text" name="costototal[]"
                                         class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
                                         style="background: transparent;"
                                         readonly
-                                        placeholder=""
-                                        value="Cancelado hoy">
+                                        placeholder="<?= $total ?>">
                                 </div>
                             </td>
-                        <?php } ?>
-                        <?php if($estadoActividad === 'NT') { ?>
                             <td class="text-center">
                                 <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="No tiene">
-                                </div>
-                            </td>
-                        <?php } ?>
-                        <?php if($estadoActividad === null) { ?>
-                            <td class="text-center">
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto[]"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="Error 404">
-                                </div>
-                            </td>
-                        <?php } ?>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_dgi'])) ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre_producto"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder=""
-                                    value="<?= date('Y-m-d', strtotime($proveedor['fecha_de_vencimiento_bps'])) ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <?php if ($proveedor['rupe']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="Sí">
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!$proveedor['rupe']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="No">
-                                </div>
-                            <?php endif; ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if ($proveedor['empresa_del_estado']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="Sí">
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!$proveedor['empresa_del_estado']) : ?>
-                                <div class="input-wrapper">
-                                    <input type="text" name="nombre_producto"
-                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                        style="background: transparent;"
-                                        readonly
-                                        placeholder=""
-                                        value="No">
-                                </div>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            
-            <div class="productos-container p-4">
-                <label class="font-semibold text-2xl text-center pb-2 block">Ítems:</label>
-                <table class="w-auto mx-auto">
-                    <tr>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Nombre</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Cantidad</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Costo unitario</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Costo total</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Rubro</th>
-                        <th class="pr-4 font-semibold text-center sticky top-0 bg-white z-10">Notas</th>
-                    </tr>
-                    <?php foreach ($productos as $producto) { ?>
-                    <tr class="producto-clone">
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="nombre[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $producto['nombre'] ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="cantidad[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $producto['cantidad'] ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="costo[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $producto['costo'] ?>">
-                            </div>
-                        </td>
-                        <?php $total = ($producto['costo'] * $producto['cantidad']); ?>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="costototal[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $total ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <?php foreach ($rubros as $rubro) {
-                                        if ($rubro['codigo'] == $producto['rubro_id']) {
-                                            $nombre = $rubro['nombre'];
-                                            break; // Romper el bucle una vez que se haya encontrado el rubro
+                                    <?php foreach ($rubros as $rubro) {
+                                            if ($rubro['codigo'] == $producto['rubro_id']) {
+                                                $nombre = $rubro['nombre'];
+                                                break; // Romper el bucle una vez que se haya encontrado el rubro
+                                            }
                                         }
-                                    }
-                                ?>
-                                <input type="text" name="rubro[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $nombre ?>">
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="input-wrapper">
-                                <input type="text" name="notas[]"
-                                    class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
-                                    style="background: transparent;"
-                                    readonly
-                                    placeholder="<?= $producto['notas'] ?>">
-                            </div>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </table>
+                                    ?>
+                                    <input type="text" name="rubro[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="<?= $nombre ?>">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="input-wrapper">
+                                    <input type="text" name="notas[]"
+                                        class="mt-1 p-2 w-full border text-center rounded-md text-black placeholder-black"
+                                        style="background: transparent;"
+                                        readonly
+                                        placeholder="<?= $producto['notas'] ?>">
+                                </div>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </table>
+                </div>
             </div>
 
-            <form action="<?= base_url('secretario-aprueba') ?>" method="POST">
-                <?= csrf_field() ?>
                 <br>
                 <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
                 <div class="mt-0 py-2 text-center">
                     <?php if ($isSecretario && $orden['secretario_visto'] === '0') : ?>
-                        <button id="aprobarBtn_p" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Marcar como visto</button>
+                        <button id="aprobarBtn_p_m" type="button" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Marcar como visto</button>
                     <?php endif; ?>
                 </div>
-            </form>
+
+            <div id="pass_cModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+                <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-1/5 h-auto mx-auto my-16 flex flex-col items-center">
+                    <button type="button" class="modal-close-btn top-4 right-4 text-red-600 text-3xl">&times;</button>
+                    <h2 class="text-2xl font-semibold mb-4 text-center">Confirmar contraseña</h2>
+                    <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+                    <form action="<?= base_url('secretario-aprueba') ?>" method="POST">
+                        <?= csrf_field() ?>
+                        <br>
+                        <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
+                        <div class="mt-0 py-2 text-center">
+                            <?php if ($isSecretario && $orden['secretario_visto'] === '0') : ?>
+                                <button id="aprobarBtn_p" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioSecretario()">Marcar como visto</button>
+                            <?php endif; ?>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 </body>
+
+<script>
+    const openPassModalBtn = document.getElementById('aprobarBtn_p_m');
+
+    const closeModalBtns = document.querySelectorAll('.modal-close-btn');
+    const modals = document.querySelectorAll('.modal');
+
+    closeModalBtns.forEach((btn, index) => {
+        btn.addEventListener('click', function () {
+            modals[index].style.display = 'none';
+        });
+    });
+
+    if (openPassModalBtn) {
+        openPassModalBtn.addEventListener('click', function () {
+            const observacionesModal = document.getElementById('pass_cModal');
+            observacionesModal.style.display = 'block';
+        });
+    }
+</script>
 
 </html>
