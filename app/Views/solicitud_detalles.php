@@ -651,6 +651,9 @@
         </div>
         </div>
         <br>
+
+
+
         <div class="bg-gray-200 w-2/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
 
             <div class="mt-0 text-center">
@@ -669,15 +672,15 @@
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn" type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
+                    <button id="pass_aprobarBtn" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
                 <?php endif; ?>
             </div>
             <div class="mt-0 py-2 text-center">
                 <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
+                    <button id="pass_aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
                 <?php endif; ?>
                 <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                    <button id="pass_rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Rechazar</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -706,6 +709,27 @@
         </div>
     </div>
 <?php endif; ?>
+
+<div id="pass_cModal" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-1/5 h-auto mx-auto my-16 flex flex-col items-center"> <!-- Añadimos flex y flex-col para alinear el contenido verticalmente -->
+        <h2 class="text-2xl font-semibold mb-4 text-center">Confirmar contraseña</h2>
+        <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+        <button type="button" class="modal-close-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-center">Cerrar</button>
+        <div class="mt-0 py-2 text-center">
+            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
+                <button id="aprobarBtn" type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
+            <?php endif; ?>
+        </div>
+            <div class="mt-0 py-2 text-center">
+                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                    <button id="aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
+                <?php endif; ?>
+                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                    <button id="rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
+                <?php endif; ?>
+            </div>    
+        </div>
+</div>
 
 </form>
 
@@ -1070,6 +1094,10 @@
 
     const openPosiblesProveedoresModalBtn = document.getElementById('openPosiblesProveedoresModalBtn');
     const openObservacionesModalBtn = document.getElementById('openObservacionesModalBtn');
+    const openPassModalBtn = document.getElementById('pass_aprobarBtn');
+    const openPassModalBtn_p = document.getElementById('pass_aprobarBtn_p');
+    const openPassModalBtn_r = document.getElementById('pass_rechazarBtn_p');
+
 
     if (openPosiblesProveedoresModalBtn) {
         openPosiblesProveedoresModalBtn.addEventListener('click', function () {
@@ -1081,6 +1109,27 @@
     if (openObservacionesModalBtn) {
         openObservacionesModalBtn.addEventListener('click', function () {
             const observacionesModal = document.getElementById('observacionesModal');
+            observacionesModal.style.display = 'block';
+        });
+    }
+
+    if (openPassModalBtn) {
+        openPassModalBtn.addEventListener('click', function () {
+            const observacionesModal = document.getElementById('pass_cModal');
+            observacionesModal.style.display = 'block';
+        });
+    }
+
+    if (openPassModalBtn_p) {
+        openPassModalBtn_p.addEventListener('click', function () {
+            const observacionesModal = document.getElementById('pass_cModal');
+            observacionesModal.style.display = 'block';
+        });
+    }
+
+    if (openPassModalBtn_r) {
+        openPassModalBtn_r.addEventListener('click', function () {
+            const observacionesModal = document.getElementById('pass_cModal');
             observacionesModal.style.display = 'block';
         });
     }
