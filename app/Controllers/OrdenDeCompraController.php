@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Controllers\ProyectoUsersController;
 use CodeIgniter\Controller;
 use App\Models\OrdenDeCompraModel;
 use App\Models\OrdenProveedorModel;
@@ -68,6 +69,14 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function contador_aprueba() {
+        $oldPass = $this->request->getPost('password_current');
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
@@ -182,6 +191,14 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function presidente_aprueba() {
+        $oldPass = $this->request->getPost('password_current');
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
@@ -258,6 +275,14 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function secretario_aprueba() {
+        $oldPass = $this->request->getPost('password_current');
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
@@ -342,6 +367,14 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function solicitud_rechaza() {
+        $oldPass = $this->request->getPost('password_currentr');
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             // Get the order ID from the POST data
@@ -395,6 +428,14 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function ingreso_oferta() {
+        $oldPass = $this->request->getPost('password_current');
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             $orderId = $this->request->getPost('order_id');
@@ -460,11 +501,19 @@ class OrdenDeCompraController extends BaseController
     }
 
     public function eleccion_oferta() {
+        $provId = $this->request->getPost('prov_id');
+        $oldPass = $this->request->getPost('password_current_' . $provId);
+        $uController = new ProyectoUsersController();
+        if ($uController->check_password($oldPass)) {
+            
+        }
+        else {
+            return redirect()->to('/pass-wrong');
+        }
         // Check if the request method is POST
         if ($this->request->getMethod() === 'post') {
             //return redirect()->to('/ordenes');
             $orderId = $this->request->getPost('order_id');
-            $provId = $this->request->getPost('prov_id');
 
             $ordenCompraModel = new \App\Models\OrdenDeCompraModel();
             $order = $ordenCompraModel->find($orderId);

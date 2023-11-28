@@ -67,7 +67,19 @@
                                             <input type="hidden" name="order_id" value="<?= $orden['id'] ?>">
                                             <input type="hidden" name="prov_id" value="<?= $proveedor['id'] ?>">
                                             <div class="mt-0 py-8 text-center">
-                                                <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Elegir esta oferta</button>
+                                                <button type="button" class="aprobarBtn bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-target="pass_cModal_<?= $proveedor['id'] ?>">Elegir esta oferta</button>
+                                            </div>
+
+                                            <div id="pass_cModal_<?= $proveedor['id'] ?>" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+                                                <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-1/5 h-auto mx-auto my-16 flex flex-col items-center">
+                                                    <button type="button" class="top-4 right-4 text-red-600 text-3xl" onclick="closeModal('pass_cModal_<?= $proveedor['id'] ?>')">&times;</button>
+                                                    <h2 class="text-2xl font-semibold mb-4 text-center">Confirmar contraseña</h2>
+                                                    <input type="password" id="password_current_<?= $proveedor['id'] ?>" name="password_current_<?= $proveedor['id'] ?>" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+                                                    <br>
+                                                    <div class="mt-0 py-2 text-center">
+                                                        <button id="ingresarBtn" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Elegir</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </form>
                                     </td>
@@ -239,6 +251,16 @@
 
     <script>
         const openModalButtons = document.querySelectorAll('.open-modal-btn');
+
+        const openPassModalBtns = document.querySelectorAll('.aprobarBtn');
+
+        openPassModalBtns.forEach(function (openPassModalBtn) {
+            openPassModalBtn.addEventListener('click', function () {
+                const targetModalId = this.getAttribute('data-target');
+                const observacionesModal = document.getElementById(targetModalId);
+                observacionesModal.classList.remove('hidden');
+            });
+        });
 
         openModalButtons.forEach(button => {
             button.addEventListener('click', function() {

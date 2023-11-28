@@ -650,8 +650,8 @@
 
         </div>
         </div>
-        <br>
-
+        
+<br>
 
 
         <div class="bg-gray-200 w-2/5 mx-auto border border-blue-200" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.50));">
@@ -714,37 +714,36 @@
     <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-1/5 h-auto mx-auto my-16 flex flex-col items-center">
         <button type="button" class="modal-close-btn top-4 right-4 text-red-600 text-3xl">&times;</button>
         <h2 class="text-2xl font-semibold mb-4 text-center">Confirmar contraseña</h2>
-        <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+        <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
         <div class="mt-0 py-2 text-center">
             <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
                 <button id="aprobarBtn" type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
             <?php endif; ?>
         </div>
-            <div class="mt-0 py-2 text-center">
-                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
-                <?php endif; ?>
-            </div>    
-        </div>
-</div>
+        <div class="mt-0 py-2 text-center">
+            <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                <button id="aprobarBtn_p" type="button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioPresidente()">Aprobar</button>
+            <?php endif; ?>
+        </div>    
+    </div>
+</div> 
 
 <div id="pass_cModal_r" class="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
     <div class="modal-content bg-gray-200 p-6 rounded shadow-lg w-1/5 h-auto mx-auto my-16 flex flex-col items-center">
         <button type="button" class="modal-close-btn top-4 right-4 text-red-600 text-3xl">&times;</button>
         <h2 class="text-2xl font-semibold mb-4 text-center">Confirmar contraseña</h2>
-        <input type="password" id="password_current" name="password_current" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" required />
+        <input type="password" id="password_currentr" name="password_currentr" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
         <div class="mt-0 py-2 text-center">
-            <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
-                <button id="aprobarBtn" type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Aprobar</button>
+        </div>
+        <div class="mt-0 py-2 text-center">
+            <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
+                <button id="rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
             <?php endif; ?>
-        </div>
-            <div class="mt-0 py-2 text-center">
-                <?php if ($isPresidente && $orden['Contador_Aprobado'] === '1' && $orden['Presidente_Aprobado'] === '0') : ?>
-                    <button id="rechazarBtn_p" type="button" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded" onclick="enviarFormularioRechazo()">Rechazar</button>
-                <?php endif; ?>
-            </div>    
-        </div>
-</div>
+        </div>    
+    </div>
+</div> 
+
+
 
 </form>
 
@@ -1141,13 +1140,14 @@
             observacionesModal.style.display = 'block';
         });
     }
-
     if (openPassModalBtn_r) {
         openPassModalBtn_r.addEventListener('click', function () {
             const observacionesModal = document.getElementById('pass_cModal_r');
             observacionesModal.style.display = 'block';
         });
     }
+
+
 
 
 </script>

@@ -316,7 +316,7 @@
         </table>
 
         <div class="pagination-container">
-            <?= $pager->links() ?>
+            <?= $pager->links('default', 'junta_full') ?>
         </div>
 
     <script>
