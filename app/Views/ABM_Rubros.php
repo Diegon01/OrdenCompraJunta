@@ -31,7 +31,7 @@
                     <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Código</th>
                     <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Nombre</th>
                     <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Saldo disponible</th>
-                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Saldo congelado</th>
+                    <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Saldo comprometido</th>
                     <th class="border border-blue-500 px-4 py-2 bg-blue-100 sticky top-0">Acciones</th>
                 </tr>
             </thead>

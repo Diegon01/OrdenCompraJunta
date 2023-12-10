@@ -814,7 +814,7 @@ class Home extends BaseController
             }
         }
         if ($orden['licitacion'] === '0') {
-            if (auth()->user()->id != $orden['solicitante_id']) {
+            if ((auth()->user()->id != $orden['solicitante_id']) && (!$isContador)) {
                 return $this->permission_redirect();
             }
         }

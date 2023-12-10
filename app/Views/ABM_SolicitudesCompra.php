@@ -289,10 +289,10 @@
                                         <?php endif; ?>
                                     <?php endif; ?>
                                     <?php if ($orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
-                                        <?php if ($currentUserId == $orden['solicitante_id']) : ?>
+                                        <?php if ($currentUserId == $orden['solicitante_id'] || $isContador) : ?>
                                             <span class="bg-blue-400 text-white px-2 py-1 rounded-full" style="filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.90));">Pendiente de pedir cotizaciones</span>
                                         <?php endif; ?>
-                                        <?php if ($currentUserId != $orden['solicitante_id']) : ?>
+                                        <?php if (($currentUserId != $orden['solicitante_id']) && (!$isContador)) : ?>
                                             <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Pendiente de pedir cotizaciones</span>
                                         <?php endif; ?>
                                     <?php endif; ?>
@@ -313,7 +313,7 @@
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar ofertas</a>
                             <?php endif; ?>
-                            <?php if (($currentUserId == $orden['solicitante_id']) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
+                            <?php if (($currentUserId == $orden['solicitante_id'] || $isContador) && $orden['Presidente_Aprobado'] === '1' && $orden['licitacion'] === '0' && $orden['Ofertas_Ingresadas'] === '0') : ?>
                                 <br>
                                 <a href="<?= site_url('/ingresar-ofertas/' . $orden['id']) ?>" class="text-green-500 hover:underline text-lg font-semibold">Ingresar cotizaciones</a>
                             <?php endif; ?>

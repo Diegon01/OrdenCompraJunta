@@ -94,7 +94,6 @@ class ProyectoUsersController extends BaseController
             // Guardar $rutaArchivo en la base de datos o realizar otras operaciones según tus necesidades
         } else {
             // Si la carga falló, puedes obtener los errores
-            $error = $this->upload->display_errors();
         }
 
         // Set the additional fields (Nombres, Apellidos, Cédula) here
@@ -209,9 +208,34 @@ class ProyectoUsersController extends BaseController
             // Si la carga fue exitosa, puedes obtener información sobre el archivo
             $archivo->move($config['upload_path'], $config['file_name']);
 
+            
+
+
             // Aquí puedes procesar la información del archivo como almacenar la ruta en la base de datos, etc.
             // Por ejemplo, puedes guardar la ruta en la base de datos
             $rutaArchivo = 'pfp/' . $config['file_name'];
+
+            // Procesar la imagen para hacerla cuadrada
+            $imagen = \Config\Services::image();
+            $imagen->withFile($rutaArchivo);
+
+            // Obtener las dimensiones originales de la imagen
+            $anchoOriginal = $imagen->getWidth();
+            $altoOriginal = $imagen->getHeight();
+
+            // Calcular el lado más corto para recortar la imagen y hacerla cuadrada
+            $ladoCorto = min($anchoOriginal, $altoOriginal);
+
+            // Configurar las coordenadas para el recorte centrado
+            $x = ($anchoOriginal - $ladoCorto) / 2;
+            $y = ($altoOriginal - $ladoCorto) / 2;
+
+            // Realizar el recorte para hacer la imagen cuadrada
+            $imagen->crop($ladoCorto, $ladoCorto, $x, $y);
+
+            // Guardar la imagen recortada
+            $imagen->save($rutaArchivo);
+
             $user->profile_pic = $rutaArchivo;
             $users->save($user);
             return redirect()->to('/registrar/exito');

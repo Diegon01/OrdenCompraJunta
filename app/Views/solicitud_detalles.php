@@ -439,7 +439,7 @@
         <br>
 
                 <?php if ($orden['Contador_Aprobado'] === '1') : ?>
-                    <div class="productos-container p-0">
+                <div class="productos-container p-0">
                     <label class="font-semibold text-2xl pb-2 block text-center">Posibles proveedores:</label>
                     <table class="w-full">
                         <tr>
@@ -632,6 +632,7 @@
                             <?php endif; ?>
                     <?php }} ?>
                     </table>
+                </div>
                 <?php endif; ?>
 
                 <?php if ($isContador && $orden['Contador_Aprobado'] === '0') : ?>
@@ -649,7 +650,7 @@
             
 
         </div>
-        </div>
+        
         
 <br>
 

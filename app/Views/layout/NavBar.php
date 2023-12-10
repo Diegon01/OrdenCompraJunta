@@ -23,7 +23,7 @@
         </a>
         
         <!-- Botones de redirección en el centro -->
-        <div class="space-x-4">
+        <div class="flex space-x-4">
             <?php if ($isFuncionario) : ?>
                 <a href="<?= site_url('/ordenes-botones') ?>" class="hover:no-underline text-lg font-semibold box-shadow-hover">Solicitudes y Órdenes</a>
             <?php endif; ?>
